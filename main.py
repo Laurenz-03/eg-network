@@ -7,6 +7,10 @@ app = Flask(__name__)
 def landingPage():
     return render_template('pages/landingpage.html', isLandingPage = True)
 
+@app.route('/impressum')
+def impressum():
+    return render_template('pages/impressum.html', isLandingPage = False)
+    
 # Alle Seiten im Mitgliederbereich
 @app.route('/mgb')
 def mgb():
