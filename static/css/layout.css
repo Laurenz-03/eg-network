@@ -44,6 +44,8 @@ header{
 header .logo{
   display: flex;
   align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 header .nav-links{
   list-style: none;
@@ -79,6 +81,7 @@ header img{
   min-height: 100vh;
   width: min(1200px, 95%);
   margin: var(--header-height) auto 0 auto;
+  padding-top: 1.5rem;
 }
 
 
