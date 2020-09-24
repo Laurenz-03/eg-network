@@ -16,10 +16,18 @@
 
             <div class="logo">
                 <img src="./../static/img/ICON.png" alt="">
-                <a href="#">
-                    EG-Network</a>
+                <a href="#">EG-Network</a>
+                <!--
+                    {% if loginRequired %}
+                    {% else %}
+                    <a href={{url_for('landingPage')}}>EG-Network</a>
+                    {% endif %}
+
+                -->
             </div>
             <ul class="nav-links">
+                <li><a href={{url_for('egboost')}}>EG-Boost</a></li>
+                <li><a href={{url_for('tools')}}>Tools & mehr</a></li>
                 <li><a href={{url_for('profile')}}>Mein Profil</a></li>
             </ul>
         </div>
@@ -32,8 +40,8 @@
 
     <!--Footer-->
     <footer class="footer">
-        <h2 class="footer__title">EG-Network</h2>
-        <a href="#">Impressum</a>
+        <a href={{url_for('landingPage')}}><h2 class="footer__title">EG-Network</h2></a>
+        <a href={{url_for('impressum')}}>Impressum</a>
         <p>&#169; 2020 copyright all rights reserved</p>
     </footer>
 </body>
