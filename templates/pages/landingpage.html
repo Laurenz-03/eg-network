@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="./../../static/css/landingpage.css">
+        <!--Icons von Boxicons-->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+        <title>EG-Network</title>
+    </head>
+    <body>
+        <!--Header-->
+        <header class="l-header">
+            <nav class="nav bd-grid">
+                <div>
+                    <a href="#" class="nav__logo"><img src="./../../static/img/ICON.png" class="nav__logoimg">EG-Network</a>
+                </div>
+
+
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item"><a href="#waswirsind" class="nav__link">Was wir sind</a></li>
+                        <li class="nav__item"><a href="#überdasnetzwerk" class="nav__link">Über das Netzwerk</a></li>
+                        <li class="nav__item"><a href="#unseretools" class="nav__link">Unsere Tools</a></li>
+                        <li class="nav__item"><a href="#preise" class="nav__link">Preise </a></li>
+                        <li class="nav__item"><a href={{url_for('mgb')}}><button>Einloggen</button></a></li>
+                    </ul>
+                </div>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-menu'></i>
+                </div>
+            </nav>
+        </header>
+
+        <main class="l-main">
+            <!--Home-->
+            <section class="home bd-grid" id="home">
+                <div class="home__data">
+                    <h1 class="home__title">Wir verbinden.<br>Du wächst.<br> <span class="home__title-color">EG-Network.</span></h1>
+
+                    <a href="#" class="button">Jetzt Beitreten!</a>
+                </div>
+
+                <div class="home__social">
+                    <a href="#waswirsind" class="home__social-icon"><i class='bx bxs-arrow-from-top'></i></a>
+                </div>
+
+                <div class="home__img">    
+                    <img src="./../../static/img/home.png" alt="">
+                </div>
+            </section>
+
+            <!--Über uns-->
+            <section class="about section " id="waswirsind">
+                <h2 class="section-title">Was wir sind</h2>
+
+                <div class="about__container bd-grid">
+                    <div class="about__img">
+                        <img src="./../../static/img/wasdubekommst.png" alt="">
+                    </div>
+                    
+                    <div>
+                        <h2 class="about__subtitle">Deine Plattform für Instagram, die dir (kostenlos) alles gibt, was du brauchst.</h2>
+                        <p class="about__text">Das EG-Network ist mehr als nur ein Netzwerk, in welchem du Kontakt zu großen Influencern aufbauen kannst und du durch tägliche Engagementrunden deine Reichweite in die Höhe schießen lässt.
+                            Wir geben dir Tools für Instagram, um die perfekten Hashtags zu finden, alle deine Statistiken einzusehen und Zutritt zu unserer großen Mediathek an Kursen, eBooks und allem, was du sonst benötigst!
+                        </p>  <br> <a href="#" class="button">Jetzt Beitreten!</a>         
+                    </div>                                   
+                </div>
+            </section>
+
+            <!--Über das Netzwerk-->
+            <section class="skills section" id="überdasnetzwerk">
+                <h2 class="section-title">Über das Netzwerk</h2>
+
+                <div class="skills__container bd-grid">          
+                    <div>
+                        <h2 class="skills__subtitle">Menschen aus aller Welt haben sich uns angeschlossen.</h2>
+                        <p class="skills__text">Unser Netzwerk ist im deutschsprachigem, aber auch im englischsprachigem Raum vertreten! Mit über 1000 aktiven Mitgliedern zählen wir zu den größten Instagram-Netzwerken weltweit! Mit eben
+                            diesen kannst du täglich unter unserer Kontrolle deine Likes austauschen, um deine Reichweite auf Instagram nur so in die Höhe schießen zu lassen!
+                        </p>
+                        <div class="skills__data">
+                            <div class="skills__names">
+                                <i class='bx bx-group' style='color:#4070F4'  ></i>
+                                <span class="skills__name">  &nbsp; &nbsp; Mitglieder</span>
+                            </div>
+                            <div class="skills__bar skills__html">
+
+                            </div>
+                            <div>
+                                <span class="skills__percentage">1000+</span>
+                            </div>
+                        </div>
+                        <div class="skills__data">
+                            <div class="skills__names">
+                                <i class='bx bxs-heart' style='color:#4070f4' ></i>
+                                <span class="skills__name">&nbsp;&nbsp;Tägliche Likes</span>
+                            </div>
+                            <div class="skills__bar skills__css">
+                                
+                            </div>
+                            <div>
+                                <span class="skills__percentage">200+</span>
+                            </div>
+                        </div>
+                        <div class="skills__data">
+                            <div class="skills__names">
+                                <i class='bx bx-world' style='color:#4070f4'  ></i>
+                                <span class="skills__name">&nbsp;&nbsp;Unterschiedliche Länder</span>
+                            </div>
+                            <div class="skills__bar skills__js">
+                                
+                            </div>
+                            <div>
+                                <span class="skills__percentage">7</span>
+                            </div>
+                        </div>
+                        <div class="skills__data">
+                            <div class="skills__names">
+                                <i class='bx bx-chart' style='color:#4070f4'  ></i>
+                                <span class="skills__name">&nbsp;&nbsp;Insgesamte Follower</span>
+                            </div>
+                            <div class="skills__bar skills__ux">
+                                
+                            </div>
+                            <div>
+                                <span class="skills__percentage">1 Million+</span>
+                            </div>
+                        </div> <br> <a href="#" class="button">Jetzt Beitreten!</a>
+                    </div>
+                    
+                    <div>              
+                        <img src="./../../static/img/überdasnetzwerk.png" alt="" class="skills__img">
+                    </div>
+                </div>
+            </section>
+
+            <!--Undere Tools-->
+            <section class="work section" id="unseretools">
+                <h2 class="section-title">Unsere Tools</h2>
+
+                <div class="work__container bd-grid">
+                    <div class="work__img">
+                        <img src="./../../static/img/work1.jpg" alt="">
+                    </div>
+                    <div class="work__img">
+                        <img src="./../../static/img/work2.jpg" alt="">
+                    </div>
+                    <div class="work__img">
+                        <img src="./../../static/img/work3.jpg" alt="">
+                    </div>
+                    <div class="work__img">
+                        <img src="./../../static/img/work4.jpg" alt="">
+                    </div>
+                    <div class="work__img">
+                        <img src="./../../static/img/work5.jpg" alt="">
+                    </div>
+                    <div class="work__img">
+                        <img src="./../../static/img/work6.jpg" alt="">
+                    </div>
+                </div>
+            </section>
+
+            <!--Preislisten-->
+            <section class="Preise bd-grid" id="preise">
+            <div class="pricing-table">
+                <div class="pricing-card">
+                  <h3 class="pricing-card-header">Kostenlos</h3>
+                  <div class="price"><sup>€</sup>0<span>/MO</span></div>
+                  <ul>
+                    <li><strong>200+</strong> Likes pro Tag</li>
+                    <li><strong>Begrenzte</strong> Accountanalyse</li>
+                    <li><strong>Begrenzter</strong> Hashtaggenerator</li>
+                    <li><strong>Begrenzter</strong> Shoutoutmatcher</li>
+                    <li><strong>3</strong> Kurse & eBooks</li>
+                  </ul>
+                  <a href="#" class="order-btn">Kostenlos beitreten!</a>
+                </div>
+            
+                <div class="pricing-card">
+                  <h3 class="pricing-card-header">Premium</h3>
+                  <div class="price"><sup>€</sup>20<span>/MO</span></div>
+                  <ul>
+                    <li><strong>200+</strong> Likes pro Tag</li>
+                    <li><strong>Volle</strong> Accountanalyse</li>
+                    <li><strong>Voller</strong> Hashtaggenerator</li>
+                    <li><strong>Voller</strong> Shoutoutmatcher</li>
+                    <li><strong>30+</strong> Kurse & eBooks</li>
+                  </ul>
+                  <a href="#" class="order-btn">Direkt kaufen!</a>
+                </div>
+            </section>
+            
+                
+              </div>
+        </main>
+
+        <!--Footer-->
+        <footer class="footer">
+            <p class="footer__title">EG-Network</p>
+            <div class="footer__social">
+                <a href="#" class="footer__icon"><i class='bx bxl-facebook' ></i></a>
+                <a href="#" class="footer__icon"><i class='bx bxl-instagram' ></i></a>
+                <a href="#" class="footer__icon"><i class='bx bxl-twitter' ></i></a>
+            </div>
+            <p>&#169; 2020 copyright all rights reserved</p>
+        </footer>
+
+
+        <!--Scrollreveal oder so-->
+        <script src="https://unpkg.com/scrollreveal"></script>
+
+        <!--Javascript halt-->
+        <script src="./../../static/js/landingpage.js"></script>
+    </body>
+</html>
