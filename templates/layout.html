@@ -3,10 +3,14 @@
 
 <head>
     <link rel="stylesheet" href="./../static/css/layout.css">
-
+    <link rel="icon" href="./../static/img/logo.ico" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    {% if title %}
+    <title>{{ title }} | EG-Network</title>
+    {% else %}
+    <title>EG-Network</title>
+    {% endif %}
 </head>
 
 <body>
@@ -33,14 +37,39 @@
         </div>
     </header>
     <div class="content">
+        <div class="main-content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div class="sidebar">
+            <div class="inner-sidebar">
+                <h3>Sidebar</h3>
 
-        {% block content %}
-        {% endblock %}
+                <ul class="sidebar-links">
+                    <li><a href={{url_for('egboost')}}></i>EG-Boost</a></li>
+                    <hr>
+                    <li><a href={{url_for('profile')}}>Mein Profil</a></li>
+                    <hr>
+                    <li><a href={{url_for('landingPage')}}>Landing-Page</a></li>
+                    <hr>
+                    <li><a href={{url_for('landingPage')}}>Hashtag-Generator</a></li>
+                    <hr>
+                    <li><a href={{url_for('landingPage')}}>Account-Analyse</a></li>
+                    <hr>
+                    <li><a href={{url_for('landingPage')}}>Shoutout-Matcher</a></li>
+                    <div class="sidebar-infos">
+                        <p>Aktuelle Mitgliederzahl: 850</p>
+                    </div>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <!--Footer-->
     <footer class="footer">
-        <a href={{url_for('landingPage')}}><h2 class="footer__title">EG-Network</h2></a>
+        <a href={{url_for('landingPage')}}>
+            <h2 class="footer__title">EG-Network</h2>
+        </a>
         <a href={{url_for('impressum')}}>Impressum</a>
         <p>&#169; 2020 copyright all rights reserved</p>
     </footer>

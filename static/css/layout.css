@@ -1,28 +1,36 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
 
-:root{
-  --first-color: #4070F4;
-  --second-color: #0E2431;
+:root {
+  --first-color: #4070f4;
+  --second-color: #0e2431;
   --header-height: 4rem;
 }
 
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-a, p, li, h1, h2, h3, h4{
-  font-family: 'Poppins';
+a,
+p,
+li,
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Poppins";
   color: var(--second-color);
   text-decoration: none;
 }
-a{
+a {
   cursor: pointer;
 }
-
+ul {
+  list-style: none;
+}
 
 /**** HEADER *************************/
-header{
+header {
   width: 100%;
   height: var(--header-height);
   position: fixed;
@@ -31,9 +39,9 @@ header{
   align-items: center;
 
   background-color: white;
-  box-shadow: 0 1px 4px rgba(146,161,176,.15);
+  box-shadow: 0 1px 4px rgba(146, 161, 176, 0.15);
 }
-.inner-header{
+.inner-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -41,27 +49,26 @@ header{
   margin-right: auto;
   width: min(1200px, 95%);
 }
-header .logo{
+header .logo {
   display: flex;
   align-items: center;
   font-size: 1.1rem;
   font-weight: 600;
 }
-header .nav-links{
-  list-style: none;
+header .nav-links {
   display: flex;
 }
-header .nav-links li{
+header .nav-links li {
   margin-left: 2rem;
 }
-header .nav-links li a{
+header .nav-links li a {
   font-weight: 600;
   font-size: 1.1rem;
 }
-.nav-links li a:hover{
+.nav-links li a:hover {
   position: relative;
 }
-.nav-links li a:hover::after{
+.nav-links li a:hover::after {
   position: absolute;
   content: "";
   width: 100%;
@@ -70,23 +77,44 @@ header .nav-links li a{
   top: 2rem;
   background-color: var(--first-color);
 }
-header img{
+header img {
   height: 2rem;
   margin-right: 1rem;
 }
 
-
 /**** CONTENT *************************/
-.content{
+.content {
   min-height: 100vh;
   width: min(1200px, 95%);
   margin: var(--header-height) auto 0 auto;
   padding-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+.main-content {
+  width: 100%;
+}
+.sidebar {
+  width: min(400px, 30%);
+}
+.inner-sidebar {
+  box-shadow: #e7e7e7 0px 0px 15px;
+  margin-top: 10px;
+  padding: 13px 20px;
+  border-radius: 10px;
+  border-bottom: 12px solid var(--first-color);
+}
+.sidebar-links hr {
+  border-top: 1px solid var(--second-color);
+  border-bottom: none;
+  margin: 6px 0;
+}
+.sidebar-infos{
+  margin-top: 20px;
 }
 
-
 /**** FOOTER *************************/
-footer{
+footer {
   background-color: var(--second-color);
   color: white;
   display: flex;
@@ -95,6 +123,8 @@ footer{
   align-items: center;
   height: 200px;
 }
-footer a, footer p, footer h2{
+footer a,
+footer p,
+footer h2 {
   color: white;
 }
