@@ -39,6 +39,7 @@
     <div class="content">
         <div class="main-content">
             {% block content %}
+            
             {% endblock %}
         </div>
         <div class="sidebar">
@@ -46,17 +47,15 @@
                 <h3>Sidebar</h3>
 
                 <ul class="sidebar-links">
-                    <li><a href={{url_for('egboost')}}></i>EG-Boost</a></li>
-                    <hr>
                     <li><a href={{url_for('profile')}}>Mein Profil</a></li>
                     <hr>
-                    <li><a href={{url_for('landingPage')}}>Landing-Page</a></li>
+                    <li><a href={{url_for('hashtaggenerator')}}>Hashtag-Generator</a></li>
                     <hr>
-                    <li><a href={{url_for('landingPage')}}>Hashtag-Generator</a></li>
+                    <li><a href={{url_for('egboost')}}></i>EG-Boost</a></li>
                     <hr>
-                    <li><a href={{url_for('landingPage')}}>Account-Analyse</a></li>
+                    <li><a href={{url_for('accountanalyse')}}>Account-Analyse</a></li>
                     <hr>
-                    <li><a href={{url_for('landingPage')}}>Shoutout-Matcher</a></li>
+                    <li><a href={{url_for('shoutoutmatcher')}}>Shoutout-Matcher</a></li>
                     <div class="sidebar-infos">
                         <p>Aktuelle Mitgliederzahl: 850</p>
                     </div>

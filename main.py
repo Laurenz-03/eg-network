@@ -32,6 +32,18 @@ def egboost():
 def tools():
     return render_template('pages/tools.html', title="Tools", loginRequired=True)
 
+@app.route('/mgb/hashtaggenerator')
+def hashtaggenerator():
+    return render_template('pages/hashtaggenerator.html', title="Hashtag-Generator", loginRequired=True)
+
+@app.route('/mgb/accountanalyse')
+def accountanalyse():
+    return render_template('pages/accountanalyse.html', title="Account-Analyse", loginRequired=True)
+
+@app.route('/mgb/shoutoutmatcher')
+def shoutoutmatcher():
+    return render_template('pages/shoutoutmatcher.html', title="Shoutout-Matcher", loginRequired=True)
+
 
 @app.route('/mgb/profile')
 def profile():
