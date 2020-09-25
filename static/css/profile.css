@@ -1,4 +1,43 @@
 
 .profile-section{
     margin-right: 2rem;
+    
+}
+.myprofile{
+    padding: 10px 15px;
+}
+.profile-section .top{
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+    gap: 1.2rem;
+    margin-top: 12px;
+    margin-bottom: 3rem;
+}
+
+/**** VERBUNDENE ACCOUNTS *************************/
+.connected-accounts{
+    height: 300px;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 1fr 5fr 10fr ;
+    gap: 1.2rem;
+}
+.rounded-and-shadow{
+    box-shadow: #e7e7e7 0px 0px 15px;
+    border-radius: 10px;
+}
+.insta-acc{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+.insta-profile-pic{
+    background: darkcyan;
+    height: 3.5rem;
+    width: 3.5rem;
+    border-radius: 50px;
+    margin: 0 15px 0 4px;
+}
+.connect-more-accs{
+    padding: 10px 15px;
 }
