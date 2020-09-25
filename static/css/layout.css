@@ -28,6 +28,10 @@ a {
 ul {
   list-style: none;
 }
+.blue-underline{
+  border-bottom: 2px solid var(--first-color);
+  display: inline-block;
+}
 
 /**** HEADER *************************/
 header {
@@ -94,6 +98,9 @@ header img {
 .main-content {
   width: 100%;
 }
+
+
+/**** SIDEBAR *************************/
 .sidebar {
   width: min(400px, 30%);
 }
@@ -109,7 +116,17 @@ header img {
   border-bottom: none;
   margin: 6px 0;
 }
-.sidebar-infos{
+
+.sidebar-links li a{
+  transition: all .2s ease-out;
+}
+.sidebar-links li a:hover{
+  color: var(--first-color);
+}
+.sidebar-infos .top-spacing{
+  margin-top: 6px;
+}
+.sidebar-infos .blue-underline{
   margin-top: 20px;
 }
 

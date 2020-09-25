@@ -524,7 +524,7 @@ img{
     flex: 50%;
   }
 }
-header button{
+.login-btn{
   background-color: var(--first-color); 
   color: white;
   border: none;
@@ -535,10 +535,10 @@ header button{
   font-size: .9rem;
   transition: all 200ms ease-out;
 }
-header button:focus{
+.login-btn:focus{
   border: none;
   outline: none;
 }
-header button:hover{
+.login-btn:hover{
   background: #2e5ad3;
 }

@@ -1,0 +1,33 @@
+
+.section-tools{
+    width: 100%;
+}
+.tools-container{
+    display: flex;
+    margin-top: 12px;
+}
+.tools-container div{
+    margin-right: 2rem;
+    height: 200px;
+    width: 33%;
+    box-shadow: #e7e7e7 0px 0px 15px;
+    border-radius: 10px;
+    
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+.htg-generator{
+    background: url('./../img/work2.jpg');
+}
+.acc-analyse{
+    background: url('./../img/work6.jpg');
+}
+.shoutout-matcher{
+    background: url('./../img/work1.jpg');
+}
+
+.section-tlg-groups{
+    margin-top: 3rem;
+}
