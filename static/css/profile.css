@@ -56,4 +56,22 @@
 }
 .connect-more-accs{
     padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.blue-button{
+    display: block;
+    background-color: var(--first-color);
+    font-size: 1rem;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    height: 2.5rem;
+    width: 10rem;
+    margin-left: auto;
+    transition: all .3s ease;
+}
+.blue-button:hover{
+    transform: scale(1.1);
 }

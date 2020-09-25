@@ -32,6 +32,10 @@ def egboost():
 def tools():
     return render_template('pages/tools.html', title="Tools", loginRequired=True)
 
+@app.route('/mgb/premium')
+def premium():
+    return render_template('pages/premium.html', title="Premium", loginRequired=True)
+
 @app.route('/mgb/hashtaggenerator')
 def hashtaggenerator():
     return render_template('pages/hashtaggenerator.html', title="Hashtag-Generator", loginRequired=True)
