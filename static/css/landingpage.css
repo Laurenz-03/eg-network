@@ -175,6 +175,8 @@ img{
   cursor: pointer;
 }
 
+
+
 /*Active menu*/
 .active::after{
   position: absolute;
@@ -372,6 +374,7 @@ img{
   .nav__list{
     display: flex;
     padding-top: 0;
+    align-items: center;
   }
   .nav__item{
     margin-left: var(--mb-6);
@@ -520,4 +523,22 @@ img{
   .pricing-card{
     flex: 50%;
   }
+}
+header button{
+  background-color: var(--first-color); 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  height: 2.3rem;
+  width: 6.5rem;
+  font-family: 'Poppins';
+  font-size: .9rem;
+  transition: all 200ms ease-out;
+}
+header button:focus{
+  border: none;
+  outline: none;
+}
+header button:hover{
+  background: #2e5ad3;
 }

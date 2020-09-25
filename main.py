@@ -49,6 +49,6 @@ def shoutoutmatcher():
 def profile():
     return render_template('pages/profile.html', title="Mein Profil", loginRequired=True)
 
-
+app.config.update(TEMPLATES_AUTO_RELOAD = True)
 if __name__ == '__main__':
     app.run(port=1000, debug=True)
