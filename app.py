@@ -44,6 +44,9 @@ def accountanalyse():
 def shoutoutmatcher():
     return render_template('pages/shoutoutmatcher.html', title="Shoutout-Matcher", loginRequired=True)
 
+@app.route('/mgb/ebookskurse')
+def ebookskurse():
+    return render_template('pages/ebookskurse.html', title="eBooks & Kurse", loginRequired=True)
 
 @app.route('/mgb/profile')
 def profile():

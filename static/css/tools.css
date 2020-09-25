@@ -6,10 +6,10 @@
     display: flex;
     margin-top: 12px;
 }
-.tools-container div{
+.tools-container a{
     margin-right: 2rem;
     height: 200px;
-    width: 33%;
+    width: 100%;
     box-shadow: #e7e7e7 0px 0px 15px;
     border-radius: 10px;
     background-size: cover;
@@ -20,7 +20,7 @@
     padding-bottom: 10px;
     transition: all .3s ease;
 }
-.tools-container div:hover{
+.tools-container a:hover{
     transform: scale(1.1);
 }
 .htg-generator{
