@@ -18,6 +18,10 @@
     align-items: flex-end;
     justify-content: center;
     padding-bottom: 10px;
+    transition: all .3s ease;
+}
+.tools-container div:hover{
+    transform: scale(1.1);
 }
 .htg-generator{
     background: url('./../img/work2.jpg');

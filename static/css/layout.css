@@ -145,3 +145,19 @@ footer p,
 footer h2 {
   color: white;
 }
+
+/**** SCROLLBAR *************************/
+/* width */
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #dbdbdb;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--second-color);
+}

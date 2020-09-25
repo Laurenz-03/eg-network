@@ -1,10 +1,14 @@
-
+:root {
+    --first-color: #4070f4;
+    --second-color: #0e2431;
+  }
 .profile-section{
     margin-right: 2rem;
     
 }
 .myprofile{
     padding: 10px 15px;
+    transition: all .1s ease-out;
 }
 .profile-section .top{
     display: grid;
@@ -12,6 +16,18 @@
     gap: 1.2rem;
     margin-top: 12px;
     margin-bottom: 3rem;
+}
+
+.myprofile:hover{
+    border-bottom: 10px solid var(--second-color);
+}
+.insta-acc, .connect-more-accs{
+    transition: all .2s ease-out;
+
+}
+.insta-acc:hover, .connect-more-accs:hover{
+    transform: scale(1.05);
+
 }
 
 /**** VERBUNDENE ACCOUNTS *************************/
