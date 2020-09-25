@@ -12,6 +12,7 @@
     width: 33%;
     box-shadow: #e7e7e7 0px 0px 15px;
     border-radius: 10px;
+    background-size: cover;
     
     display: flex;
     align-items: flex-end;
