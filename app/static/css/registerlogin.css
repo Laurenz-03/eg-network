@@ -54,7 +54,7 @@ input[type="password"]:focus {
 .input-error{
     border-left: 4px solid rgb(231, 60, 60) !important;
 }
-a{
+form a{
     width: 300px;
     text-align: center;
 }

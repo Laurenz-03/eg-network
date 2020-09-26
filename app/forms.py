@@ -11,7 +11,7 @@ class RegistrationForm(FlaskForm):
                         validators=[DataRequired(), Email()])
 
     password = PasswordField('Password:',
-                             validators=[DataRequired(), Length(min=8, max=25)])
+                             validators=[DataRequired(), Length(min=8, max=60)])
 
     confirm_password = PasswordField('Password bestätigen:',
                              validators=[DataRequired(), EqualTo('password')])
@@ -23,7 +23,7 @@ class LoginForm(FlaskForm):
                         validators=[DataRequired(), Email()])
 
     password = PasswordField('Password:',
-                             validators=[DataRequired(), Length(min=8, max=25)])
+                             validators=[DataRequired(), Length(min=8, max=60)])
     
     remember = BooleanField('Eingeloggt bleiben')
 

@@ -1,9 +1,7 @@
-from flask import Flask, render_template, url_for, flash, redirect
-from forms import RegistrationForm, LoginForm
-
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = '71100e0e1a235b6e67a441043f514d52'
+from flask import render_template, url_for, flash, redirect
+from app import app
+from app.forms import RegistrationForm, LoginForm
+from app.models import User
 
 # Startseite (Landing Page)
 @app.route('/')
@@ -22,11 +20,13 @@ def login():
             flash('Falsches Passwort oder falsche eMail-Adresse.', 'no-success')
     return render_template('pages/login.html', title="Einloggen", form=form, nosidebar=True)
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Account für {form.username.data} erfolgreich erstellt!', 'success')
+        flash(
+            f'Account für {form.username.data} erfolgreich erstellt!', 'success')
         return redirect(url_for('mgb'))
     return render_template('pages/register.html', title="Registrieren", form=form, nosidebar=True)
 
@@ -50,30 +50,32 @@ def egboost():
 def tools():
     return render_template('pages/tools.html', title="Tools", loginRequired=True)
 
+
 @app.route('/mgb/premium')
 def premium():
     return render_template('pages/premium.html', title="Premium", loginRequired=True)
+
 
 @app.route('/mgb/hashtaggenerator')
 def hashtaggenerator():
     return render_template('pages/hashtaggenerator.html', title="Hashtag-Generator", loginRequired=True)
 
+
 @app.route('/mgb/accountanalyse')
 def accountanalyse():
     return render_template('pages/accountanalyse.html', title="Account-Analyse", loginRequired=True)
+
 
 @app.route('/mgb/shoutoutmatcher')
 def shoutoutmatcher():
     return render_template('pages/shoutoutmatcher.html', title="Shoutout-Matcher", loginRequired=True)
 
+
 @app.route('/mgb/ebookskurse')
 def ebookskurse():
     return render_template('pages/ebookskurse.html', title="eBooks & Kurse", loginRequired=True)
 
+
 @app.route('/mgb/profile')
 def profile():
     return render_template('pages/profile.html', title="Mein Profil", loginRequired=True)
-
-
-
-app.run(port=1000, debug=True)
