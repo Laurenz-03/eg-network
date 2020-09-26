@@ -196,3 +196,11 @@ fieldset{
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+
+/**** RESPONSIVE *************************/
+@media  screen and (max-width: 800px){
+  .sidebar{
+    display: none;
+  }
+}

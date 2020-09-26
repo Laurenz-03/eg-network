@@ -1,45 +1,48 @@
 {% extends './layout.html' %}
 {% block content %}
-<h2>Einloggen</h2>
-<form method="POST" action="">
-    {{ form.hidden_tag() }}
-    <fieldset class="form-group">
-        <legend>Einloggen</legend>
-        <div>
-            {{ form.email.label }}
-            {% if form.email.errors %}
-                {{ form.email }}
+<link rel="stylesheet" href="./../../static/css/registerlogin.css">
+<div class="container">
+
+    <h2>Einloggen</h2>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <div class='input-field'>
+                {% if form.email.errors %}
+                {{ form.email(class="input-error", placeholder="eMail-Adresse") }}
                 <div class="invalid-feedback">
                     {% for error in form.email.errors %}
-                        <span>{{ error }}</span>
+                    <span>{{ error }}</span>
                     {% endfor %}
                 </div>
-            {% else %}
-                {{ form.email }}
-            {% endif %}
-        </div>
-        <div>
-            {{ form.password.label }}
-            {% if form.password.errors %}
-                {{ form.password }}
+                {% else %}
+                {{ form.email(placeholder="eMail-Adresse") }}
+                {% endif %}
+            </div>
+            <div class='input-field'>
+                {% if form.password.errors %}
+                {{ form.password(class="input-error", placeholder="Passwort") }}
                 <div class="invalid-feedback">
                     {% for error in form.password.errors %}
-                        <span>{{ error }}</span>
+                    <span>{{ error }}</span>
                     {% endfor %}
                 </div>
-            {% else %}
-                {{ form.password }}
-            {% endif %}
-        </div>
-        <div>
-            {{ form.remember }}
-            {{ form.remember.label }}
-        </div>
-        <a href="#">Passwort vergessen?</a>
-    </fieldset>
-    <div>
-        {{ form.submit }}
-    </div>
-</form>
-<a href={{ url_for('register')}}>Du hast noch keinen Account? Jetzt registrieren</a>
+                {% else %}
+                {{ form.password(placeholder="Passwort") }}
+                {% endif %}
+            </div>
+            <div class="forgot-pw">
+                <a href="#" ">Passwort vergessen?</a>
+            </div>
+            <div>
+                {{ form.remember }}
+                {{ form.remember.label }}
+            </div>
+        </fieldset>
+        <div class=" submit-btn">
+                    {{ form.submit }}
+            </div>
+    </form>
+    <a href={{ url_for('register')}}>Du hast noch keinen Account? Jetzt registrieren.</a>
+</div>
 {% endblock %}

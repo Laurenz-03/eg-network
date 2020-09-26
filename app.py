@@ -75,5 +75,5 @@ def profile():
     return render_template('pages/profile.html', title="Mein Profil", loginRequired=True)
 
 
-if __name__ == '__main__':
-    app.run(port=1000, debug=True)
+
+app.run(port=1000, debug=True)
