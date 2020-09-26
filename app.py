@@ -1,16 +1,33 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for, flash, redirect
+from forms import RegistrationForm, LoginForm
 
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = '71100e0e1a235b6e67a441043f514d52'
 
 # Startseite (Landing Page)
 @app.route('/')
 def landingPage():
     return render_template('pages/landingpage.html', title="Startseite", isLandingPage=True)
 
-
-@app.route('/login')
+# Login und registrieren
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('pages/login.html', title="Einloggen")
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'admin@eg-network.co' and form.password.data == 'password':
+            return redirect(url_for('mgb'))
+        else:
+            flash('Falsches Passwort oder falsche eMail-Adresse.', 'no-success')
+    return render_template('pages/login.html', title="Einloggen", form=form)
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        flash(f'Account für {form.username.data} erfolgreich erstellt!', 'success')
+        return redirect(url_for('mgb'))
+    return render_template('pages/register.html', title="Registrieren", form=form)
 
 
 @app.route('/impressum')
@@ -56,6 +73,6 @@ def ebookskurse():
 def profile():
     return render_template('pages/profile.html', title="Mein Profil", loginRequired=True)
 
-app.config.update(TEMPLATES_AUTO_RELOAD = True)
+
 if __name__ == '__main__':
     app.run(port=1000, debug=True)
