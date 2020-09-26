@@ -2,10 +2,6 @@
     --first-color: #4070f4;
     --second-color: #0e2431;
   }
-.profile-section{
-    margin-right: 2rem;
-    
-}
 .myprofile{
     padding: 10px 15px;
     transition: all .1s ease-out;
@@ -38,10 +34,7 @@
     grid-template-rows: 1fr 5fr 10fr ;
     gap: 1.2rem;
 }
-.rounded-and-shadow{
-    box-shadow: #e7e7e7 0px 0px 15px;
-    border-radius: 10px;
-}
+
 .insta-acc{
     display: flex;
     align-items: center;

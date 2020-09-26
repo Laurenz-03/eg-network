@@ -1,4 +1,31 @@
 {% extends './layout.html' %}
 {% block content %}
+<link rel="stylesheet" href="./../../static/css/hashtaggenerator.css">
 <h2>Hashtag-Generator</h2>
+<section class="htg-gen-section rounded-and-shadow">
+    <div class="category-section">
+        <div>
+            <h4>Kategorie auswählen:</h4>
+            <div class="custom-select">
+                <select>
+                    <option value="katErfolg">Erfolg</option>
+                    <option value="katSpruecheZitate">Sprüche/Zitate</option>
+                    <option value="katFinanzen">Finanzen</option>
+                    <option value="katFitness">Fitness</option>
+                    <option value="katLifestyle">Lifestyle</option>
+                </select>
+            </div>
+        </div>
+        <button class="generate-btn">Generieren</button>
+    </div>
+    <div class="generate-section">
+        <div>
+            <h4>Generierte Hashtags:</h4>
+            <p class="htg-output">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto soluta, quisquam tenetur debitis alias modi, repellat nulla eum saepe exercitationem aut veniam, obcaecati aliquid. Ullam quia aut aliquid ipsum consequatur?
+            </p>
+        </div>
+        <button class="copy-btn">Kopieren</button>
+    </div>
+</section>
 {% endblock %}

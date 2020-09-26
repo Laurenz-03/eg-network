@@ -7,9 +7,9 @@
     margin-top: 12px;
 }
 .tools-container a{
-    margin-right: 2rem;
     height: 200px;
     width: 100%;
+    margin-right: 2rem;
     box-shadow: #e7e7e7 0px 0px 15px;
     border-radius: 10px;
     background-size: cover;
@@ -19,6 +19,9 @@
     justify-content: center;
     padding-bottom: 10px;
     transition: all .3s ease;
+}
+.last-tool{
+    margin-right: 0 !important;
 }
 .tools-container a:hover{
     transform: scale(1.1);

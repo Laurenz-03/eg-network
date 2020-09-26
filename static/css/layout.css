@@ -32,6 +32,13 @@ ul {
   border-bottom: 2px solid var(--first-color);
   display: inline-block;
 }
+.rounded-and-shadow{
+  box-shadow: #e7e7e7 0px 0px 15px;
+  border-radius: 10px;
+}
+button:focus{
+  outline: none;
+}
 
 /**** HEADER *************************/
 header {
@@ -97,6 +104,7 @@ header img {
 }
 .main-content {
   width: 100%;
+  margin-right: 2rem;
 }
 
 
