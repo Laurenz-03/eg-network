@@ -1,5 +1,13 @@
 {% extends './layout.html' %}
 {% block content %}
+<script>
+    function generateHtgs(){
+        console.log("test");
+    }
+    function copyHtgs(){
+        console.log("copy");
+    }
+</script>
 <link rel="stylesheet" href="./../../static/css/hashtaggenerator.css">
 <h2>Hashtag-Generator</h2>
 <section class="htg-gen-section rounded-and-shadow">
@@ -16,7 +24,7 @@
                 </select>
             </div>
         </div>
-        <button class="generate-btn">Generieren</button>
+        <button class="generate-btn" onclick="generateHtgs()">Generieren</button>
     </div>
     <div class="generate-section">
         <div>
@@ -25,7 +33,7 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto soluta, quisquam tenetur debitis alias modi, repellat nulla eum saepe exercitationem aut veniam, obcaecati aliquid. Ullam quia aut aliquid ipsum consequatur?
             </p>
         </div>
-        <button class="copy-btn">Kopieren</button>
+        <button class="copy-btn" onclick="copyHtgs()">Kopieren</button>
     </div>
 </section>
 {% endblock %}
