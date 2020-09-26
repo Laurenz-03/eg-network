@@ -17,7 +17,10 @@ li,
 h1,
 h2,
 h3,
-h4, button, select {
+h4,
+button,
+select,
+span , form{
   font-family: "Poppins";
   color: var(--second-color);
   text-decoration: none;
@@ -28,15 +31,15 @@ a {
 ul {
   list-style: none;
 }
-.blue-underline{
+.blue-underline {
   border-bottom: 2px solid var(--first-color);
   display: inline-block;
 }
-.rounded-and-shadow{
+.rounded-and-shadow {
   box-shadow: #e7e7e7 0px 0px 15px;
   border-radius: 10px;
 }
-button:focus{
+button:focus {
   outline: none;
 }
 
@@ -107,7 +110,6 @@ header img {
   margin-right: 2rem;
 }
 
-
 /**** SIDEBAR *************************/
 .sidebar {
   width: min(400px, 30%);
@@ -125,16 +127,16 @@ header img {
   margin: 6px 0;
 }
 
-.sidebar-links li a{
-  transition: all .2s ease-out;
+.sidebar-links li a {
+  transition: all 0.2s ease-out;
 }
-.sidebar-links li a:hover{
+.sidebar-links li a:hover {
   color: var(--first-color);
 }
-.sidebar-infos .top-spacing{
+.sidebar-infos .top-spacing {
   margin-top: 6px;
 }
-.sidebar-infos .blue-underline{
+.sidebar-infos .blue-underline {
   margin-top: 20px;
 }
 
@@ -171,3 +173,26 @@ footer h2 {
 }
 
 /**** FORMS *************************/
+.invalid-feedback span{
+  color: red !important;
+  font-size: .9rem;
+}
+fieldset{
+  border: none;
+}
+.flash-message-no-success{
+  background-color: rgb(255, 224, 224);
+  border: 1px solid red;
+  border-radius: 5px;
+  padding: 7px 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.flash-message-success{
+  background-color: rgb(210, 255, 210);
+  border: 1px solid rgb(0, 177, 0);
+  border-radius: 5px;
+  padding: 7px 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

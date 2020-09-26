@@ -16,10 +16,11 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         if form.email.data == 'admin@eg-network.co' and form.password.data == 'password':
+            flash('Du hast dich erfolgreich eingeloggt!', 'success')
             return redirect(url_for('mgb'))
         else:
             flash('Falsches Passwort oder falsche eMail-Adresse.', 'no-success')
-    return render_template('pages/login.html', title="Einloggen", form=form)
+    return render_template('pages/login.html', title="Einloggen", form=form, nosidebar=True)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -27,7 +28,7 @@ def register():
     if form.validate_on_submit():
         flash(f'Account für {form.username.data} erfolgreich erstellt!', 'success')
         return redirect(url_for('mgb'))
-    return render_template('pages/register.html', title="Registrieren", form=form)
+    return render_template('pages/register.html', title="Registrieren", form=form, nosidebar=True)
 
 
 @app.route('/impressum')

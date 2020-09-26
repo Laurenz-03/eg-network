@@ -29,11 +29,13 @@
 
                 -->
             </div>
+            {% if nosidebar != True %}
             <ul class="nav-links">
                 <li><a href={{url_for('egboost')}}>EG-Boost</a></li>
                 <li><a href={{url_for('tools')}}>Tools & mehr</a></li>
                 <li><a href={{url_for('profile')}}>Mein Profil</a></li>
             </ul>
+            {% endif %}
         </div>
     </header>
     <div class="content">
@@ -41,8 +43,8 @@
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}
-                        <div class="flash-message flash-{{ category }}">
-                            {{ message }}
+                        <div class="flash-message-{{ category }}">
+                            <p>{{ message }}</p>
                         </div>
                     {% endfor %}
                 {% endif %}
@@ -51,33 +53,36 @@
             
             {% endblock %}
         </div>
-        <div class="sidebar">
-            <div class="inner-sidebar">
-                <h3>Sidebar</h3>
 
-                <ul class="sidebar-links">
-                    <li><a href={{url_for('profile')}}>Mein Profil</a></li>
-                    <hr>
-                    <li><a href={{url_for('hashtaggenerator')}}>Hashtag-Generator</a></li>
-                    <hr>
-                    <li><a href={{url_for('egboost')}}></i>EG-Boost</a></li>
-                    <hr>
-                    <li><a href={{url_for('accountanalyse')}}>Account-Analyse</a></li>
-                    <hr>
-                    <li><a href={{url_for('shoutoutmatcher')}}>Shoutout-Matcher</a></li>
-                    <hr>
-                    <li><a href={{url_for('ebookskurse')}}>eBooks & Kurse</a></li>
-                    <div class="sidebar-infos">
-                        <p class="blue-underline">Information:</p>
-                        <p class="top-spacing">Aktuelle Mitgliederzahl: 850</p>
-                        <p class="blue-underline">Kontakt/Support:</p>
-                        <p class="top-spacing">Instagram: <br/><strong>@eg.boost.privat</strong></p>
-                        <p class="top-spacing">Telegram: <br/><strong>t.me/eg-network</strong></p>
-                        <p class="top-spacing">eMail: <br/><strong>support@eg-network.co</strong></p>
-                    </div>
-                </ul>
+        {% if nosidebar != True %}
+            <div class="sidebar">
+                <div class="inner-sidebar">
+                    <h3>Sidebar</h3>
+
+                    <ul class="sidebar-links">
+                        <li><a href={{url_for('profile')}}>Mein Profil</a></li>
+                        <hr>
+                        <li><a href={{url_for('hashtaggenerator')}}>Hashtag-Generator</a></li>
+                        <hr>
+                        <li><a href={{url_for('egboost')}}></i>EG-Boost</a></li>
+                        <hr>
+                        <li><a href={{url_for('accountanalyse')}}>Account-Analyse</a></li>
+                        <hr>
+                        <li><a href={{url_for('shoutoutmatcher')}}>Shoutout-Matcher</a></li>
+                        <hr>
+                        <li><a href={{url_for('ebookskurse')}}>eBooks & Kurse</a></li>
+                        <div class="sidebar-infos">
+                            <p class="blue-underline">Information:</p>
+                            <p class="top-spacing">Aktuelle Mitgliederzahl: 850</p>
+                            <p class="blue-underline">Kontakt/Support:</p>
+                            <p class="top-spacing">Instagram: <br/><strong>@eg.boost.privat</strong></p>
+                            <p class="top-spacing">Telegram: <br/><strong>t.me/eg-network</strong></p>
+                            <p class="top-spacing">eMail: <br/><strong>support@eg-network.co</strong></p>
+                        </div>
+                    </ul>
+                </div>
             </div>
-        </div>
+        {% endif %}
     </div>
 
     <!--Footer-->
