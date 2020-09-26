@@ -39,7 +39,9 @@
 .copy-btn:hover {
   transform: scale(1.1);
 }
-
+#htg-output{
+  font-size: .9rem;
+}
 .custom-select select {
   margin-top: 5px;
   width: 100%;

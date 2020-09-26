@@ -1,11 +1,61 @@
 {% extends './layout.html' %}
 {% block content %}
+<script type="text/javascript" src="./../../static/js/hashtagliste.js"></script> 
 <script>
-    function generateHtgs(){
-        console.log("test");
+     function generate_hashtags(category) {
+        var e = document.getElementById("select_cat");
+        var value = e.options[e.selectedIndex].value;
+        category = value;
+
+
+        var htgs = [];
+        for (var i = 0; i < 6; i++) {
+            var htg_anz = "a500k";
+            switch (i) {
+                case 0:
+                    htg_anz = "a500k";
+                    break;
+                case 1:
+                    htg_anz = "a200k";
+                    break;
+                case 2:
+                    htg_anz = "a100k";
+                    break;
+                case 3:
+                    htg_anz = "a50k";
+                    break;
+                case 4:
+                    htg_anz = "a10k";
+                    break;
+                case 5:
+                    htg_anz = "a5k";
+                    break;
+            
+                default:
+                    htg_anz = "a5k";
+                    break;
+            }
+            
+            for (var j = 0; j < 5; j++) {
+                var rnd = Math.floor(Math.random() * hashtagliste[category][htg_anz].length+1);
+                var htg = hashtagliste[category][htg_anz][rnd];
+                if(htgs.includes(htg) == true){
+                    rnd = Math.floor(Math.random() * hashtagliste[category][htg_anz].length+1);
+                    htg = hashtagliste[category][htg_anz][rnd];
+
+                }
+                htgs.push(htg);
+                
+            }
+        }
+        document.getElementById("htg-output").innerHTML = htgs.join(" ");
+        console.log(htgs.length);
+        console.log(htgs);
     }
-    function copyHtgs(){
-        console.log("copy");
+    function copyHtgs(id) {
+        var copyText = document.getElementById(id).innerHTML;
+        navigator.clipboard.writeText(copyText);
+        console.log('test')
     }
 </script>
 <link rel="stylesheet" href="./../../static/css/hashtaggenerator.css">
@@ -15,7 +65,7 @@
         <div>
             <h4>Kategorie auswählen:</h4>
             <div class="custom-select">
-                <select>
+                <select id="select_cat">
                     <option value="katErfolg">Erfolg</option>
                     <option value="katSpruecheZitate">Sprüche/Zitate</option>
                     <option value="katFinanzen">Finanzen</option>
@@ -24,16 +74,16 @@
                 </select>
             </div>
         </div>
-        <button class="generate-btn" onclick="generateHtgs()">Generieren</button>
+        <button class="generate-btn" onclick="generate_hashtags('katErfolg')">Generieren</button>
     </div>
     <div class="generate-section">
         <div>
             <h4>Generierte Hashtags:</h4>
-            <p class="htg-output">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto soluta, quisquam tenetur debitis alias modi, repellat nulla eum saepe exercitationem aut veniam, obcaecati aliquid. Ullam quia aut aliquid ipsum consequatur?
+            <p id="htg-output">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi est eveniet quasi repudiandae incidunt pariatur dolorem? Officiis praesentium laboriosam facere quis blanditiis quae vitae possimus inventore mollitia, et debitis in?
             </p>
         </div>
-        <button class="copy-btn" onclick="copyHtgs()">Kopieren</button>
+        <button class="copy-btn" onclick="copyHtgs('htg-output')">Kopieren</button>
     </div>
 </section>
 {% endblock %}
