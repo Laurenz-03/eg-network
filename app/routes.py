@@ -46,7 +46,7 @@ def login():
             flash('Falsches Passwort oder falsche Email-Adresse.', 'no-success')
     return render_template('pages/login.html', title="Einloggen", register_form=register_form, login_form=login_form, nosidebar=True, nav_links_category='no-links')
 
-
+'''
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -61,6 +61,7 @@ def register():
             f'Account für {form.username.data} erfolgreich erstellt!', 'success')
         return redirect(url_for('mgb'))
     return render_template('pages/register.html', title="Registrieren", form=form, nosidebar=True, nav_links_category='no-links')
+'''
 
 @app.route('/logout')
 def logout():
