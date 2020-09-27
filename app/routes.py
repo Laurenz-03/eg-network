@@ -1,8 +1,8 @@
-from flask import render_template, url_for, flash, redirect
-from app import app, db, bcrypt
+from flask import render_template, url_for, flash, redirect, request
+from app import app, admins, db, bcrypt
 from app.forms import RegistrationForm, LoginForm
 from app.models import User
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 
 # Startseite (Landing Page)
@@ -17,21 +17,34 @@ def landingPage():
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('mgb'))
-    form = LoginForm()
-    if form.validate_on_submit():
-        user_by_email = User.query.filter_by(email=form.email_username.data).first()
-        user_by_name = User.query.filter_by(username=form.email_username.data).first()
-        if user_by_email and bcrypt.check_password_hash(user_by_email.password, form.password.data):
-            login_user(user_by_email, remember=form.remember.data)
+
+    register_form = RegistrationForm()
+    if register_form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(register_form.password.data).decode('utf-8')
+        user = User(username=register_form.username.data, email=register_form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash(
+            f'Account für {register_form.username.data} erfolgreich erstellt!', 'success')
+        return redirect(url_for('mgb'))
+
+    login_form = LoginForm()
+    if login_form.validate_on_submit():
+        user_by_email = User.query.filter_by(email=login_form.email_username.data).first()
+        user_by_name = User.query.filter_by(username=login_form.email_username.data).first()
+        next_page = request.args.get('next')
+        if user_by_email and bcrypt.check_password_hash(user_by_email.password, login_form.password.data):
+            login_user(user_by_email, remember=login_form.remember.data)
             flash('Du hast dich erfolgreich eingeloggt!', 'success')
-            return redirect(url_for('mgb'))
-        elif user_by_name and bcrypt.check_password_hash(user_by_name.password, form.password.data):
-            login_user(user_by_name, remember=form.remember.data)
+            #Weiterleiten auf die Seite vor dem login
+            return redirect(next_page) if next_page else redirect(url_for('mgb'))
+        elif user_by_name and bcrypt.check_password_hash(user_by_name.password, login_form.password.data):
+            login_user(user_by_name, remember=login_form.remember.data)
             flash('Du hast dich erfolgreich eingeloggt!', 'success')
-            return redirect(url_for('mgb'))
+            return redirect(next_page) if next_page else redirect(url_for('mgb'))
         else:
             flash('Falsches Passwort oder falsche Email-Adresse.', 'no-success')
-    return render_template('pages/login.html', title="Einloggen", form=form, nosidebar=True)
+    return render_template('pages/login.html', title="Einloggen", register_form=register_form, login_form=login_form, nosidebar=True, nav_links_category='no-links')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -47,7 +60,7 @@ def register():
         flash(
             f'Account für {form.username.data} erfolgreich erstellt!', 'success')
         return redirect(url_for('mgb'))
-    return render_template('pages/register.html', title="Registrieren", form=form, nosidebar=True)
+    return render_template('pages/register.html', title="Registrieren", form=form, nosidebar=True, nav_links_category='no-links')
 
 @app.route('/logout')
 def logout():
@@ -58,49 +71,69 @@ def logout():
 
 @app.route('/impressum')
 def impressum():
-    return render_template('pages/impressum.html', title="Impressum")
+    return render_template('pages/impressum.html', title="Impressum", nosidebar=True, nav_links_category='only-login')
 
 # Alle Seiten im Mitgliederbereich
 @app.route('/mgb')
+@login_required
 def mgb():
     return render_template('pages/mgb.html', title="Home", loginRequired=True)
 
 
-@app.route('/egboost')
+@app.route('/mgb/egboost')
+@login_required
 def egboost():
     return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True)
 
 
 @app.route('/mgb/tools')
+@login_required
 def tools():
     return render_template('pages/tools.html', title="Tools", loginRequired=True)
 
 
 @app.route('/mgb/premium')
+@login_required
 def premium():
     return render_template('pages/premium.html', title="Premium", loginRequired=True)
 
 
 @app.route('/mgb/hashtaggenerator')
+@login_required
 def hashtaggenerator():
     return render_template('pages/hashtaggenerator.html', title="Hashtag-Generator", loginRequired=True)
 
 
 @app.route('/mgb/accountanalyse')
+@login_required
 def accountanalyse():
     return render_template('pages/accountanalyse.html', title="Account-Analyse", loginRequired=True)
 
 
 @app.route('/mgb/shoutoutmatcher')
+@login_required
 def shoutoutmatcher():
     return render_template('pages/shoutoutmatcher.html', title="Shoutout-Matcher", loginRequired=True)
 
 
 @app.route('/mgb/ebookskurse')
+@login_required
 def ebookskurse():
     return render_template('pages/ebookskurse.html', title="eBooks & Kurse", loginRequired=True)
 
 
 @app.route('/mgb/profile')
+@login_required
 def profile():
     return render_template('pages/profile.html', title="Mein Profil", loginRequired=True)
+
+#Nur für Admins
+@app.route('/admin')
+@login_required
+def admin():
+    #Man kommt nur auf die Admin Seite, wenn der Benutzername in der Liste der Admins steht
+    if current_user.username in admins:
+        return render_template('pages/admin.html', title="Admin-Dashboard", loginRequired=True, nosidebar=True, nav_links_category='only-login')
+    else:
+        flash('Du hast keine Admin Rechte. Haha.', 'no-success')
+        return redirect(url_for('landingPage'))
