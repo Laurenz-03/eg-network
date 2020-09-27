@@ -5,6 +5,7 @@ class User(db.Model):
     username = db.Column(db.String(25), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    #rang = db.Column(db.String(30))
     instaname1 = db.Column(db.String(60))
     instaname2 = db.Column(db.String(60))
     instaname3 = db.Column(db.String(60))
