@@ -33,6 +33,7 @@ def login():
         user_by_email = User.query.filter_by(email=login_form.email_username.data).first()
         user_by_name = User.query.filter_by(username=login_form.email_username.data).first()
         next_page = request.args.get('next')
+        print("success")
         if user_by_email and bcrypt.check_password_hash(user_by_email.password, login_form.password.data):
             login_user(user_by_email, remember=login_form.remember.data)
             flash('Du hast dich erfolgreich eingeloggt!', 'success')
