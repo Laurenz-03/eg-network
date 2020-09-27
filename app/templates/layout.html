@@ -36,6 +36,7 @@
                     <li><a href={{url_for('mgb')}}>Zum Mitgliederbereich</a></li>
                 {% else %}
                     <li><a href={{url_for('login')}}>Einloggen</a></li>
+                    <li><a href={{url_for('login', mode='register')}}>Einloggen</a></li>
                 {% endif %}
             {% else %}
                 <li><a href={{url_for('egboost')}}>EG-Boost</a></li>

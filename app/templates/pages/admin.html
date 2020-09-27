@@ -1,4 +1,5 @@
 {% extends './layout.html' %}
 {% block content %}
 <h2>Admin-Dashboard</h2>
+{{ print(app.User.query.all()) }}
 {% endblock %}

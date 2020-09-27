@@ -427,3 +427,13 @@ form.sign-in-form {
     color: rgb(255, 0, 0);
 }
 
+.flash-message-no-success{
+  background-color: rgb(255, 224, 224);
+  border: 1px solid red;
+  border-radius: 5px;
+  padding: 7px 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  max-width: 380px;
+    width: 100%;
+}
