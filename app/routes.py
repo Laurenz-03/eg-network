@@ -2,17 +2,21 @@ from flask import render_template, url_for, flash, redirect
 from app import app, db, bcrypt
 from app.forms import RegistrationForm, LoginForm
 from app.models import User
-from flask_login import login_user
+from flask_login import login_user, current_user, logout_user
 
 
 # Startseite (Landing Page)
 @app.route('/')
 def landingPage():
+    if current_user.is_authenticated:
+        return redirect(url_for('mgb'))
     return render_template('pages/landingpage.html', title="Startseite", isLandingPage=True)
 
 # Login und registrieren
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('mgb'))
     form = LoginForm()
     if form.validate_on_submit():
         user_by_email = User.query.filter_by(email=form.email_username.data).first()
@@ -32,6 +36,8 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('mgb'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -42,6 +48,12 @@ def register():
             f'Account für {form.username.data} erfolgreich erstellt!', 'success')
         return redirect(url_for('mgb'))
     return render_template('pages/register.html', title="Registrieren", form=form, nosidebar=True)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('landingPage'))
+
 
 
 @app.route('/impressum')
