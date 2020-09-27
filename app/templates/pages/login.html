@@ -16,15 +16,9 @@
     }
     async function removeFeedback() {
       await sleep(1500)
-
       var feedbackElements = document.getElementsByClassName('invalid-feedback');
       while (feedbackElements[0]) {
         feedbackElements[0].parentNode.removeChild(feedbackElements[0]);
-      }
-
-      var redBorderElements = document.getElementsByClassName('input-error');
-      while (redBorderElements[0]) {
-        container.classList.remove("input-error");
       }
     }
   </script>
@@ -48,37 +42,27 @@
           {% endwith %}
           {% endif %}
 
-
-          {% if login_form.email_username.errors %}
-          <div class='input-field input-error'>
-            <i class="fas fa-user"></i>
-            {{ login_form.email_username(placeholder="Email oder Benutzername") }}
-          </div>
-          {% else %}
           <div class='input-field'>
             <i class="fas fa-user"></i>
+            {% if login_form.email_username.errors %}
+            {{ login_form.email_username(class="input-error", placeholder="Email oder Benutzername") }}
+            {% else %}
             {{ login_form.email_username(placeholder="Email oder Benutzername") }}
+            {% endif %}
           </div>
-          {% endif %}
-
           <div class="invalid-feedback log" id="test">
             {% for error in login_form.email_username.errors %}
             <span>{{ error }}</span>
             {% endfor %}
           </div>
-
-
-          {% if login_form.password.errors %}
-          <div class='input-field input-error'>
-            <i class="fas fa-lock"></i>
-            {{ login_form.password(placeholder="Passwort") }}
-          </div>
-          {% else %}
           <div class='input-field'>
             <i class="fas fa-lock"></i>
+            {% if login_form.password.errors %}
+            {{ login_form.password(class="input-error", placeholder="Passwort") }}
+            {% else %}
             {{ login_form.password(placeholder="Passwort") }}
+            {% endif %}
           </div>
-          {% endif %}
           <div class="invalid-feedback log">
             {% for error in login_form.password.errors %}
             <span>{{ error }}</span>
@@ -112,17 +96,14 @@
           {% endwith %}
           {% endif %}
 
-          {% if register_form.username.errors %}
-          <div class='input-field input-error'>
-            <i class="fas fa-user"></i>
-            {{ register_form.username(placeholder="Benutzername") }}
-          </div>
-          {% else %}
           <div class='input-field'>
             <i class="fas fa-user"></i>
+            {% if register_form.username.errors %}
+            {{ register_form.username(class="input-error", placeholder="Benutzername") }}
+            {% else %}
             {{ register_form.username(placeholder="Benutzername") }}
+            {% endif %}
           </div>
-          {% endif %}
           <div class="invalid-feedback" id="test">
             {% for error in register_form.username.errors %}
             <span>{{ error }}</span>
@@ -131,7 +112,7 @@
           <div class='input-field'>
             <i class="fas fa-envelope"></i>
             {% if register_form.email.errors %}
-            {{ register_form.email(placeholder="Email-Adresse") }}
+            {{ register_form.email(class="input-error", placeholder="Email-Adresse") }}
             {% else %}
             {{ register_form.email(placeholder="eMail-Adresse") }}
             {% endif %}
@@ -144,7 +125,7 @@
           <div class='input-field'>
             <i class="fas fa-lock"></i>
             {% if register_form.password.errors %}
-            {{ register_form.password(placeholder="Passwort") }}
+            {{ register_form.password(class="input-error", placeholder="Passwort") }}
             {% else %}
             {{ register_form.password(placeholder="Passwort") }}
             {% endif %}
@@ -157,7 +138,7 @@
           <div class='input-field'>
             <i class="fas fa-lock"></i>
             {% if register_form.confirm_password.errors %}
-            {{ register_form.confirm_password(placeholder="Passwort bestätigen") }}
+            {{ register_form.confirm_password(class="input-error", placeholder="Passwort bestätigen") }}
             {% else %}
             {{ register_form.confirm_password(placeholder="Passwort bestätigen") }}
             {% endif %}
@@ -207,9 +188,9 @@
   {% if request.args.mode == 'register' %}
   <script>
     var logElements = document.getElementsByClassName('log');
-    while (logElements[0]) {
-      logElements[0].parentNode.removeChild(logElements[0]);
-    }
+      while (logElements[0]) {
+        logElements[0].parentNode.removeChild(logElements[0]);
+      }
     document.querySelector(".container").classList.add("sign-up-mode");
   </script>
   {% endif %}
