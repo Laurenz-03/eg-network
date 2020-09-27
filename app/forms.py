@@ -33,8 +33,8 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('eMail:',
-                        validators=[DataRequired(), Email(message='Ungültige Email-Adresse.')])
+    email_username = StringField('Email oder Benutzername:',
+                        validators=[DataRequired()])
 
     password = PasswordField('Password:',
                              validators=[DataRequired(), Length(min=8, message='Das Passwort muss mindestens acht Zeichen enthalten.'), Length(max=60, message='Das Passwort darf nicht mehr als 60 Zeichen enthalten.')])

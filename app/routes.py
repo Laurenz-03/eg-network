@@ -2,6 +2,7 @@ from flask import render_template, url_for, flash, redirect
 from app import app, db, bcrypt
 from app.forms import RegistrationForm, LoginForm
 from app.models import User
+from flask_login import login_user
 
 
 # Startseite (Landing Page)
@@ -14,11 +15,18 @@ def landingPage():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.email.data == 'admin@eg-network.co' and form.password.data == 'password':
+        user_by_email = User.query.filter_by(email=form.email_username.data).first()
+        user_by_name = User.query.filter_by(username=form.email_username.data).first()
+        if user_by_email and bcrypt.check_password_hash(user_by_email.password, form.password.data):
+            login_user(user_by_email, remember=form.remember.data)
+            flash('Du hast dich erfolgreich eingeloggt!', 'success')
+            return redirect(url_for('mgb'))
+        elif user_by_name and bcrypt.check_password_hash(user_by_name.password, form.password.data):
+            login_user(user_by_name, remember=form.remember.data)
             flash('Du hast dich erfolgreich eingeloggt!', 'success')
             return redirect(url_for('mgb'))
         else:
-            flash('Falsches Passwort oder falsche eMail-Adresse.', 'no-success')
+            flash('Falsches Passwort oder falsche Email-Adresse.', 'no-success')
     return render_template('pages/login.html', title="Einloggen", form=form, nosidebar=True)
 
 

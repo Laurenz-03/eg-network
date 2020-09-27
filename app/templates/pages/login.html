@@ -8,15 +8,15 @@
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
             <div class='input-field'>
-                {% if form.email.errors %}
-                {{ form.email(class="input-error", placeholder="eMail-Adresse") }}
+                {% if form.email_username.errors %}
+                {{ form.email_username(class="input-error", placeholder="Email oder Benutzername") }}
                 <div class="invalid-feedback">
-                    {% for error in form.email.errors %}
+                    {% for error in form.email_username.errors %}
                     <span>{{ error }}</span>
                     {% endfor %}
                 </div>
                 {% else %}
-                {{ form.email(placeholder="eMail-Adresse") }}
+                {{ form.email_username(placeholder="Email oder Benutzername") }}
                 {% endif %}
             </div>
             <div class='input-field'>
