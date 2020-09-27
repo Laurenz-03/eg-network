@@ -1,5 +1,24 @@
 {% extends './layout.html' %}
 {% block content %}
+<link rel="stylesheet" href="./../../static/css/admin.css">
+<script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
 <h2>Admin-Dashboard</h2>
-{{ print(app.User.query.all()) }}
+<h4>Registrierte Benutzer ({{ users|length }}):</h4>
+<table>
+    <tr>
+        <th>Benutzername</th>
+        <th>Email</th>
+        <th>ID</th>
+        <th></th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <th>{{ user.username }}</th>
+        <th>{{ user.email }}</th>
+        <th>{{ user.id }}</th>
+        <th><a href={{url_for('delete_user', user_id=user.id)}}><i class="fas fa-trash-alt"></i></a></th>
+    </tr>
+    {% endfor %}
+</table>
+
 {% endblock %}

@@ -15,7 +15,7 @@
       return new Promise(resolve => setTimeout(resolve, ms));
     }
     async function removeFeedback() {
-      await sleep(1500)
+      await sleep(1000)
       var feedbackElements = document.getElementsByClassName('invalid-feedback');
       while (feedbackElements[0]) {
         feedbackElements[0].parentNode.removeChild(feedbackElements[0]);
@@ -30,7 +30,7 @@
           {{ login_form.hidden_tag() }}
           <h2 class="title">Einloggen</h2>
 
-          {% if request.args.mode == 'login' %}
+          {% if request.args.mode != 'register'%}
           {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
           {% for category, message in messages %}
@@ -71,8 +71,10 @@
           <div class="forgot-pw">
             <a href="#">Passwort vergessen?</a>
           </div>
+
           <div class="remember">
-            {{ login_form.remember }}
+            {{ login_form.remember(class="remember-checkbox") }}
+
             {{ login_form.remember.label }}
           </div>
           <div class="submit-btn">
@@ -188,9 +190,9 @@
   {% if request.args.mode == 'register' %}
   <script>
     var logElements = document.getElementsByClassName('log');
-      while (logElements[0]) {
-        logElements[0].parentNode.removeChild(logElements[0]);
-      }
+    while (logElements[0]) {
+      logElements[0].parentNode.removeChild(logElements[0]);
+    }
     document.querySelector(".container").classList.add("sign-up-mode");
   </script>
   {% endif %}

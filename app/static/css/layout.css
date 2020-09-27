@@ -20,7 +20,7 @@ h3,
 h4,
 button,
 select,
-span , form{
+span , form, table{
   font-family: "Poppins";
   color: var(--second-color);
   text-decoration: none;

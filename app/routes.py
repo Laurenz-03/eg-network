@@ -20,24 +20,29 @@ def login():
 
     register_form = RegistrationForm()
     if register_form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(register_form.password.data).decode('utf-8')
-        user = User(username=register_form.username.data, email=register_form.email.data, password=hashed_password)
+        hashed_password = bcrypt.generate_password_hash(
+            register_form.password.data).decode('utf-8')
+        user = User(username=register_form.username.data,
+                    email=register_form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
+        login_user(user)
         flash(
             f'Account für {register_form.username.data} erfolgreich erstellt!', 'success')
         return redirect(url_for('mgb'))
 
     login_form = LoginForm()
     if login_form.validate_on_submit():
-        user_by_email = User.query.filter_by(email=login_form.email_username.data).first()
-        user_by_name = User.query.filter_by(username=login_form.email_username.data).first()
+        user_by_email = User.query.filter_by(
+            email=login_form.email_username.data).first()
+        user_by_name = User.query.filter_by(
+            username=login_form.email_username.data).first()
         next_page = request.args.get('next')
         print("success")
         if user_by_email and bcrypt.check_password_hash(user_by_email.password, login_form.password.data):
             login_user(user_by_email, remember=login_form.remember.data)
             flash('Du hast dich erfolgreich eingeloggt!', 'success')
-            #Weiterleiten auf die Seite vor dem login
+            # Weiterleiten auf die Seite vor dem login
             return redirect(next_page) if next_page else redirect(url_for('mgb'))
         elif user_by_name and bcrypt.check_password_hash(user_by_name.password, login_form.password.data):
             login_user(user_by_name, remember=login_form.remember.data)
@@ -46,6 +51,7 @@ def login():
         else:
             flash('Falsches Passwort oder falsche Email-Adresse.', 'no-success')
     return render_template('pages/login.html', title="Einloggen", register_form=register_form, login_form=login_form, nosidebar=True, nav_links_category='no-links')
+
 
 '''
 @app.route('/register', methods=['GET', 'POST'])
@@ -64,11 +70,11 @@ def register():
     return render_template('pages/register.html', title="Registrieren", form=form, nosidebar=True, nav_links_category='no-links')
 '''
 
+
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('landingPage'))
-
 
 
 @app.route('/impressum')
@@ -129,13 +135,26 @@ def ebookskurse():
 def profile():
     return render_template('pages/profile.html', title="Mein Profil", loginRequired=True)
 
-#Nur für Admins
+# Nur für Admins
 @app.route('/admin')
 @login_required
 def admin():
-    #Man kommt nur auf die Admin Seite, wenn der Benutzername in der Liste der Admins steht
+    # Man kommt nur auf die Admin Seite, wenn der Benutzername in der Liste der Admins steht
     if current_user.username in admins:
-        return render_template('pages/admin.html', title="Admin-Dashboard", loginRequired=True, nosidebar=True, nav_links_category='only-login')
+        users = User.query.all()
+        return render_template('pages/admin.html', title="Admin-Dashboard", loginRequired=True, nosidebar=True, nav_links_category='only-login', users=users)
+    else:
+        flash('Du hast keine Admin Rechte. Haha.', 'no-success')
+        return redirect(url_for('landingPage'))
+
+@app.route('/admin/delete/<int:user_id>')
+def delete_user(user_id):
+    # Man kommt nur auf die Admin Seite, wenn der Benutzername in der Liste der Admins steht
+    if current_user.username in admins:
+        user = User.query.get_or_404(user_id)
+        db.session.delete(user)
+        db.session.commit()
+        return redirect(url_for('admin'))
     else:
         flash('Du hast keine Admin Rechte. Haha.', 'no-success')
         return redirect(url_for('landingPage'))

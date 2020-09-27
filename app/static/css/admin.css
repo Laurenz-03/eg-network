@@ -1,0 +1,23 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  margin: 0;
+}
+th{
+    font-weight: normal;
+}
+th:la{
+    font-weight: normal;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+tr:first-child th{
+  font-weight: bold;
+}
