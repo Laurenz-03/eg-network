@@ -7,18 +7,22 @@
     {% for runde in eg_boost_runden %}
     <div class="eg-boost-round rounded-and-shadow">
         <h4>{{runde['name']}}</h4>
-        <div>
+        <div class="inner-container">
 
             <div class="left-area">
                 <ul>
-                    {% if runde['engage-mode'] == 'like_save' %}
-                    <li><p>Liken und speichern</p></li>
-                    {% elif runde['engage-mode'] == 'comment' %}
-                    <li><p>Nur kommentieren</p></li>
-                    {% endif %}
-
-                    <li>@{{ runde['tag-profile'] }} markieren</li>
+                    <li><i class="fas fa-chevron-right"></i> @{{ runde['tag-profile'] }} markieren</li>
+                    
+                    <li><p><i class="fas fa-chevron-right"></i>
+                        {% if runde['engage-mode'] == 'like_save' %}
+                        Liken und speichern
+                        {% elif runde['engage-mode'] == 'comment' %}
+                        Nur kommentieren
+                        {% endif %}
+                    </p></li>
+                    <li><i class="fas fa-chevron-right"></i> Premium-Mitglieder müssen nicht engagen. <a href={{url_for('premium')}}> Jetzt Premium kaufen.</a></li>
                 </ul>
+                <button class="blue-button">Teilnehmen</button>
             </div>
             <div class="right-area"></div>
         </div>
