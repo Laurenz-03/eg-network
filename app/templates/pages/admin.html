@@ -9,7 +9,9 @@
     <tr>
         <th>Benutzername</th>
         <th>Email</th>
+        <th>Rang</th>
         <th>EG-Level</th>
+        <th>Registrierungsdatum</th>
         <th>ID</th>
         <th></th>
     </tr>
@@ -17,7 +19,9 @@
     <tr>
         <th>{{ user.username }}</th>
         <th>{{ user.email }}</th>
-        <th>100</th>
+        <th>{{ user.rang }}</th>
+        <th>{{ user.eg_level }}</th>
+        <th>{{ user.date_created.strftime('%d. %B %Y, %H:%M Uhr') }}</th>
         <th>{{ user.id }}</th>
         <th><a href={{url_for('delete_user', user_id=user.id)}}><i class="fas fa-trash-alt"></i></a></th>
     </tr>

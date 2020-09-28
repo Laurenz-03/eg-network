@@ -1,11 +1,9 @@
 .rounds-container {
-  margin-top: 12px;
+  margin: 12px 0 2rem 0;
   display: grid;
   gap: 2rem;
 }
 .eg-boost-round {
-  display: flex;
-  flex-direction: column;
   width: 100%;
   box-shadow: #e7e7e7 0px 0px 15px;
   border-radius: 10px;

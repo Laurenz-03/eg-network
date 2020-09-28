@@ -48,8 +48,8 @@ eg_boost_runden = [
 
     {
     'id': 3,
-    'name': 'EG-Boost Germany',
-    'engage-mode': 'like_save',
+    'name': 'EG-Comment Germany',
+    'engage-mode': 'comment',
     'tag-profile': 'eg-boost-germany',
     'upload-time': 40,
     'upload-start-time': '20:30',
@@ -61,8 +61,8 @@ eg_boost_runden = [
 
     {
     'id': 4,
-    'name': 'EG-Boost International',
-    'engage-mode': 'like_save',
+    'name': 'EG-Comment International',
+    'engage-mode': 'comment',
     'tag-profile': 'eg-boost-international',
     'upload-time': 40,
     'upload-start-time': '20:30',

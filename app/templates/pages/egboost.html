@@ -9,7 +9,17 @@
         <h4>{{runde['name']}}</h4>
         <div>
 
-            <div class="left-area"></div>
+            <div class="left-area">
+                <ul>
+                    {% if runde['engage-mode'] == 'like_save' %}
+                    <li><p>Liken und speichern</p></li>
+                    {% elif runde['engage-mode'] == 'comment' %}
+                    <li><p>Nur kommentieren</p></li>
+                    {% endif %}
+
+                    <li>@{{ runde['tag-profile'] }} markieren</li>
+                </ul>
+            </div>
             <div class="right-area"></div>
         </div>
     </div>

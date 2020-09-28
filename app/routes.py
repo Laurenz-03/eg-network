@@ -142,6 +142,7 @@ def admin():
     # Man kommt nur auf die Admin Seite, wenn der Benutzername in der Liste der Admins steht
     if current_user.username in admins:
         users = User.query.all()
+        #register_date=user.date_created.strftime('%d')
         return render_template('pages/admin.html', title="Admin-Dashboard", loginRequired=True, nosidebar=True, nav_links_category='only-login', users=users)
     else:
         flash('Du hast keine Admin Rechte. Haha.', 'no-success')
