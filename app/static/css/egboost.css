@@ -1,0 +1,36 @@
+.rounds-container {
+  margin-top: 12px;
+  display: grid;
+  gap: 2rem;
+}
+.eg-boost-round {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-shadow: #e7e7e7 0px 0px 15px;
+  border-radius: 10px;
+  background-size: cover;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+}
+.eg-boost-round:hover {
+  transform: scale(1.03);
+}
+.eg-boost-round div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 200px;
+}
+
+h4{
+    text-align: center;
+}
+
+.left-area, .right-area{
+    width: 100%;
+    height: 100%;
+}
+.left-area{
+    border-right: 2px solid rgb(238, 238, 238);
+}

@@ -17,6 +17,60 @@ login_manager.login_view = 'login'
 login_manager.login_message = 'Du musst eingeloggt sein, um Zugriff auf diese Seite zu erhalten.'
 login_manager.login_message_category = 'info'
 
-admins = ['Laurenz']
+admins = ['Laurenz', 'Felix', 'Stan']
+
+eg_boost_runden = [
+    {
+    'id': 1,
+    'name': 'EG-Boost Germany',
+    'engage-mode': 'like_save',
+    'tag-profile': 'eg-boost-germany',
+    'upload-time': 40,
+    'upload-start-time': '20:30',
+    'upload-end-time': '21:10',
+    'engage-time': 90,
+    'engage-start-time': '20:30',
+    'engage-end-time': '22:00',
+    },
+
+    {
+    'id': 2,
+    'name': 'EG-Boost International',
+    'engage-mode': 'like_save',
+    'tag-profile': 'eg-boost-international',
+    'upload-time': 40,
+    'upload-start-time': '20:30',
+    'upload-end-time': '21:10',
+    'engage-time': 90,
+    'engage-start-time': '20:30',
+    'engage-end-time': '22:00',
+    },
+
+    {
+    'id': 3,
+    'name': 'EG-Boost Germany',
+    'engage-mode': 'like_save',
+    'tag-profile': 'eg-boost-germany',
+    'upload-time': 40,
+    'upload-start-time': '20:30',
+    'upload-end-time': '21:10',
+    'engage-time': 90,
+    'engage-start-time': '20:30',
+    'engage-end-time': '22:00',
+    },
+
+    {
+    'id': 4,
+    'name': 'EG-Boost International',
+    'engage-mode': 'like_save',
+    'tag-profile': 'eg-boost-international',
+    'upload-time': 40,
+    'upload-start-time': '20:30',
+    'upload-end-time': '21:10',
+    'engage-time': 90,
+    'engage-start-time': '20:30',
+    'engage-end-time': '22:00',
+    },
+    ]
 
 from app import routes

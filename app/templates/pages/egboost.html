@@ -1,4 +1,18 @@
 {% extends './layout.html' %}
 {% block content %}
+<link rel="stylesheet" href="./../../static/css/egboost.css">
+
 <h2>EG-Boost</h2>
+<section class="rounds-container">
+    {% for runde in eg_boost_runden %}
+    <div class="eg-boost-round rounded-and-shadow">
+        <h4>{{runde['name']}}</h4>
+        <div>
+
+            <div class="left-area"></div>
+            <div class="right-area"></div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
 {% endblock %}

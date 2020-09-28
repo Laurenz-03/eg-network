@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request
-from app import app, admins, db, bcrypt
+from app import app, db, bcrypt, admins, eg_boost_runden
 from app.forms import RegistrationForm, LoginForm
 from app.models import User
 from flask_login import login_user, current_user, logout_user, login_required
@@ -91,13 +91,13 @@ def mgb():
 @app.route('/mgb/egboost')
 @login_required
 def egboost():
-    return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True)
+    return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True, eg_boost_runden=eg_boost_runden)
 
 
 @app.route('/mgb/tools')
 @login_required
 def tools():
-    return render_template('pages/tools.html', title="Tools", loginRequired=True)
+    return render_template('pages/tools.html', title="Tools & Gruppen", loginRequired=True)
 
 
 @app.route('/mgb/premium')
@@ -147,13 +147,18 @@ def admin():
         flash('Du hast keine Admin Rechte. Haha.', 'no-success')
         return redirect(url_for('landingPage'))
 
+
 @app.route('/admin/delete/<int:user_id>')
 def delete_user(user_id):
     # Man kommt nur auf die Admin Seite, wenn der Benutzername in der Liste der Admins steht
     if current_user.username in admins:
-        user = User.query.get_or_404(user_id)
-        db.session.delete(user)
-        db.session.commit()
+        if current_user.id != 1:
+            user = User.query.get_or_404(user_id)
+            db.session.delete(user)
+            db.session.commit()
+        else:
+            flash(
+                'Der Account von Laurenz dem Programmier-Gott kann nicht gelöscht werden.', 'no-success')
         return redirect(url_for('admin'))
     else:
         flash('Du hast keine Admin Rechte. Haha.', 'no-success')

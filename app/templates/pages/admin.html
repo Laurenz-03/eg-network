@@ -2,12 +2,14 @@
 {% block content %}
 <link rel="stylesheet" href="./../../static/css/admin.css">
 <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
-<h2>Admin-Dashboard</h2>
+<h2>Moin {{ current_user.username }}.</h2>
+<h3>Du befindest dich in der Admin-Kommandozentrale und hast jetzt die Macht über alle Benutzer!</h3>
 <h4>Registrierte Benutzer ({{ users|length }}):</h4>
 <table>
     <tr>
         <th>Benutzername</th>
         <th>Email</th>
+        <th>EG-Level</th>
         <th>ID</th>
         <th></th>
     </tr>
@@ -15,10 +17,16 @@
     <tr>
         <th>{{ user.username }}</th>
         <th>{{ user.email }}</th>
+        <th>100</th>
         <th>{{ user.id }}</th>
         <th><a href={{url_for('delete_user', user_id=user.id)}}><i class="fas fa-trash-alt"></i></a></th>
     </tr>
     {% endfor %}
 </table>
+<p>Folgende Features kommen noch:<br/>
+    - man kann einzelnen Nutzern eine Nachricht schreiben (z. B. 'Du hast gestern nicht engaged.')<br/>
+    - Admins können neue EG-Boost runden erstellen<br/>
+    - man kann nach Nutzern suchen und sie sortieren 
+</p>
 
 {% endblock %}
