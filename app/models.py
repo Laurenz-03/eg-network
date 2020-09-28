@@ -1,3 +1,4 @@
+from datetime import datetime
 from app import db, login_manager
 from flask_login import UserMixin
 
@@ -10,7 +11,9 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(25), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    #rang = db.Column(db.String(30))
+    eg_level = db.Column(db.Integer(), default=100)
+    rang = db.Column(db.String(30), default='kein Rang')
+    date_created = db.Column(db.DateTime, default=datetime.now)
     instaname1 = db.Column(db.String(60))
     instaname2 = db.Column(db.String(60))
     instaname3 = db.Column(db.String(60))
