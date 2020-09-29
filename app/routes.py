@@ -3,6 +3,7 @@ from app import app, db, bcrypt, admins, eg_boost_runden
 from app.forms import RegistrationForm, LoginForm
 from app.models import User
 from flask_login import login_user, current_user, logout_user, login_required
+from datetime import datetime
 
 
 # Startseite (Landing Page)
@@ -92,8 +93,31 @@ def mgb():
 @login_required
 def egboost():
     for runde in eg_boost_runden:
-        runde['upload-time-factor'] = 20
-        runde['engage-time-factor'] = 80
+        time_now = datetime.now()
+        hour = time_now.hour
+        minute = time_now.minute
+        hour = 21
+        minute = 10
+        minutes_passed = 0
+        if hour == 20:
+            minutes_passed = minute - 30
+        elif hour == 21:
+            minutes_passed = 30 + minute
+        elif hour >= 22:
+            minutes_passed = 90
+        else:
+            minutes_passed = 0
+            
+        upload_time_factor = (1 / runde['upload-time'] * minutes_passed) * 100
+        if upload_time_factor > 100:
+            upload_time_factor = 100
+
+        engage_time_factor = (1 / runde['engage-time'] * minutes_passed) * 100
+        if engage_time_factor > 100:
+            engage_time_factor = 100
+        
+        runde['upload-time-factor'] = upload_time_factor
+        runde['engage-time-factor'] = engage_time_factor
     return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True, eg_boost_runden=eg_boost_runden)
 
 
@@ -145,7 +169,7 @@ def admin():
     # Man kommt nur auf die Admin Seite, wenn der Benutzername in der Liste der Admins steht
     if current_user.username in admins:
         users = User.query.all()
-        #register_date=user.date_created.strftime('%d')
+        # register_date=user.date_created.strftime('%d')
         return render_template('pages/admin.html', title="Admin-Dashboard", loginRequired=True, nosidebar=True, nav_links_category='only-login', users=users)
     else:
         flash('Du hast keine Admin Rechte. Haha.', 'no-success')
