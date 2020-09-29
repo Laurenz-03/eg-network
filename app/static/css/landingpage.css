@@ -523,6 +523,7 @@ img{
 .login-btn{
   background-color: var(--first-color); 
   color: white;
+  cursor: pointer;
   border: none;
   border-radius: 5px;
   height: 2.3rem;
