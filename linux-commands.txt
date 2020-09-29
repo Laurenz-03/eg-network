@@ -1,0 +1,5 @@
+mit Server über SSH verbinden:
+ssh laurenz@165.227.154.35
+
+Dateien an den Server übertragen:
+scp -r C:\Users\laure\Desktop\Programmierung\EG-Network.io\eg-network\app laurenz@165.227.154.35:~/eg-network
