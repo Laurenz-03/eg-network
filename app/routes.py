@@ -153,7 +153,7 @@ def admin():
 def delete_user(user_id):
     # Man kommt nur auf die Admin Seite, wenn der Benutzername in der Liste der Admins steht
     if current_user.username in admins:
-        if current_user.id != 1:
+        if user_id != 1:
             user = User.query.get_or_404(user_id)
             db.session.delete(user)
             db.session.commit()

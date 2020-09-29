@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
+
 app = Flask(__name__)
 
 #Flask konfigurieren
@@ -74,3 +75,5 @@ eg_boost_runden = [
     ]
 
 from app import routes
+from app.errors.handlers import errors
+app.register_blueprint(errors)
