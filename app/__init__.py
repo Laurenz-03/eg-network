@@ -1,3 +1,4 @@
+from app.errors.handlers import errors
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -7,11 +8,11 @@ import datetime
 
 app = Flask(__name__)
 
-#Flask konfigurieren
+# Flask konfigurieren
 app.config['SECRET_KEY'] = '71100e0e1a235b6e67a441043f514d52'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
-#Instanzen erzeugen
+# Instanzen erzeugen
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
@@ -23,66 +24,58 @@ admins = ['Laurenz', 'Felix', 'Stan']
 
 eg_boost_runden = [
     {
-    'id': 1,
-    'name': 'EG-Boost Germany',
-    'engage-mode': 'like_save',
-    'tag-profile': 'eg-boost-germany',
-    'upload-time': 40,
-    'upload-start-time': datetime.time(20, 30),
-    'upload-end-time': datetime.time(21, 10),
-    'engage-time': 90,
-    'engage-start-time': datetime.time(20, 30),
-    'engage-end-time': datetime.time(22, 00),
-    'upload-time-factor': 0,
-    'engage-time-factor': 0
+        'id': 1,
+        'name': 'EG-Boost Germany',
+        'engage-mode': 'like_save',
+        'tag-profile': 'eg-boost-germany',
+        'start-time': datetime.time(20, 30),
+        'upload-end-time': datetime.time(21, 10),
+        'engage-end-time': datetime.time(22, 00),
+        'upload-time-factor': 0,
+        'engage-time-factor': 0,
+        'next-round-duration': [0, 0]
     },
 
     {
-    'id': 2,
-    'name': 'EG-Boost International',
-    'engage-mode': 'like_save',
-    'tag-profile': 'eg-boost-international',
-    'upload-time': 40,
-   'upload-start-time': datetime.time(20, 30),
-    'upload-end-time': datetime.time(21, 10),
-    'engage-time': 90,
-    'engage-start-time': datetime.time(20, 30),
-    'engage-end-time': datetime.time(22, 00),
-    'upload-time-factor': 0,
-    'engage-time-factor': 0
+        'id': 2,
+        'name': 'EG-Boost International',
+        'engage-mode': 'like_save',
+        'tag-profile': 'eg-boost-international',
+        'start-time': datetime.time(20, 30),
+        'upload-end-time': datetime.time(21, 10),
+        'engage-end-time': datetime.time(22, 00),
+        'upload-time-factor': 0,
+        'engage-time-factor': 0,
+        'next-round-duration': [0, 0]
     },
 
     {
-    'id': 3,
-    'name': 'EG-Comment Germany',
-    'engage-mode': 'comment',
-    'tag-profile': 'eg-boost-germany',
-    'upload-time': 40,
-    'upload-start-time': datetime.time(20, 30),
-    'upload-end-time': datetime.time(21, 10),
-    'engage-time': 90,
-    'engage-start-time': datetime.time(20, 30),
-    'engage-end-time': datetime.time(22, 00),
-    'upload-time-factor': 0,
-    'engage-time-factor': 0
+        'id': 3,
+        'name': 'EG-Comment Germany',
+        'engage-mode': 'comment',
+        'tag-profile': 'eg-boost-germany',
+        'start-time': datetime.time(20, 30),
+        'upload-end-time': datetime.time(21, 10),
+        'engage-end-time': datetime.time(22, 00),
+        'upload-time-factor': 0,
+        'engage-time-factor': 0,
+        'next-round-duration': [0, 0]
     },
 
     {
-    'id': 4,
-    'name': 'EG-Comment International',
-    'engage-mode': 'comment',
-    'tag-profile': 'eg-boost-international',
-    'upload-time': 40,
-    'upload-start-time': datetime.time(20, 30),
-    'upload-end-time': datetime.time(21, 10),
-    'engage-time': 90,
-    'engage-start-time': datetime.time(20, 30),
-    'engage-end-time': datetime.time(22, 00),
-    'upload-time-factor': 0,
-    'engage-time-factor': 0
+        'id': 4,
+        'name': 'EG-Comment International',
+        'engage-mode': 'comment',
+        'tag-profile': 'eg-boost-international',
+        'start-time': datetime.time(20, 30),
+        'upload-end-time': datetime.time(21, 10),
+        'engage-end-time': datetime.time(22, 00),
+        'upload-time-factor': 0,
+        'engage-time-factor': 0,
+        'next-round-duration': [0, 0]
     },
-    ]
+]
+
+app.register_blueprint(errors)
 
 from app import routes
-from app.errors.handlers import errors
-app.register_blueprint(errors)
