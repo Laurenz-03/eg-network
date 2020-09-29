@@ -32,6 +32,8 @@ eg_boost_runden = [
     'engage-time': 90,
     'engage-start-time': '20:30',
     'engage-end-time': '22:00',
+    'upload-time-factor': 0,
+    'engage-time-factor': 0
     },
 
     {
@@ -45,6 +47,8 @@ eg_boost_runden = [
     'engage-time': 90,
     'engage-start-time': '20:30',
     'engage-end-time': '22:00',
+    'upload-time-factor': 0,
+    'engage-time-factor': 0
     },
 
     {
@@ -58,6 +62,8 @@ eg_boost_runden = [
     'engage-time': 90,
     'engage-start-time': '20:30',
     'engage-end-time': '22:00',
+    'upload-time-factor': 0,
+    'engage-time-factor': 0
     },
 
     {
@@ -71,6 +77,8 @@ eg_boost_runden = [
     'engage-time': 90,
     'engage-start-time': '20:30',
     'engage-end-time': '22:00',
+    'upload-time-factor': 0,
+    'engage-time-factor': 0
     },
     ]
 

@@ -12,19 +12,48 @@
             <div class="left-area">
                 <ul>
                     <li><i class="fas fa-chevron-right"></i> @{{ runde['tag-profile'] }} markieren</li>
-                    
-                    <li><p><i class="fas fa-chevron-right"></i>
-                        {% if runde['engage-mode'] == 'like_save' %}
-                        Liken und speichern
-                        {% elif runde['engage-mode'] == 'comment' %}
-                        Nur kommentieren
-                        {% endif %}
-                    </p></li>
-                    <li><i class="fas fa-chevron-right"></i> Premium-Mitglieder müssen nicht engagen. <a href={{url_for('premium')}}> Jetzt Premium kaufen.</a></li>
+
+                    <li>
+                        <p><i class="fas fa-chevron-right"></i>
+                            {% if runde['engage-mode'] == 'like_save' %}
+                            Liken und speichern
+                            {% elif runde['engage-mode'] == 'comment' %}
+                            Nur kommentieren
+                            {% endif %}
+                        </p>
+                    </li>
+                    <li><i class="fas fa-chevron-right"></i> Premium-Mitglieder müssen nicht engagen. <a
+                            href={{url_for('premium')}}> Jetzt Premium kaufen.</a></li>
                 </ul>
                 <button class="blue-button">Teilnehmen</button>
             </div>
-            <div class="right-area"></div>
+            <div class="right-area">
+
+                <ul>
+                    <div class="upload-container">
+                        <p><i class="fas fa-chevron-right"></i> Beitrag hochladen:</p>
+                        <div class=hochladen_engagen>
+                            <p>von 20:30</p>
+                            <p>bis 21:10 Uhr</p>
+                        </div>
+                        <div class=progress_bar>
+                            <div style="width: {{ runde['upload-time-factor']}}%;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <p><i class="fas fa-chevron-right"></i> Beitrag hochladen:</p>
+                        <div class=hochladen_engagen>
+                            <p>von 20:30</p>
+                            <p>bis 22:00 Uhr</p>
+                        </div>
+                        <div class=progress_bar>
+                            <div style="width: {{ runde['engage-time-factor']}}%;"></></div>
+                        </div>
+                    </div>
+
+                </ul>
+
+            </div>
         </div>
     </div>
     {% endfor %}

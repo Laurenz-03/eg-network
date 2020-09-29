@@ -91,6 +91,9 @@ def mgb():
 @app.route('/mgb/egboost')
 @login_required
 def egboost():
+    for runde in eg_boost_runden:
+        runde['upload-time-factor'] = 20
+        runde['engage-time-factor'] = 80
     return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True, eg_boost_runden=eg_boost_runden)
 
 

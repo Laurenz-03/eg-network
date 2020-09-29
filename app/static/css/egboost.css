@@ -41,6 +41,15 @@ h4 {
   flex-direction: column;
   justify-content: space-between;
 }
+.right-area {
+  padding-left: 20px;
+}
+.right-area ul{
+  height: 100%;
+}
+.upload-container{
+  margin-bottom: 35px;
+}
 
 .left-area li {
   min-height: 2.3rem;
@@ -55,4 +64,26 @@ i {
   border: 1px solid #4070f4;
   border-radius: 5px;
   padding: 7px 12px;
+}
+
+.hochladen_engagen {
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress_bar {
+  height: 15px;
+  width: 100%;
+  background-color: #dddddd;
+  border-radius: 8px;
+  height: 15px;
+}
+.progress_bar div {
+  height: 15px;
+  width: 80%;
+  background-color: #cccccc;
+  border-radius: 8px;
+  height: 15px;
+
+  background: linear-gradient(90deg, #4aacfc 0%, #4070f4 100%);
 }
