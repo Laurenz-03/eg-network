@@ -3,7 +3,7 @@ from app import app, db, bcrypt, admins, eg_boost_runden
 from app.forms import RegistrationForm, LoginForm
 from app.models import User
 from flask_login import login_user, current_user, logout_user, login_required
-from datetime import datetime
+import datetime
 
 
 # Startseite (Landing Page)
@@ -93,28 +93,42 @@ def mgb():
 @login_required
 def egboost():
     for runde in eg_boost_runden:
-        time_now = datetime.now()
-        hour = time_now.hour
-        minute = time_now.minute
-        hour = 21
-        minute = 10
-        minutes_passed = 0
-        if hour == 20:
-            minutes_passed = minute - 30
-        elif hour == 21:
-            minutes_passed = 30 + minute
-        elif hour >= 22:
-            minutes_passed = 90
-        else:
-            minutes_passed = 0
-            
-        upload_time_factor = (1 / runde['upload-time'] * minutes_passed) * 100
-        if upload_time_factor > 100:
-            upload_time_factor = 100
 
-        engage_time_factor = (1 / runde['engage-time'] * minutes_passed) * 100
-        if engage_time_factor > 100:
-            engage_time_factor = 100
+        # aktuelle Zeit und Datum
+        date_now = datetime.datetime.now()
+
+        # time Objekte mit datetime Objekten zu neuen datetime Objekten kombinieren
+        upload_start_time = datetime.datetime.combine(date_now, runde["upload-start-time"])
+        upload_end_time = datetime.datetime.combine(date_now, runde["upload-end-time"])
+
+        # Differenz berechnen (timedelta Objekt entsteht), die Sekunden durch 60 teilen um Minuten zu erhalten
+        upload_anzMinutes = (upload_end_time - upload_start_time).total_seconds() / 60
+
+        upload_minutes_passed = (date_now - upload_start_time).total_seconds() / 60
+        # damit keine negative Zahl rauskommt
+        upload_minutes_passed = 0 if upload_minutes_passed < 0 else upload_minutes_passed
+
+        upload_time_factor = upload_minutes_passed / upload_anzMinutes * 100
+        # damit der Faktor für die Progressbar nicht > 100 wird
+        upload_time_factor = 100 if upload_time_factor > 100 else upload_time_factor
+
+        # aktuelle Zeit und Datum
+        date_now = datetime.datetime.now()
+
+        # time Objekte mit datetime Objekten zu neuen datetime Objekten kombinieren
+        engage_start_time = datetime.datetime.combine(date_now, runde["engage-start-time"])
+        engage_end_time = datetime.datetime.combine(date_now, runde["engage-end-time"])
+
+        # Differenz berechnen (timedelta Objekt entsteht), die Sekunden durch 60 teilen um Minuten zu erhalten
+        engage_anzMinutes = (engage_end_time - engage_start_time).total_seconds() / 60
+
+        engage_minutes_passed = (date_now - engage_start_time).total_seconds() / 60
+        # damit keine negative Zahl rauskommt
+        engage_minutes_passed = 0 if engage_minutes_passed < 0 else engage_minutes_passed
+
+        engage_time_factor = engage_minutes_passed / engage_anzMinutes * 100
+        # damit der Faktor für die Progressbar nicht > 100 wird
+        engage_time_factor = 100 if engage_time_factor > 100 else engage_time_factor
         
         runde['upload-time-factor'] = upload_time_factor
         runde['engage-time-factor'] = engage_time_factor

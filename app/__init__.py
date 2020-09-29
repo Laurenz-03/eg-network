@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+import datetime
 
 
 app = Flask(__name__)
@@ -27,11 +28,11 @@ eg_boost_runden = [
     'engage-mode': 'like_save',
     'tag-profile': 'eg-boost-germany',
     'upload-time': 40,
-    'upload-start-time': '20:30',
-    'upload-end-time': '21:10',
+    'upload-start-time': datetime.time(20, 30),
+    'upload-end-time': datetime.time(21, 10),
     'engage-time': 90,
-    'engage-start-time': '20:30',
-    'engage-end-time': '22:00',
+    'engage-start-time': datetime.time(20, 30),
+    'engage-end-time': datetime.time(22, 00),
     'upload-time-factor': 0,
     'engage-time-factor': 0
     },
@@ -42,11 +43,11 @@ eg_boost_runden = [
     'engage-mode': 'like_save',
     'tag-profile': 'eg-boost-international',
     'upload-time': 40,
-    'upload-start-time': '20:30',
-    'upload-end-time': '21:10',
+   'upload-start-time': datetime.time(20, 30),
+    'upload-end-time': datetime.time(21, 10),
     'engage-time': 90,
-    'engage-start-time': '20:30',
-    'engage-end-time': '22:00',
+    'engage-start-time': datetime.time(20, 30),
+    'engage-end-time': datetime.time(22, 00),
     'upload-time-factor': 0,
     'engage-time-factor': 0
     },
@@ -57,11 +58,11 @@ eg_boost_runden = [
     'engage-mode': 'comment',
     'tag-profile': 'eg-boost-germany',
     'upload-time': 40,
-    'upload-start-time': '20:30',
-    'upload-end-time': '21:10',
+    'upload-start-time': datetime.time(20, 30),
+    'upload-end-time': datetime.time(21, 10),
     'engage-time': 90,
-    'engage-start-time': '20:30',
-    'engage-end-time': '22:00',
+    'engage-start-time': datetime.time(20, 30),
+    'engage-end-time': datetime.time(22, 00),
     'upload-time-factor': 0,
     'engage-time-factor': 0
     },
@@ -72,11 +73,11 @@ eg_boost_runden = [
     'engage-mode': 'comment',
     'tag-profile': 'eg-boost-international',
     'upload-time': 40,
-    'upload-start-time': '20:30',
-    'upload-end-time': '21:10',
+    'upload-start-time': datetime.time(20, 30),
+    'upload-end-time': datetime.time(21, 10),
     'engage-time': 90,
-    'engage-start-time': '20:30',
-    'engage-end-time': '22:00',
+    'engage-start-time': datetime.time(20, 30),
+    'engage-end-time': datetime.time(22, 00),
     'upload-time-factor': 0,
     'engage-time-factor': 0
     },
