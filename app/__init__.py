@@ -3,7 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-import datetime
+import datetime, pytz
 
 
 app = Flask(__name__)
@@ -28,9 +28,9 @@ eg_boost_runden = [
         'name': 'EG-Boost Germany',
         'engage-mode': 'like_save',
         'tag-profile': 'eg-boost-germany',
-        'start-time': datetime.time(20, 30),
-        'upload-end-time': datetime.time(21, 10),
-        'engage-end-time': datetime.time(22, 00),
+        'start-time': datetime.time(20 -2, 30),
+        'upload-end-time': datetime.time(21 -2, 10),
+        'engage-end-time': datetime.time(22 -2, 00),
         'upload-time-factor': 0,
         'engage-time-factor': 0,
         'next-round-duration': [0, 0]
@@ -41,9 +41,9 @@ eg_boost_runden = [
         'name': 'EG-Boost International',
         'engage-mode': 'like_save',
         'tag-profile': 'eg-boost-international',
-        'start-time': datetime.time(20, 30),
-        'upload-end-time': datetime.time(21, 10),
-        'engage-end-time': datetime.time(22, 00),
+        'start-time': datetime.time(20 -2, 30),
+        'upload-end-time': datetime.time(21 -2, 10),
+        'engage-end-time': datetime.time(22 -2, 00),
         'upload-time-factor': 0,
         'engage-time-factor': 0,
         'next-round-duration': [0, 0]
@@ -54,9 +54,9 @@ eg_boost_runden = [
         'name': 'EG-Comment Germany',
         'engage-mode': 'comment',
         'tag-profile': 'eg-boost-germany',
-        'start-time': datetime.time(20, 30),
-        'upload-end-time': datetime.time(21, 10),
-        'engage-end-time': datetime.time(22, 00),
+        'start-time': datetime.time(20 -2, 30),
+        'upload-end-time': datetime.time(21 -2, 10),
+        'engage-end-time': datetime.time(22 -2, 00),
         'upload-time-factor': 0,
         'engage-time-factor': 0,
         'next-round-duration': [0, 0]
@@ -67,9 +67,9 @@ eg_boost_runden = [
         'name': 'EG-Comment International',
         'engage-mode': 'comment',
         'tag-profile': 'eg-boost-international',
-        'start-time': datetime.time(20, 30),
-        'upload-end-time': datetime.time(21, 10),
-        'engage-end-time': datetime.time(22, 00),
+        'start-time': datetime.time(20 -2, 30),
+        'upload-end-time': datetime.time(21 -2, 10),
+        'engage-end-time': datetime.time(22 -2, 00),
         'upload-time-factor': 0,
         'engage-time-factor': 0,
         'next-round-duration': [0, 0]

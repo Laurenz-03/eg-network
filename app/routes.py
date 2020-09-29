@@ -4,6 +4,7 @@ from app.forms import RegistrationForm, LoginForm
 from app.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 import datetime
+import pytz
 
 
 # Startseite (Landing Page)
@@ -95,8 +96,8 @@ def egboost():
     for runde in eg_boost_runden:
 
         # aktuelle Zeit und Datum
-        date_now = datetime.datetime.now()
-
+        date_now = datetime.datetime.utcnow()
+        
         # time Objekte mit datetime Objekten zu neuen datetime Objekten kombinieren
         start_time = datetime.datetime.combine(date_now, runde["start-time"])
         upload_end_time = datetime.datetime.combine(date_now, runde["upload-end-time"])
@@ -129,7 +130,7 @@ def egboost():
 
         # berechnen, wann die nächste Runde anfängt
         next_round_duration = start_time - date_now
-        print(next_round_duration)
+        #print(next_round_duration)
         m, s = divmod(next_round_duration.total_seconds() + 60, 60)
         h, m = divmod(m, 60)
         h = h+24 if h < 0 else h
@@ -137,7 +138,7 @@ def egboost():
         runde['next-round-duration'] = [int(h), int(m)]
         runde['upload-time-factor'] = upload_time_factor
         runde['engage-time-factor'] = engage_time_factor
-    return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True, eg_boost_runden=eg_boost_runden)
+    return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True, eg_boost_runden=eg_boost_runden, datetime=datetime)
 
 
 @app.route('/mgb/tools')

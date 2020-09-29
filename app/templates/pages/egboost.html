@@ -33,8 +33,8 @@
                     <div class="upload-container">
                         <p><i class="fas fa-chevron-right"></i> Beitrag hochladen:</p>
                         <div class=hochladen_engagen>
-                            <p>von {{ runde['start-time'].strftime('%H:%M')}}</p>
-                            <p>bis {{ runde['upload-end-time'].strftime('%H:%M')}} Uhr</p>
+                            <p>von {{ (runde['start-time'].hour +2 )}}{{ runde['start-time'].strftime(':%M')}}</p>
+                            <p>bis {{ (runde['upload-end-time'].hour +2 )}}{{ runde['upload-end-time'].strftime(':%M')}} Uhr</p>
                         </div>
                         <div class=progress_bar>
                             <div style="width: {{ runde['upload-time-factor']}}%;"></div>
@@ -43,8 +43,8 @@
                     <div>
                         <p><i class="fas fa-chevron-right"></i> Beitrag hochladen:</p>
                         <div class=hochladen_engagen>
-                            <p>von {{ runde['start-time'].strftime('%H:%M')}}</p>
-                            <p>bis {{ runde['engage-end-time'].strftime('%H:%M')}} Uhr</p>
+                            <p>von {{ (runde['start-time'].hour +2 )}}{{ runde['start-time'].strftime(':%M')}}</p>
+                            <p>bis {{ (runde['engage-end-time'].hour +2 )}}{{ runde['engage-end-time'].strftime(':%M')}} Uhr</p>
                         </div>
                         <div class=progress_bar>
                             <div style="width: {{ runde['engage-time-factor']}}%;"></></div>
