@@ -1,7 +1,9 @@
 {% extends './layout.html' %}
 {% block content %}
-    <div>
+<link rel="stylesheet" href="./../../static/css/error.css">
+    <div class="container">
         <h2>Oops. Seite nicht gefunden (404).</h2>
-        <p>Diese Seite existiert nicht.</p>
+        <img class="error-image" src="./../../static/img/404.png" alt="">
+        <h3>Diese Seite existiert nicht.</h3>
     </div>
 {% endblock %}
