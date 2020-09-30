@@ -26,6 +26,22 @@
 
 }
 
+
+/**** MY PROFILE *************************/
+.myprofile h3{
+    color: #4070f4;
+    text-align: center;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid rgb(238, 238, 238);
+}
+.myprofile h3 i{
+    padding-left: 6px;
+}
+.myprofile ul li{
+    margin-bottom: 10px;
+}
+
 /**** VERBUNDENE ACCOUNTS *************************/
 .connected-accounts{
     height: 300px;

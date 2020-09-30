@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+  <link rel="icon" href="./../static/img/logo-white.ico" />
+  <link rel="stylesheet" href='./../../static/css/registerlogin.css' />
+  <title>Einloggen und Registrieren | EG-Network</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="forms-container">
+      <div class="signin-signup">
+        <form method="POST" action="" class="sign-in-form">
+            {{ form.hidden_tag() }}
+            <h2 class="title">Benutzername ändern</h2>
+  
+            {% if request.args.mode == 'register' %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="flash-message-{{ category }}">
+              <p>{{ message }}</p>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            {% endif %}
+  
+            <div class='input-field'>
+              <i class="fas fa-user"></i>
+              {% if form.username.errors %}
+              {{ form.username(class="input-error", placeholder="Benutzername") }}
+              {% else %}
+              {{ form.username(placeholder="Benutzername") }}
+              {% endif %}
+            </div>
+            <div class="invalid-feedback" id="test">
+              {% for error in form.username.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+           
+            <div class="submit-btn">
+              {{ form.submit(class="btn solid") }}
+            </div>
+
+        </form>
+      </div>
+    </div>
+
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <div class="content">
+        </div>
+        <img src="./../../static/img/log.svg" class="image" alt="" />
+      </div>
+      
+    </div>
+  </div>
+</body>
+
+</html>

@@ -43,6 +43,30 @@ class LoginForm(FlaskForm):
 
     submit = SubmitField('Einloggen')
 
+class ChangeUsername(FlaskForm):
+    username = StringField('Benutzername:',
+                           validators=[Length(min=3, message='Der Benutzername muss mindestens drei Zeichen enthalten.'), Length(max=25, message='Der Benutzername darf nicht mehr als 25 Zeichen enthalten.')])
+
+    submit = SubmitField('Speichern')
+
+    # Testet, ob der Benutzername bereits in der Datenbank vorhanden ist
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError('Dieser Benutzername ist bereits vergeben.')
+
+class ChangePassword(FlaskForm):
+    password = PasswordField('Altes Passwort:',
+                             validators=[DataRequired(), Length(min=8, message='Das Passwort muss mindestens acht Zeichen enthalten.'), Length(max=60, message='Das Passwort darf nicht mehr als 60 Zeichen enthalten.')])
+    
+    new_password = PasswordField('Neues Passwort:',
+                             validators=[DataRequired(), Length(min=8, message='Das Passwort muss mindestens acht Zeichen enthalten.'), Length(max=60, message='Das Passwort darf nicht mehr als 60 Zeichen enthalten.')])
+
+    confirm_new_password = PasswordField('Neues Passwort bestätigen:',
+                                     validators=[DataRequired(), EqualTo('new_password', message='Die Passwörter stimmen nicht überein.')])
+
+    submit = SubmitField('Speichern')
+
 
 class RequestResetForm(FlaskForm):
     email = StringField('Email:',

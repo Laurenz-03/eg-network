@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import app, db, bcrypt, mail, admins, eg_boost_runden
-from app.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm
+from app.forms import RegistrationForm, LoginForm, ChangeUsername, ChangePassword, RequestResetForm, ResetPasswordForm
 from app.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
@@ -93,6 +93,35 @@ def reset_token(token):
         flash('Dein Passwort wurde aktualisiert!', 'success')
         return redirect(url_for('mgb'))
     return render_template('pages/reset_token.html', title="Passwort zurücksetzten", form=form)
+
+
+@app.route('/change-username', methods=['GET', 'POST'])
+@login_required
+def change_username():
+    form = ChangeUsername()
+    if form.validate_on_submit():
+        user = current_user
+        user.username = form.username.data
+        db.session.commit()
+        flash('Deine Änderungen wurden gespeichert!', 'success')
+        return redirect(url_for('mgb'))
+    return render_template('pages/change_username.html', title='Account bearbeiten', form=form)
+
+@app.route('/change-password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    form = ChangePassword()
+    if form.validate_on_submit():
+        user = current_user
+        if bcrypt.check_password_hash(user.password, form.password.data):
+            hashed_password = bcrypt.generate_password_hash(form.new_password.data).decode('utf-8')
+            user.password = hashed_password
+            db.session.commit()
+            flash('Deine Änderungen wurden gespeichert!', 'success')
+            return redirect(url_for('mgb'))
+        else:
+            flash('Das Passwort ist falsch.', 'no-success')
+    return render_template('pages/change_password.html', title='Account bearbeiten', form=form)
 
 
 @app.route('/logout')
