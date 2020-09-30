@@ -240,7 +240,7 @@ def add_insta_acc():
     if current_user.instaname1:
         flash('Du hast bereits einen Instagram Account hinzugefügt. Kaufe den Premium-Rang um bis zu drei Accounts hinzuzufügen.', 'success')
     else:
-        form = ChangePassword()
+        form = AddInstaAccForm()
         if form.validate_on_submit():
             user = current_user
             user.instaname1 = form.instaname.data
