@@ -42,3 +42,26 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Eingeloggt bleiben')
 
     submit = SubmitField('Einloggen')
+
+
+class RequestResetForm(FlaskForm):
+    email = StringField('Email:',
+                        validators=[DataRequired(), Email(message='Ungültige Email-Adresse.')])
+    submit = SubmitField('Passwort zurücksetzen')
+
+    # Testet, ob die Email-Adresse bereits in der Datenbank vorhanden ist
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('Es existiert kein Account mit dieser Email-Adresse.')
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password:',
+                             validators=[DataRequired(), Length(min=8, message='Das Passwort muss mindestens acht Zeichen enthalten.'), Length(max=60, message='Das Passwort darf nicht mehr als 60 Zeichen enthalten.')])
+
+    confirm_password = PasswordField('Password bestätigen:',
+                                     validators=[DataRequired(), EqualTo('password', message='Die Passwörter stimmen nicht überein.')])
+
+    submit = SubmitField('Passwort zurücksetzen')
+    

@@ -1,8 +1,9 @@
 from flask import render_template, url_for, flash, redirect, request
-from app import app, db, bcrypt, admins, eg_boost_runden
-from app.forms import RegistrationForm, LoginForm
+from app import app, db, bcrypt, mail, admins, eg_boost_runden
+from app.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm
 from app.models import User
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_mail import Message
 import datetime
 import pytz
 
@@ -55,22 +56,43 @@ def login():
     return render_template('pages/login.html', title="Einloggen", register_form=register_form, login_form=login_form, nosidebar=True, nav_links_category='no-links')
 
 
-'''
-@app.route('/register', methods=['GET', 'POST'])
-def register():
+def send_reset_email(user):
+    token = user.get_reset_token()
+    msg = Message('Password Reset Request', sender='noreply@demo.com', recipients=[user.email])
+    msg.body = 'Um dein Passwort zurückzusetzen, klicke auf folgenden Link: ' + url_for('reset_token', token=token, _external=True)
+    
+    mail.send(msg)
+
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_request():
     if current_user.is_authenticated:
         return redirect(url_for('mgb'))
-    form = RegistrationForm()
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash('Die Email zum Zurücksetzen deines Passwortes wurde versendet.', 'success')
+        return redirect(url_for('login'))
+    return render_template('pages/reset_request.html', title="Passwort zurücksetzten", form=form)
+
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('mgb'))
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash('Der Link ist ungültig oder abgelaufen.', 'no-success')
+        return redirect(url_for('reset_request'))
+    form = ResetPasswordForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
-        db.session.add(user)
+        user.password = hashed_password
         db.session.commit()
-        flash(
-            f'Account für {form.username.data} erfolgreich erstellt!', 'success')
+        login_user(user)
+        flash('Dein Passwort wurde aktualisiert!', 'success')
         return redirect(url_for('mgb'))
-    return render_template('pages/register.html', title="Registrieren", form=form, nosidebar=True, nav_links_category='no-links')
-'''
+    return render_template('pages/reset_token.html', title="Passwort zurücksetzten", form=form)
 
 
 @app.route('/logout')
@@ -97,10 +119,11 @@ def egboost():
 
         # aktuelle Zeit und Datum
         date_now = datetime.datetime.utcnow()
-        
+
         # time Objekte mit datetime Objekten zu neuen datetime Objekten kombinieren
         start_time = datetime.datetime.combine(date_now, runde["start-time"])
-        upload_end_time = datetime.datetime.combine(date_now, runde["upload-end-time"])
+        upload_end_time = datetime.datetime.combine(
+            date_now, runde["upload-end-time"])
 
         # Differenz berechnen (timedelta Objekt entsteht), die Sekunden durch 60 teilen um Minuten zu erhalten
         upload_anzMinutes = (upload_end_time - start_time).total_seconds() / 60
@@ -113,9 +136,9 @@ def egboost():
         # damit der Faktor für die Progressbar nicht > 100 wird
         upload_time_factor = 100 if upload_time_factor > 100 else upload_time_factor
 
-
         # time Objekte mit datetime Objekten zu neuen datetime Objekten kombinieren
-        engage_end_time = datetime.datetime.combine(date_now, runde["engage-end-time"])
+        engage_end_time = datetime.datetime.combine(
+            date_now, runde["engage-end-time"])
 
         # Differenz berechnen (timedelta Objekt entsteht), die Sekunden durch 60 teilen um Minuten zu erhalten
         engage_anzMinutes = (engage_end_time - start_time).total_seconds() / 60
@@ -130,11 +153,11 @@ def egboost():
 
         # berechnen, wann die nächste Runde anfängt
         next_round_duration = start_time - date_now
-        #print(next_round_duration)
+        # print(next_round_duration)
         m, s = divmod(next_round_duration.total_seconds() + 60, 60)
         h, m = divmod(m, 60)
         h = h+24 if h < 0 else h
-        
+
         runde['next-round-duration'] = [int(h), int(m)]
         runde['upload-time-factor'] = upload_time_factor
         runde['engage-time-factor'] = engage_time_factor

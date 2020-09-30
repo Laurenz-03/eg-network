@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="./../static/img/logo-white.ico" />
+    <link rel="stylesheet" href='./../../static/css/registerlogin.css' />
+    <title>Einloggen und Registrieren | EG-Network</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="forms-container">
+            <div class="signin-signup">
+                <form method="POST" action="" class="sign-in-form">
+                    {{ form.hidden_tag() }}
+                    <h2 class="title">Passwort zurücksetzen</h2>
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="flash-message-{{ category }}">
+                        <p>{{ message }}</p>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+
+                    <div class='input-field'>
+                        <i class="fas fa-user"></i>
+                        {% if form.password.errors %}
+                        {{ form.password(class="input-error", placeholder="Email oder Benutzername") }}
+                        {% else %}
+                        {{ form.password(placeholder="Email oder Benutzername") }}
+                        {% endif %}
+                    </div>
+                    <div class="invalid-feedback log" id="test">
+                        {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+                    <div class='input-field'>
+                        <i class="fas fa-user"></i>
+                        {% if form.confirm_password.errors %}
+                        {{ form.confirm_password(class="input-error", placeholder="Email oder Benutzername") }}
+                        {% else %}
+                        {{ form.confirm_password(placeholder="Email oder Benutzername") }}
+                        {% endif %}
+                    </div>
+                    <div class="invalid-feedback log" id="test">
+                        {% for error in form.confirm_password.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+                    <div class="submit-btn">
+                        {{ form.submit(class="btn solid") }}
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div class="panels-container">
+            <div class="panel left-panel">
+                <div class="content">
+                    <h3>Neu hier?</h3>
+                    <p>
+                        Erstelle dir jetzt einen Account und werde Teil von EG-Network!
+                    </p>
+                    <button onclick="" class="btn transparent" id="sign-up-btn">
+                        Registrieren
+                    </button>
+                </div>
+                <img src="./../../static/img/log.svg" class="image" alt="" />
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
