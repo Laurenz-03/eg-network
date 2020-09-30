@@ -1,71 +1,104 @@
 :root {
-    --first-color: #4070f4;
-    --second-color: #0e2431;
-  }
-.myprofile{
-    padding: 10px 15px;
-    transition: all .1s ease-out;
+  --first-color: #4070f4;
+  --second-color: #0e2431;
 }
-.profile-section .top{
-    display: grid;
-    grid-template-columns: 7fr 5fr;
-    gap: 1.2rem;
-    margin-top: 12px;
-    margin-bottom: 3rem;
+.myprofile {
+  padding: 10px 15px;
+  transition: all 0.1s ease-out;
 }
-
-.myprofile:hover{
-    border-bottom: 10px solid var(--second-color);
-}
-.insta-acc, .connect-more-accs{
-    transition: all .2s ease-out;
-
-}
-.insta-acc:hover, .connect-more-accs:hover{
-    transform: scale(1.05);
-
+.profile-section .top {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 1.2rem;
+  margin-top: 12px;
+  margin-bottom: 3rem;
 }
 
+.myprofile:hover {
+  border-bottom: 10px solid var(--second-color);
+}
+.insta-acc,
+.connect-more-accs {
+  transition: all 0.2s ease-out;
+}
+.insta-acc:hover,
+.connect-more-accs:hover {
+  transform: scale(1.05);
+}
+
+.insta-acc {
+  background-color: rgb(210, 255, 210);
+  border: 1px solid rgb(0, 177, 0);
+}
+.add-account {
+  cursor: pointer;
+}
+.add-account-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 10px;
+}
+.plus-icon i {
+  text-align: center;
+  transition: all 0.3s ease;
+  font-size: 1.4rem;
+}
+.plus-icon {
+  border-radius: 20px;
+  border: 2px solid rgb(0, 177, 0);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: all .4s ease;
+}
+.plus-icon:hover {
+  transform: rotate(180deg);
+}
 
 /**** MY PROFILE *************************/
-.myprofile h3{
-    color: #4070f4;
-    text-align: center;
-    padding-bottom: 6px;
-    margin-bottom: 10px;
-    border-bottom: 2px solid rgb(238, 238, 238);
+.myprofile h3 {
+  color: #4070f4;
+  text-align: center;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid rgb(238, 238, 238);
 }
-.myprofile h3 i{
-    padding-left: 6px;
+.myprofile h3 i {
+  padding-left: 6px;
 }
-.myprofile ul li{
-    margin-bottom: 10px;
+.myprofile ul li {
+  margin-bottom: 10px;
 }
 
 /**** VERBUNDENE ACCOUNTS *************************/
-.connected-accounts{
-    height: 300px;
-    width: 100%;
-    display: grid;
-    grid-template-rows: 1fr 5fr 10fr ;
-    gap: 1.2rem;
+.connected-accounts {
+  height: 300px;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr 5fr 10fr;
+  gap: 1.2rem;
 }
 
-.insta-acc{
-    display: flex;
-    align-items: center;
-    padding: 10px;
+.insta-acc {
+  display: flex;
+  align-items: center;
+  padding: 10px;
 }
-.insta-profile-pic{
-    background: darkcyan;
-    height: 3.5rem;
-    width: 3.5rem;
-    border-radius: 50px;
-    margin: 0 15px 0 4px;
+.insta-profile-pic {
+  background: darkcyan;
+  height: 3.5rem;
+  width: 3.5rem;
+  border-radius: 50px;
+  margin: 0 15px 0 4px;
 }
-.connect-more-accs{
-    padding: 10px 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.connect-more-accs {
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }

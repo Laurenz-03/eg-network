@@ -89,3 +89,6 @@ class ResetPasswordForm(FlaskForm):
 
     submit = SubmitField('Passwort zurücksetzen')
     
+class AddInstaAccForm(FlaskForm):
+    email_username = StringField('Email oder Benutzername:',
+                        validators=[DataRequired()])

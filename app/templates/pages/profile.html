@@ -21,18 +21,32 @@
         </div>
         <div class="connected-accounts">
             <h3>Verbundene Instagram Accounts:</h3>
+            {% if current_user.instaname1 %}
+            
             <div class="insta-acc rounded-and-shadow">
                 <div class="insta-profile-pic"></div>
                 <ul>
                     <li>
-                        <p>@erfolgsarmee</p>
+                        <p>{{current_user.instaname1}}</p>
                     </li>
                     <li>
                         <p>2000 Follower</p>
                     </li>
                 </ul>
-
             </div>
+            {% else %}
+            <div class="insta-acc add-account rounded-and-shadow">
+                <div class="add-account-inner">
+                    <h4>Instagram Account hinzufügen</h4>
+                    <div class="plus-icon">
+                        <i class="fas fa-plus"></i>
+
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+                
+
             <div class="rounded-and-shadow connect-more-accs">
                 <div>
 

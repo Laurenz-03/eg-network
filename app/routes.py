@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import app, db, bcrypt, mail, admins, eg_boost_runden
-from app.forms import RegistrationForm, LoginForm, ChangeUsername, ChangePassword, RequestResetForm, ResetPasswordForm
+from app.forms import RegistrationForm, LoginForm, ChangeUsername, ChangePassword, RequestResetForm, ResetPasswordForm, AddInstaAccForm
 from app.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
@@ -233,6 +233,21 @@ def ebookskurse():
 @login_required
 def profile():
     return render_template('pages/profile.html', title="Mein Profil", loginRequired=True)
+
+@app.route('/add-insta-acc', methods=['GET', 'POST'])
+@login_required
+def add_insta_acc():
+    if current_user.instaname1:
+        flash('Du hast bereits einen Instagram Account hinzugefügt. Kaufe den Premium-Rang um bis zu drei Accounts hinzuzufügen.', 'success')
+    else:
+        form = ChangePassword()
+        if form.validate_on_submit():
+            user = current_user
+            user.instaname1 = form.instaname.data
+            db.session.commit()
+            return redirect(url_for('profile'))
+            flash('Der Instagram Account wurde hinzugefügt!', 'success')
+    return render_template('pages/add_insta_acc.html', title='Instagram Account verknüpfen', form=form)
 
 # Nur für Admins
 @app.route('/admin')
