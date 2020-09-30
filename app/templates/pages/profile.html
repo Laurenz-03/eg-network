@@ -6,46 +6,55 @@
     <div class="top">
 
         <div class="myprofile rounded-and-shadow">
-            <a href={{url_for('change_username')}}><h3>{{ current_user.username }}<i class="fas fa-pen"></i></h3></a>
+            <a href={{url_for('change_username')}}>
+                <h3>{{ current_user.username }}<i class="fas fa-pen"></i></h3>
+            </a>
             <ul>
-                <li><p><strong>Rang:</strong>
-                    {% if current_user.rang == 'kein Rang' %}
-                    gratis Mitgliedschaft
-                    {% else %}
-                    {{ current_user.rang }}
-                    {% endif %}
-                </p></li>
-                <li><p><strong>Email:</strong> {{ current_user.email }}</p></li>
+                <li>
+                    <p><strong>Rang:</strong>
+                        {% if current_user.rang == 'kein Rang' %}
+                        gratis Mitgliedschaft
+                        {% else %}
+                        {{ current_user.rang }}
+                        {% endif %}
+                    </p>
+                </li>
+                <li>
+                    <p><strong>Email:</strong> {{ current_user.email }}</p>
+                </li>
                 <li><a href={{url_for('change_password')}}>Passwort ändern <i class="fas fa-pen"></i></a></li>
             </ul>
         </div>
         <div class="connected-accounts">
             <h3>Verbundene Instagram Accounts:</h3>
             {% if current_user.instaname1 %}
-            
+
             <div class="insta-acc rounded-and-shadow">
                 <div class="insta-profile-pic"></div>
                 <ul>
                     <li>
-                        <p>{{current_user.instaname1}}</p>
+                        <a href="https://www.instagram.com/{{current_user.instaname1}}">{{current_user.instaname1}}</a>
                     </li>
-                    <li>
+                    <li class="bottom-line">
                         <p>2000 Follower</p>
+                        <a href={{url_for('del_insta_acc')}}><i class="fas fa-trash"></i></a>
                     </li>
                 </ul>
             </div>
             {% else %}
-            <div class="insta-acc add-account rounded-and-shadow">
-                <div class="add-account-inner">
-                    <h4>Instagram Account hinzufügen</h4>
-                    <div class="plus-icon">
-                        <i class="fas fa-plus"></i>
+            <a href={{url_for('add_insta_acc')}}>
+                <div class="insta-acc add-account rounded-and-shadow">
+                    <div class="add-account-inner">
+                        <h4>Instagram Account hinzufügen</h4>
+                        <div class="plus-icon">
+                            <i class="fas fa-plus"></i>
 
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
             {% endif %}
-                
+
 
             <div class="rounded-and-shadow connect-more-accs">
                 <div>

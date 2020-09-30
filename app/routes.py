@@ -237,10 +237,11 @@ def profile():
 @app.route('/add-insta-acc', methods=['GET', 'POST'])
 @login_required
 def add_insta_acc():
+    form = AddInstaAccForm()
     if current_user.instaname1:
         flash('Du hast bereits einen Instagram Account hinzugefügt. Kaufe den Premium-Rang um bis zu drei Accounts hinzuzufügen.', 'success')
+        return redirect('mgb/profile')
     else:
-        form = AddInstaAccForm()
         if form.validate_on_submit():
             user = current_user
             user.instaname1 = form.instaname.data
@@ -248,6 +249,14 @@ def add_insta_acc():
             return redirect(url_for('profile'))
             flash('Der Instagram Account wurde hinzugefügt!', 'success')
     return render_template('pages/add_insta_acc.html', title='Instagram Account verknüpfen', form=form)
+
+@app.route('/del-insta-acc')
+def del_insta_acc():
+    user = current_user
+    user.instaname1 = None
+    db.session.commit()
+    flash('Der Instagram Account wurde entfernt.', 'success')
+    return redirect(url_for('profile'))
 
 # Nur für Admins
 @app.route('/admin')

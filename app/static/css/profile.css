@@ -25,12 +25,24 @@
 .connect-more-accs:hover {
   transform: scale(1.05);
 }
-
-.insta-acc {
-  background-color: rgb(210, 255, 210);
-  border: 1px solid rgb(0, 177, 0);
+.insta-acc a{
+  color: #4070f4;
+}
+.insta-acc ul{
+  width: 100%;
+}
+.bottom-line{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 8px;
+}
+.bottom-line i{
+  color: tomato;
 }
 .add-account {
+  background-color: rgb(210, 255, 210);
+  border: 1px solid rgb(0, 177, 0);
   cursor: pointer;
 }
 .add-account-inner {
@@ -91,8 +103,7 @@
 }
 .insta-profile-pic {
   background: darkcyan;
-  height: 3.5rem;
-  width: 3.5rem;
+  padding: 1.7rem;
   border-radius: 50px;
   margin: 0 15px 0 4px;
 }
