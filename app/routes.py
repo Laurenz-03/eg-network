@@ -8,12 +8,22 @@ import datetime
 import pytz
 
 
-# Startseite (Landing Page)
 @app.route('/')
-def landingPage():
+def chooseLanguage():
+    return render_template('pages/chooselanguage.html', nosidebar=True, nav_links_category='no-links')
+
+# Startseite (Landing Page)
+@app.route('/de')
+def landingPageDE():
     if current_user.is_authenticated:
         return redirect(url_for('mgb'))
-    return render_template('pages/landingpage.html', title="Startseite", isLandingPage=True)
+    return render_template('pages/landingpageDE.html', title="Startseite", isLandingPage=True, language='de')
+
+@app.route('/en')
+def landingPageEN():
+    if current_user.is_authenticated:
+        return redirect(url_for('mgb'))
+    return render_template('pages/landingpageEN.html', title="Startseite", isLandingPage=True, language='en')
 
 # Login und registrieren
 @app.route('/login', methods=['GET', 'POST'])

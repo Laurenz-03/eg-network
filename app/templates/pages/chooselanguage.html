@@ -1,0 +1,10 @@
+{% extends './layout.html' %}
+{% block content %}
+<link rel="stylesheet" href="./../../static/css/chooselanguage.css">
+<div class="container rounded-and-shadow">
+    <h2>Choose your language</h2>
+    <a href={{url_for('landingPageEN')}} class="language-button">English</a>
+    <a href={{url_for('landingPageDE')}} class="language-button">German</a>
+    <img src="./../../static/img/home.png" alt="">
+</div>
+{% endblock %}
