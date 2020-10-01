@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import app, db, bcrypt, mail, admins, eg_boost_runden
-from app.forms import RegistrationForm, LoginForm, ChangeUsername, ChangePassword, RequestResetForm, ResetPasswordForm, AddInstaAccForm
+from app.forms import RegistrationForm, LoginForm, ChangeUsername, ChangePassword, RequestResetForm, ResetPasswordForm, AddInstaAccForm, AdminChangeUserAcc
 from app.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
@@ -10,6 +10,8 @@ import pytz
 
 @app.route('/')
 def chooseLanguage():
+    if current_user.is_authenticated:
+        return redirect(url_for('mgb'))
     return render_template('pages/chooselanguage.html', nosidebar=True, nav_links_category='no-links')
 
 # Startseite (Landing Page)
@@ -23,7 +25,7 @@ def landingPageDE():
 def landingPageEN():
     if current_user.is_authenticated:
         return redirect(url_for('mgb'))
-    return render_template('pages/landingpageEN.html', title="Startseite", isLandingPage=True, language='en')
+    return render_template('pages/landingpageEN.html', title="Homepage", isLandingPage=True, language='en')
 
 # Login und registrieren
 @app.route('/login', methods=['GET', 'POST'])
@@ -296,4 +298,27 @@ def delete_user(user_id):
         return redirect(url_for('admin'))
     else:
         flash('Du hast keine Admin Rechte. Haha.', 'no-success')
+        return redirect(url_for('chooseLanguage'))
+
+@app.route('/admin/change-user-details/<int:user_id>', methods=['GET', 'POST'])
+def admin_change_user_details(user_id):
+    user = User.query.get_or_404(user_id)
+    # Man kommt nur auf die Admin Seite, wenn der Benutzername in der Liste der Admins steht
+    if current_user.username in admins:
+        form = AdminChangeUserAcc()
+        if form.validate_on_submit():
+            user.username = form.username.data if form.username.data else user.username
+            user.email = form.email.data if form.email.data else user.email
+            user.rang = form.rang.data if form.rang.data else user.rang
+            user.eg_level = int(form.eg_level.data) if form.eg_level.data else user.eg_level
+            user.instaname1 = form.instaname1.data if form.instaname1.data else user.instaname1
+            user.instaname2 = form.instaname2.data if form.instaname2.data else user.instaname2
+            user.instaname3 = form.instaname3.data if form.instaname3.data else user.instaname3
+            db.session.commit()
+            flash('Deine Änderungen wurden gespeichert!', 'success')
+            return redirect(url_for('admin'))
+    else:
+        flash('Du hast keine Admin Rechte. Haha.', 'no-success')
         return redirect(url_for('landingPage'))
+    flash('Leere Felder bewirken keine Änderung.', 'info')
+    return render_template('pages/admin_change_user_details.html', title=f'Account von {user.username} bearbeiten', form=form, user=user)

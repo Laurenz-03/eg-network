@@ -31,7 +31,6 @@ class RegistrationForm(FlaskForm):
         if user:
             raise ValidationError('Diese Email-Adresse ist bereits vergeben.')
 
-
 class LoginForm(FlaskForm):
     email_username = StringField('Email oder Benutzername:',
                         validators=[DataRequired()])
@@ -67,7 +66,6 @@ class ChangePassword(FlaskForm):
 
     submit = SubmitField('Speichern')
 
-
 class RequestResetForm(FlaskForm):
     email = StringField('Email:',
                         validators=[DataRequired(), Email(message='Ungültige Email-Adresse.')])
@@ -78,7 +76,6 @@ class RequestResetForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is None:
             raise ValidationError('Es existiert kein Account mit dieser Email-Adresse.')
-
 
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password:',
@@ -94,3 +91,30 @@ class AddInstaAccForm(FlaskForm):
                         validators=[DataRequired(), Length(max=60)])
 
     submit = SubmitField('Bestätigen')
+
+class AdminChangeUserAcc(FlaskForm):
+    username = StringField('Benutzername:')
+
+    email = StringField('eMail:')
+
+    rang = StringField('Rang:')
+    
+    eg_level = StringField('EG-Level:')
+
+    instaname1 = StringField('Insta Name 1:')
+    instaname2 = StringField('Insta Name 2:')
+    instaname3 = StringField('Insta Name 3:')
+
+    submit = SubmitField('Bestätigen')
+
+    # Testet, ob der Benutzername bereits in der Datenbank vorhanden ist
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError('Dieser Benutzername ist bereits vergeben.')
+
+    # Testet, ob die Email-Adresse bereits in der Datenbank vorhanden ist
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError('Diese Email-Adresse ist bereits vergeben.')

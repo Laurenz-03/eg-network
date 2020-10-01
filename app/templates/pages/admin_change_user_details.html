@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+  <link rel="icon" href="./../static/img/logo-white.ico"/>
+  <link rel="stylesheet" href='./../../static/css/registerlogin.css' />
+  <title>{{ title }} | EG-Network</title>
+</head>
+
+<style>
+    a{
+        text-decoration: none;
+        color: tomato;
+    }
+</style>
+
+<body>
+
+  <div class="container">
+    <div class="forms-container">
+      <div class="signin-signup">
+        <form method="POST" action="" class="sign-in-form">
+            {{ form.hidden_tag() }}
+            <h2 class="title">{{ title }}</h2>
+  
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="flash-message-{{ category }}">
+              <p>{{ message }}</p>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+  
+            <div class='input-field'>
+              <i class="fas fa-user"></i>
+              {{ form.username(placeholder="Benutzername") }}
+            </div>
+            <div class="invalid-feedback" id="test">
+              {% for error in form.username.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+  
+            <div class='input-field'>
+              <i class="fas fa-envelope"></i>
+              {{ form.email(placeholder="Email Adresse") }}
+            </div>
+            <div class="invalid-feedback" id="test">
+              {% for error in form.email.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+  
+            <div class='input-field'>
+              <i class="fas fa-medal"></i>
+              {{ form.rang(placeholder="Rang") }}
+            </div>
+            <div class="invalid-feedback" id="test">
+              {% for error in form.rang.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+  
+            <div class='input-field'>
+              <i class="fas fa-chart-line"></i>
+              {{ form.eg_level(placeholder="EG-Level") }}
+            </div>
+            <div class="invalid-feedback" id="test">
+              {% for error in form.eg_level.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+  
+            <div class='input-field'>
+              <i class="fab fa-instagram"></i>
+              {{ form.instaname1(placeholder="Insta Name 1") }}
+            </div>
+            <div class="invalid-feedback" id="test">
+              {% for error in form.instaname1.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+  
+            <div class='input-field'>
+              <i class="fab fa-instagram"></i>
+              {{ form.instaname2(placeholder="Insta Name 2") }}
+            </div>
+            <div class="invalid-feedback" id="test">
+              {% for error in form.instaname2.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+  
+            <div class='input-field'>
+              <i class="fab fa-instagram"></i>
+              {{ form.instaname3(placeholder="Insta Name 3") }}
+            </div>
+            <div class="invalid-feedback" id="test">
+              {% for error in form.instaname3.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            <a href={{url_for('delete_user', user_id=user.id)}}>Diesen Account löschen</a>
+            <div class="submit-btn">
+              {{ form.submit(class="btn solid") }}
+            </div>
+
+        </form>
+      </div>
+    </div>
+
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <div class="content">
+        </div>
+        <img src="./../../static/img/log.svg" class="image" alt="" />
+      </div>
+      
+    </div>
+  </div>
+</body>
+
+</html>

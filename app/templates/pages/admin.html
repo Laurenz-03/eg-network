@@ -22,9 +22,10 @@
         <th>{{ user.email }}</th>
         <th>{{ user.rang }}</th>
         <th>{{ user.eg_level }}</th>
+        <th>{{ user.instaname1 }}</th>
         <th>{{ user.date_created.strftime('%d. %B %Y, %H:%M Uhr') }}</th>
         <th>{{ user.id }}</th>
-        <th><a href={{url_for('delete_user', user_id=user.id)}}><i class="fas fa-trash-alt"></i></a></th>
+        <th><a href={{url_for('admin_change_user_details', user_id=user.id)}}><i class="fas fa-pen"></i></a></th>
     </tr>
     {% endfor %}
 </table>
