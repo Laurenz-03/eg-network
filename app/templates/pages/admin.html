@@ -11,8 +11,9 @@
         <th>Email</th>
         <th>Rang</th>
         <th>EG-Level</th>
-        <th>Instaname</th>
+        <th>Insta ID</th>
         <th>Registrierungsdatum</th>
+        <th>Email confirmed</th>
         <th>ID</th>
         <th></th>
     </tr>
@@ -22,8 +23,9 @@
         <th>{{ user.email }}</th>
         <th>{{ user.rang }}</th>
         <th>{{ user.eg_level }}</th>
-        <th>{{ user.instaname1 }}</th>
+        <th>{{ user.instaid1 }}</th>
         <th>{{ user.date_created.strftime('%d. %B %Y, %H:%M Uhr') }}</th>
+        <th>{{ user.email_confirmed }}</th>
         <th>{{ user.id }}</th>
         <th><a href={{url_for('admin_change_user_details', user_id=user.id)}}><i class="fas fa-pen"></i></a></th>
     </tr>

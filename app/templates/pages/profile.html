@@ -27,16 +27,16 @@
         </div>
         <div class="connected-accounts">
             <h3>Verbundene Instagram Accounts:</h3>
-            {% if current_user.instaname1 %}
+            {% if current_user.instaid1 %}
 
             <div class="insta-acc rounded-and-shadow">
-                <div class="insta-profile-pic"></div>
+                    <img class="insta-profile-pic" src="{{insta_acc1_info['profile_pic_url']}}" alt="">
                 <ul>
                     <li>
-                        <a href="https://www.instagram.com/{{current_user.instaname1}}">{{current_user.instaname1}}</a>
+                        <a href="https://www.instagram.com/{{insta_acc1_info['username']}}">{{insta_acc1_info['username']}}</a>
                     </li>
                     <li class="bottom-line">
-                        <p>2000 Follower</p>
+                        <p>{{insta_acc1_info['followers']}} Follower</p>
                         <a href={{url_for('del_insta_acc')}}><i class="fas fa-trash"></i></a>
                     </li>
                 </ul>

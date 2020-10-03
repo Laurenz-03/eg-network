@@ -7,6 +7,37 @@ from flask_mail import Message
 import datetime
 import pytz
 
+import requests
+import json
+
+def get_user_information_by_username(username):
+    user_info = {}
+    url = 'https://www.instagram.com/{}/?__a=1'
+    resp = requests.get(url=url.format(username)).json()
+    userdata = resp["graphql"]["user"]
+    user_info["id"] = userdata["id"]
+    user_info["username"] = username
+    user_info["followers"] = userdata["edge_followed_by"]["count"]
+    user_info["following"] = userdata["edge_follow"]["count"]
+    user_info["profile_pic_url"] = userdata["profile_pic_url"]
+    return user_info
+
+def get_user_by_id(user_id):
+    user = {}
+    if user_id:
+        base_url = "https://i.instagram.com/api/v1/users/{}/info/"
+        #valid user-agent
+        headers = {
+            'user-agent':'Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 105.0.0.11.118 (iPhone11,8; iOS 12_3_1; en_US; en-US; scale=2.00; 828x1792; 165586599)'
+        }
+        try:
+            res       = requests.get(base_url.format(user_id),headers=headers)
+            user_info = res.json()
+            user      = user_info.get('user',{})["username"]
+        except Exception as e:
+            print("getting user failed, due to '{}'".format(e.message))
+    return user
+
 
 @app.route('/')
 def chooseLanguage():
@@ -28,6 +59,14 @@ def landingPageEN():
     return render_template('pages/landingpageEN.html', title="Homepage", isLandingPage=True, language='en')
 
 # Login und registrieren
+def send_confirm_email(user):
+    token = user.get_reset_token()
+    msg = Message('Confirm Email', sender='noreply@eg-network.co', recipients=[user.email])
+    msg.body = 'Um deine Email zu bestätigen, klicke auf folgenden Link: ' + url_for('confirm_email', token=token, _external=True)
+    
+    mail.send(msg)
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -44,6 +83,10 @@ def login():
         login_user(user)
         flash(
             f'Account für {register_form.username.data} erfolgreich erstellt!', 'success')
+        user = current_user
+        send_confirm_email(user)
+        flash(
+            f'Wir haben dir eine Email an {user.email} gesendet. Bitte klicke auf den Link in der Email, um deinen Account zu bestätigen', 'info')
         return redirect(url_for('mgb'))
 
     login_form = LoginForm()
@@ -68,12 +111,25 @@ def login():
     return render_template('pages/login.html', title="Einloggen", register_form=register_form, login_form=login_form, nosidebar=True, nav_links_category='no-links')
 
 
+
 def send_reset_email(user):
     token = user.get_reset_token()
-    msg = Message('Password Reset Request', sender='noreply@demo.com', recipients=[user.email])
+    msg = Message('Password Reset Request', sender='noreply@eg-network.co', recipients=[user.email])
     msg.body = 'Um dein Passwort zurückzusetzen, klicke auf folgenden Link: ' + url_for('reset_token', token=token, _external=True)
     
     mail.send(msg)
+
+@app.route('/confirm-email/<token>', methods=['GET', 'POST'])
+def confirm_email(token):
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash('Der Link ist ungültig oder abgelaufen.', 'no-success')
+        return redirect(url_for('login'))
+    else:
+        user.email_confirmed = 'true'
+        db.session.commit()
+        flash('Dein Account wurde bestätigt!', 'success')
+        return redirect(url_for('mgb'))
 
 @app.route('/reset_password', methods=['GET', 'POST'])
 def reset_request():
@@ -139,7 +195,7 @@ def change_password():
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('landingPage'))
+    return redirect(url_for('chooseLanguage'))
 
 
 @app.route('/impressum')
@@ -244,19 +300,23 @@ def ebookskurse():
 @app.route('/mgb/profile')
 @login_required
 def profile():
-    return render_template('pages/profile.html', title="Mein Profil", loginRequired=True)
+    user = current_user
+    insta_acc1_info = {}
+    if user.instaid1:
+        insta_acc1_info = get_user_information_by_username(get_user_by_id(user.instaid1))
+    return render_template('pages/profile.html', title="Mein Profil", loginRequired=True, insta_acc1_info=insta_acc1_info)
 
 @app.route('/add-insta-acc', methods=['GET', 'POST'])
 @login_required
 def add_insta_acc():
     form = AddInstaAccForm()
-    if current_user.instaname1:
+    if current_user.instaid1:
         flash('Du hast bereits einen Instagram Account hinzugefügt. Kaufe den Premium-Rang um bis zu drei Accounts hinzuzufügen.', 'success')
         return redirect('mgb/profile')
     else:
         if form.validate_on_submit():
             user = current_user
-            user.instaname1 = form.instaname.data
+            user.instaid1 = get_user_information_by_username(form.instaname.data)["id"]
             db.session.commit()
             return redirect(url_for('profile'))
             flash('Der Instagram Account wurde hinzugefügt!', 'success')
@@ -265,7 +325,7 @@ def add_insta_acc():
 @app.route('/del-insta-acc')
 def del_insta_acc():
     user = current_user
-    user.instaname1 = None
+    user.instaid1 = None
     db.session.commit()
     flash('Der Instagram Account wurde entfernt.', 'success')
     return redirect(url_for('profile'))
@@ -281,7 +341,7 @@ def admin():
         return render_template('pages/admin.html', title="Admin-Dashboard", loginRequired=True, nosidebar=True, nav_links_category='only-login', users=users)
     else:
         flash('Du hast keine Admin Rechte. Haha.', 'no-success')
-        return redirect(url_for('landingPage'))
+        return redirect(url_for('chooseLanguage'))
 
 
 @app.route('/admin/delete/<int:user_id>')
@@ -319,6 +379,6 @@ def admin_change_user_details(user_id):
             return redirect(url_for('admin'))
     else:
         flash('Du hast keine Admin Rechte. Haha.', 'no-success')
-        return redirect(url_for('landingPage'))
+        return redirect(url_for('chooseLanguage'))
     flash('Leere Felder bewirken keine Änderung.', 'info')
     return render_template('pages/admin_change_user_details.html', title=f'Account von {user.username} bearbeiten', form=form, user=user)

@@ -8,3 +8,43 @@ Dateien an den Server übertragen:
 scp -r C:\Users\laure\Desktop\Programmierung\EG-Network.io\eg-network\app laurenz@165.227.154.35:~/eg-network
 
 sudo nano /etc/nginx/sites-enabled/app
+
+python3 -m venv eg-network/venv
+
+source venv/bin/activate
+
+export FLASK_APP=run.py
+
+flask run --host=0.0.0.0
+
+
+
+
+server {
+    listen 80;
+    server_name eg-network.co;
+
+    location /static {
+        alias /home/laurenz/eg-network/app/static;
+    }
+
+    location / {
+        proxy_pass http://localhost:8000;
+        include /etc/nginx/proxy_params;
+        proxy_redirect off;
+    }
+}
+server {
+    listen 80;
+    server_name www.eg-network.co;
+
+    location /static {
+        alias /home/laurenz/eg-network/app/static;
+    }
+
+    location / {
+        proxy_pass http://localhost:8000;
+        include /etc/nginx/proxy_params;
+        proxy_redirect off;
+    }
+}
