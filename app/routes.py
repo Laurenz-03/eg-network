@@ -10,16 +10,24 @@ import pytz
 import requests
 import json
 
+
+# Instagram API
 def get_user_information_by_username(username):
     user_info = {}
-    url = 'https://www.instagram.com/{}/?__a=1'
-    resp = requests.get(url=url.format(username)).json()
-    userdata = resp["graphql"]["user"]
-    user_info["id"] = userdata["id"]
-    user_info["username"] = username
-    user_info["followers"] = userdata["edge_followed_by"]["count"]
-    user_info["following"] = userdata["edge_follow"]["count"]
-    user_info["profile_pic_url"] = userdata["profile_pic_url"]
+    url = 'https://www.instagram.com/'+username+'/?__a=1'
+    print(url)
+    #url = 'https://www.instagram.com/{}/?__a=1'
+    try:
+        resp = requests.get(url=url).json()
+        userdata = resp["graphql"]["user"]
+        user_info["id"] = userdata["id"]
+        user_info["username"] = username
+        user_info["followers"] = userdata["edge_followed_by"]["count"]
+        user_info["following"] = userdata["edge_follow"]["count"]
+        user_info["profile_pic_url"] = userdata["profile_pic_url"]
+    except:
+        flash('Fehler 1', 'no-success')
+        return redirect(url_for('admin'))
     return user_info
 
 def get_user_by_id(user_id):
@@ -62,7 +70,11 @@ def landingPageEN():
 def send_confirm_email(user):
     token = user.get_reset_token()
     msg = Message('Confirm Email', sender='noreply@eg-network.co', recipients=[user.email])
-    msg.body = 'Um deine Email zu bestätigen, klicke auf folgenden Link: ' + url_for('confirm_email', token=token, _external=True)
+    #msg.html = render_template('./EG-Confirm/EG-Confirm-Email.html')
+    msg.body = f'''Hallo {user.username},
+
+um deine Email zu bestätigen, klicke auf folgenden Link:
+{url_for("confirm_email", token=token, _external=True)}'''
     
     mail.send(msg)
 
@@ -115,7 +127,11 @@ def login():
 def send_reset_email(user):
     token = user.get_reset_token()
     msg = Message('Password Reset Request', sender='noreply@eg-network.co', recipients=[user.email])
-    msg.body = 'Um dein Passwort zurückzusetzen, klicke auf folgenden Link: ' + url_for('reset_token', token=token, _external=True)
+    #msg.html = render_template('./EG-Passwort-Reset-Email/EG-Passwort-Reset-Email.html')
+    msg.body = f'''Hallo {user.username},
+
+um dein Passwort zurückzusetzen, klicke auf folgenden Link:
+{url_for("reset_token", token=token, _external=True)}'''
     
     mail.send(msg)
 
@@ -303,7 +319,12 @@ def profile():
     user = current_user
     insta_acc1_info = {}
     if user.instaid1:
-        insta_acc1_info = get_user_information_by_username(get_user_by_id(user.instaid1))
+        try:
+            #insta_acc1_info = get_user_information_by_username('erfolgsarmee')
+            #insta_acc1_info['username'] = get_user_by_id(user.instaid1)
+            insta_acc1_info = get_user_information_by_username(get_user_by_id(user.instaid1))
+        except:
+            insta_acc1_info['username'] = "Fehler"
     return render_template('pages/profile.html', title="Mein Profil", loginRequired=True, insta_acc1_info=insta_acc1_info)
 
 @app.route('/add-insta-acc', methods=['GET', 'POST'])
@@ -316,7 +337,9 @@ def add_insta_acc():
     else:
         if form.validate_on_submit():
             user = current_user
-            user.instaid1 = get_user_information_by_username(form.instaname.data)["id"]
+            res = get_user_information_by_username(form.instaname.data)
+            print(res)
+            user.instaid1 = res["id"]
             db.session.commit()
             return redirect(url_for('profile'))
             flash('Der Instagram Account wurde hinzugefügt!', 'success')
@@ -371,9 +394,9 @@ def admin_change_user_details(user_id):
             user.email = form.email.data if form.email.data else user.email
             user.rang = form.rang.data if form.rang.data else user.rang
             user.eg_level = int(form.eg_level.data) if form.eg_level.data else user.eg_level
-            user.instaname1 = form.instaname1.data if form.instaname1.data else user.instaname1
-            user.instaname2 = form.instaname2.data if form.instaname2.data else user.instaname2
-            user.instaname3 = form.instaname3.data if form.instaname3.data else user.instaname3
+            user.insta1 = int(form.instaname1.data) if form.instaname1.data else int(user.instaname1)
+            user.insta2 = int(form.instaname2.data) if form.instaname2.data else int(user.instaname2)
+            user.insta3 = int(form.instaname3.data) if form.instaname3.data else int(user.instaname3)
             db.session.commit()
             flash('Deine Änderungen wurden gespeichert!', 'success')
             return redirect(url_for('admin'))
