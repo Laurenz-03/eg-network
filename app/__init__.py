@@ -43,19 +43,19 @@ eg_boost_runden = [
         'next-round-duration': [0, 0]
     },
 
-    {
-        'id': 2,
-        'name': 'EG-Boost International',
-        'engage-mode': 'like_save',
-        'tag-profile': 'eg-boost-international',
-        'start-time': datetime.time(20 -2, 30),
-        'upload-end-time': datetime.time(21 -2, 10),
-        'engage-end-time': datetime.time(22 -2, 00),
-        'upload-time-factor': 0,
-        'engage-time-factor': 0,
-        'next-round-duration': [0, 0]
-    },
-
+    #{
+    #    'id': 2,
+    #    'name': 'EG-Boost International',
+    #    'engage-mode': 'like_save',
+    #    'tag-profile': 'eg-boost-international',
+    #    'start-time': datetime.time(20 -2, 30),
+    #    'upload-end-time': datetime.time(21 -2, 10),
+    #    'engage-end-time': datetime.time(22 -2, 00),
+    #    'upload-time-factor': 0,
+    #    'engage-time-factor': 0,
+    #    'next-round-duration': [0, 0]
+    #},
+    
     {
         'id': 3,
         'name': 'EG-Comment Germany',
@@ -69,18 +69,18 @@ eg_boost_runden = [
         'next-round-duration': [0, 0]
     },
 
-    {
-        'id': 4,
-        'name': 'EG-Comment International',
-        'engage-mode': 'comment',
-        'tag-profile': 'eg-boost-international',
-        'start-time': datetime.time(20 -2, 30),
-        'upload-end-time': datetime.time(21 -2, 10),
-        'engage-end-time': datetime.time(22 -2, 00),
-        'upload-time-factor': 0,
-        'engage-time-factor': 0,
-        'next-round-duration': [0, 0]
-    },
+    #{
+    #    'id': 4,
+    #    'name': 'EG-Comment International',
+    #    'engage-mode': 'comment',
+    #    'tag-profile': 'eg-boost-international',
+    #    'start-time': datetime.time(20 -2, 30),
+    #    'upload-end-time': datetime.time(21 -2, 10),
+    #    'engage-end-time': datetime.time(22 -2, 00),
+    #    'upload-time-factor': 0,
+    #    'engage-time-factor': 0,
+    #    'next-round-duration': [0, 0]
+    #},
 ]
 
 app.register_blueprint(errors)

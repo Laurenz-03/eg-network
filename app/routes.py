@@ -47,6 +47,10 @@ def get_user_by_id(user_id):
     return user
 
 
+@app.route('/test')
+def api_test():
+    resp = requests.get(url='https://api.coingecko.com/api/v3/coins/list').json()
+    return str(resp)
 @app.route('/')
 def chooseLanguage():
     if current_user.is_authenticated:
@@ -338,6 +342,7 @@ def add_insta_acc():
         if form.validate_on_submit():
             user = current_user
             res = get_user_information_by_username(form.instaname.data)
+            print('test:')
             print(res)
             user.instaid1 = res["id"]
             db.session.commit()
@@ -394,9 +399,9 @@ def admin_change_user_details(user_id):
             user.email = form.email.data if form.email.data else user.email
             user.rang = form.rang.data if form.rang.data else user.rang
             user.eg_level = int(form.eg_level.data) if form.eg_level.data else user.eg_level
-            user.insta1 = int(form.instaname1.data) if form.instaname1.data else int(user.instaname1)
-            user.insta2 = int(form.instaname2.data) if form.instaname2.data else int(user.instaname2)
-            user.insta3 = int(form.instaname3.data) if form.instaname3.data else int(user.instaname3)
+            user.instaid1 = int(form.instaname1.data) if form.instaname1.data else user.instaid1
+            user.instaid2 = int(form.instaname2.data) if form.instaname2.data else user.instaid2
+            user.instaid3 = int(form.instaname3.data) if form.instaname3.data else user.instaid3
             db.session.commit()
             flash('Deine Änderungen wurden gespeichert!', 'success')
             return redirect(url_for('admin'))

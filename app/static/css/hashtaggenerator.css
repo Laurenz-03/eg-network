@@ -39,8 +39,8 @@
 .copy-btn:hover {
   transform: scale(1.1);
 }
-#htg-output{
-  font-size: .9rem;
+#htg-output {
+  font-size: 0.9rem;
 }
 .custom-select select {
   margin-top: 5px;
@@ -54,4 +54,22 @@
 
 .custom-select select:focus {
   outline: none;
+}
+
+/**** RESPONSIVE *************************/
+@media screen and (max-width: 800px) {
+  .htg-gen-section {
+    flex-direction: column;
+  }
+  .generate-section {
+    border-left: 0;
+    padding-left: 0;
+    margin-left: 0;
+    border-top: 1px solid rgb(158, 158, 158);
+    padding-top: 10px;
+    margin-top: 15px;
+  }
+  .custom-select {
+    margin-bottom: 15px;
+  }
 }

@@ -66,6 +66,7 @@ header {
   top: 0;
   display: flex;
   align-items: center;
+  z-index: 100;
 
   background-color: white;
   box-shadow: 0 1px 4px rgba(146, 161, 176, 0.15);
@@ -220,7 +221,9 @@ fieldset{
   margin-bottom: 10px;
 }
 
-
+.mobile-menu-btn, #mobile-nav{
+  display: none;
+}
 /**** RESPONSIVE *************************/
 @media  screen and (max-width: 800px){
   .sidebar{
@@ -229,4 +232,37 @@ fieldset{
   .main-content{
     margin-right: 0;
   }
+  #nav-links-container{
+    display: none;
+  }
+  
+  #mobile-nav{
+    position: fixed;
+    display: flex;
+    top: var(--header-height);
+    right: -80%;
+    height: calc(100vh - var(--header-height));
+    width: 80%;
+    background-color: #0e2431;
+    z-index: -10;
+    transition: all .5s ease-in-out;
+  }
+  #mobile-nav ul{
+    display: list-item;
+  }
+  #mobile-nav ul li{
+    padding: 20px 0;
+  }
+  #mobile-nav ul li a{
+    color: white;
+    font-weight: 100;
+  }
+  .mobile-menu-btn{
+    display: flex;
+    border: none;
+    background-color: transparent;
+    font-size: 1.5rem;
+    margin-right: 10px;
+  }
+  
 }

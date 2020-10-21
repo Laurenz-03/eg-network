@@ -16,9 +16,9 @@ class User(db.Model, UserMixin):
     eg_level = db.Column(db.Integer(), default=100)
     rang = db.Column(db.String(30), default='kein Rang')
     date_created = db.Column(db.DateTime, default=datetime.now)
-    instaid1 = db.Column(db.Integer)
-    instaid2 = db.Column(db.Integer)
-    instaid3 = db.Column(db.Integer)
+    instaid1 = db.Column(db.Integer())
+    instaid2 = db.Column(db.Integer())
+    instaid3 = db.Column(db.Integer())
     email_confirmed = db.Column(db.String(10), default='false')
 
     def get_confirm_email_token(self, expires_sec=1800):

@@ -539,3 +539,71 @@ img{
 .login-btn:hover{
   background: #2e5ad3;
 }
+
+/*Modalbox/Popup*/
+
+/*div der box, also damit das zentriert ist*/
+.modal {
+  align-items: center;
+  text-align: center;
+  bottom: 0;
+  display: none;
+  justify-content: center;
+  left: 0;
+  opacity: 0;
+  overflow: hidden; /* nicht sichtbar */
+  padding: .8rem;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+ 
+/*Nur div zeigen, wenn target*/
+.modal:target {
+  display: flex;
+  opacity: 1;
+  z-index: 400;
+}
+ 
+/*Einblenden*/
+.modal:target .modal-container {
+  animation: slide-down .2s ease 1;
+  z-index: 1;
+}
+ 
+/*Box*/
+.modal-container {
+  background: #fff;
+  border-radius: .1rem;
+  box-shadow: 0 .2rem .5rem rgba(48, 55, 66, .3);
+  display: flex;
+  flex-direction: column;
+  max-height: 75vh;
+  max-width: 640px;
+  padding: 1.5em;
+  width: 100%;
+  border-radius: 10px;
+}
+.klingtgut-btn {
+  margin-top: 20px;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: #4070F4;
+  background-color: #4070F4;
+  color: #fff;
+  width: 20%;
+  height: 80%;
+  width: 8em;
+  height: 3em;
+  transition: .2s;
+}
+.klingtgut-btn:hover {
+  margin-top: 20px;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: #4070F4;
+  background-color: white;
+  color: #4070F4;
+  width: 8.2em;
+  height: 3.1em;
+}
