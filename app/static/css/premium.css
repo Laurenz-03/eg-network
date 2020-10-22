@@ -1,0 +1,43 @@
+
+.pricing-card{
+    max-width: 360px;
+    border-radius: 25px;
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+    transition: .3s linear;
+}
+.pricing-card-header {
+    background-color: #4070F4;
+    display: inline-block;
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 0 0 20px 20px;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: .4s linear;
+}
+.price {
+    font-size: 70px;
+    color: #4070F4;
+    margin: 40px 0;
+    transition: .2s linear;
+}
+.pricing-card li {
+    font-size: 16px;
+    padding: 10px 0;
+    text-transform: uppercase;
+}
+.order-btn {
+    display: inline-block;
+    margin-bottom: 40px;
+    margin-top: 80px;
+    border: 2px solid#4070F4;
+    color: #4070F4;
+    padding: 18px 40px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: .3s linear;
+}

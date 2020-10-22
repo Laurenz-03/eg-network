@@ -24,28 +24,30 @@
         <div class="tg-group">
             <h4>EG-Austausch Germany</h4>
             <p>Tausche dich mit anderen Influencern aus (auf deutsch)</p>
-            <a href="#" class="join-now-link blue-button">Jetzt beitreten!</a>
+            <a href="https://t.me/joinchat/L8lrUU8OgvlLEzajEdiFsw" class="join-now-link blue-button">Jetzt beitreten!</a>
         </div>
         <div class="tg-group">
             <h4>EG-Austausch International</h4>
             <p>Tausche dich mit anderen Influencern aus (auf englisch)</p>
-            <a href="#" class="join-now-link blue-button">Jetzt beitreten!</a>
+            <a href="https://t.me/joinchat/L8lrUVhn0osKer5OtcMb8w" class="join-now-link blue-button">Jetzt beitreten!</a>
         </div>
         <div class="tg-group">
             <h4>EG-Automatic</h4>
             <p>Hier bekommst du zu jeder Zeit Likes!</p>
-            <a href="#" class="join-now-link blue-button">Jetzt beitreten!</a>
+            <a href="https://t.me/eg_automaticDx10" class="join-now-link blue-button">Jetzt beitreten!</a>
         </div>
         <div class="tg-group">
             <h4>EG-S4S (Shoutout for Shoutout)</h4>
             <p>Auf der Suche nach Shoutouts? Dann bist du hier richtig!</p>
-            <a href="#" class="join-now-link blue-button">Jetzt beitreten!</a>
+            <a href="https://t.me/joinchat/L8lrUVcxSc2isauHxMLYZA" class="join-now-link blue-button">Jetzt beitreten!</a>
         </div>
+        {% if current_user.rang in ["Premium", "Admin"] %}
         <div class="tg-group">
             <h4>EG-Premium</h4>
             <p>Die Austausch-Gruppe für unsere Premium mitglieder.</p>
             <a href="#" class="join-now-link blue-button">Jetzt beitreten!</a>
         </div>
+        {% endif %}
     </div>
 </section>
 

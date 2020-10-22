@@ -10,7 +10,7 @@
   width: 100%;
   margin-right: 2rem;
   box-shadow: #e7e7e7 0px 0px 15px;
-  border-radius: 10px;
+  border-radius: 6px;
   background-size: cover;
 
   display: flex;
@@ -51,7 +51,7 @@
   min-height: 100px;
   width: 100%;
   box-shadow: #e7e7e7 0px 0px 15px;
-  border-radius: 10px;
+  border-radius: 6px;
   background-size: cover;
   padding: 10px 15px;
   transition: all 0.3s ease;
@@ -66,4 +66,18 @@
   text-align: center;
   line-height: 35px;
   margin-top: auto;
+}
+
+/**** RESPONSIVE *************************/
+@media  screen and (max-width: 800px){
+  .tools-container{
+    flex-direction: column;
+  }
+  .tools-container a{
+    margin-bottom: 1.2rem;
+  }
+  .groups-container {
+    grid-template-columns: auto;
+    margin-bottom: 2rem;
+  }
 }

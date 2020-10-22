@@ -37,7 +37,7 @@ ul {
 }
 .rounded-and-shadow {
   box-shadow: #e7e7e7 0px 0px 15px;
-  border-radius: 10px;
+  border-radius: 6px;
 }
 button:focus {
   outline: none;
@@ -48,7 +48,7 @@ button:focus {
   font-size: 1rem;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   height: 2.5rem;
   width: 10rem;
   margin-left: auto;
@@ -134,7 +134,7 @@ header img {
   box-shadow: #e7e7e7 0px 0px 15px;
   margin-top: 10px;
   padding: 13px 20px;
-  border-radius: 10px;
+  border-radius: 6px;
   border-bottom: 12px solid var(--first-color);
 }
 .sidebar-links hr {
