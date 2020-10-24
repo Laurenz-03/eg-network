@@ -41,7 +41,13 @@
                         </div>
                     </div>
                     <div>
-                        <p><i class="fas fa-chevron-right"></i> Beitrag hochladen:</p>
+                        <p><i class="fas fa-chevron-right"></i> 
+                            {% if runde['engage-mode'] == 'like_save' %}
+                            Liken und speichern:
+                            {% elif runde['engage-mode'] == 'comment' %}
+                            Kommentieren:
+                            {% endif %}
+                        </p>
                         <div class=hochladen_engagen>
                             <p>von {{ (runde['start-time'].hour +2 )}}{{ runde['start-time'].strftime(':%M')}}</p>
                             <p>bis {{ (runde['engage-end-time'].hour +2 )}}{{ runde['engage-end-time'].strftime(':%M')}} Uhr</p>
