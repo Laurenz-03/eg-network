@@ -1,0 +1,13 @@
+.blue-button{
+    margin-top: 10px;
+    margin-left: 0;
+    height: 3rem;
+}
+
+/**** RESPONSIVE *************************/
+@media  screen and (max-width: 800px){
+    .blue-button{
+        width: 100%;
+
+    }
+}

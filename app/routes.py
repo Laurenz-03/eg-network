@@ -269,6 +269,11 @@ def logout():
 def impressum():
     return render_template('pages/impressum.html', title="Impressum", nosidebar=True, nav_links_category='only-login')
 
+
+@app.route('/policies')
+def policies():
+    return render_template('pages/policies.html', title="Policies", nosidebar=True, nav_links_category='only-login')
+
 # Alle Seiten im Mitgliederbereich
 @app.route('/mgb')
 @login_required
@@ -289,6 +294,17 @@ def egboost():
 def tools():
     return render_template('pages/tools.html', title="Tools & Gruppen", loginRequired=True)
 
+
+@app.route('/mgb/telegramgroups')
+@login_required
+def telegramgroups():
+    return render_template('pages/telegramgroups.html', title="Telegram Gruppen", loginRequired=True)
+
+
+@app.route('/mgb/tutorials')
+@login_required
+def tutorials():
+    return render_template('pages/tutorials.html', title="Tutorials", loginRequired=True)
 
 @app.route('/mgb/premium')
 @login_required

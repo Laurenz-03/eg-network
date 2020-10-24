@@ -1,0 +1,36 @@
+.groups-container {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 12px;
+  grid-template-columns: auto auto;
+}
+.tg-group {
+  display: flex;
+  flex-direction: column;
+  min-height: 100px;
+  width: 100%;
+  box-shadow: #e7e7e7 0px 0px 15px;
+  border-radius: 6px;
+  background-size: cover;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+}
+.tg-group:hover {
+  transform: scale(1.03);
+}
+
+.join-now-link {
+  height: 35px;
+  width: 9rem;
+  text-align: center;
+  line-height: 35px;
+  margin-top: auto;
+}
+
+/**** RESPONSIVE *************************/
+@media screen and (max-width: 800px) {
+  .groups-container {
+    grid-template-columns: auto;
+    margin-bottom: 2rem;
+  }
+}

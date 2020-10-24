@@ -54,12 +54,13 @@
             <div id="mobile-nav">
                 <ul class="nav-links">
                     <li><a href={{url_for('profile')}}>Mein Profil</a></li>
-                    <li><a href={{url_for('tools')}}>Tools & mehr</a></li>
-                    <li><a href={{url_for('hashtaggenerator')}}>Hashtag-Generator</a></li>
                     <li><a href={{url_for('egboost')}}></i>EG-Boost</a></li>
+                    <li><a href={{url_for('hashtaggenerator')}}>Hashtag-Generator</a></li>
                     <li><a href={{url_for('accountanalyse')}}>Account-Analyse</a></li>
-                    <li><a href={{url_for('shoutoutmatcher')}}>Shoutout-Matcher</a></li>
+                    <!--<li><a href={{url_for('shoutoutmatcher')}}>Shoutout-Matcher</a></li>-->
                     <li><a href={{url_for('ebookskurse')}}>eBooks & Kurse</a></li>
+                    <li><a href={{url_for('telegramgroups')}}>Telegram Gruppen</a></li>
+                    <li><a href={{url_for('tutorials')}}>Tutorials</a></li>
                     <li><a href={{url_for('premium')}}>Premium</a></li>
                 </ul>
 
@@ -76,8 +77,8 @@
                     <li><a href={{url_for('login', mode='register')}}>Registrieren</a></li>
                     {% endif %}
                     {% else %}
-                    <li><a href={{url_for('egboost')}}>EG-Boost</a></li>
-                    <li><a href={{url_for('tools')}}>Tools & mehr</a></li>
+                    <!--<li><a href={{url_for('egboost')}}>EG-Boost</a></li>-->
+                    <!--<li><a href={{url_for('tools')}}>Tools & mehr</a></li>-->
                     <li><a href={{url_for('profile')}}>Mein Profil</a></li>
                     {% endif %}
                 </ul>
@@ -108,13 +109,17 @@
                 <ul class="sidebar-links">
                     <li><a href={{url_for('profile')}}>Mein Profil</a></li>
                     <hr>
-                    <li><a href={{url_for('hashtaggenerator')}}>Hashtag-Generator</a></li>
-                    <hr>
                     <li><a href={{url_for('egboost')}}></i>EG-Boost</a></li>
+                    <hr>
+                    <li><a href={{url_for('hashtaggenerator')}}>Hashtag-Generator</a></li>
                     <hr>
                     <li><a href={{url_for('accountanalyse')}}>Account-Analyse</a></li>
                     <hr>
-                    <li><a href={{url_for('shoutoutmatcher')}}>Shoutout-Matcher</a></li>
+                    <!--<li><a href={{url_for('shoutoutmatcher')}}>Shoutout-Matcher</a></li>
+                    <hr>-->
+                    <li><a href={{url_for('telegramgroups')}}>Telegram Gruppen</a></li>
+                    <hr>
+                    <li><a href={{url_for('tutorials')}}>Tutorials</a></li>
                     <hr>
                     <li><a href={{url_for('ebookskurse')}}>eBooks & Kurse</a></li>
                     <div class="sidebar-infos">
@@ -141,6 +146,7 @@
                 <h2 class="footer__title">EG-Network</h2>
             </a>
             <p><a href={{url_for('impressum')}}>Impressum</a>
+            <a href={{url_for('policies')}}>| Policies</a>
                 {% if current_user.is_authenticated %}
                 | <a href={{url_for('logout')}}>Logout</a>
                 {% endif %}
