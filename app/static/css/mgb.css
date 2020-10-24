@@ -1,0 +1,40 @@
+
+.next-eg-round, .premium-ad{
+    padding: 10px 15px;
+    margin-top: 10px;
+    background: linear-gradient(120deg, #4b7afa , #1417bd);
+}
+.premium-ad{
+    background: linear-gradient(150deg, #ffcc4b, #ff9913);
+
+}
+.next-eg-round h3, .next-eg-round p{
+    color: #fff ;
+}
+.next-eg-round h3{
+    padding-bottom: 5px;
+}
+.next-eg-round div,
+.premium-ad div{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+.next-eg-round i,
+.premium-ad i{
+    font-size: 1.3rem;
+    margin:  0 5px 5px 10%;
+}
+.next-eg-round i{
+    color: #fff;
+}
+.more-tools{
+    margin: 10px 15px;
+}
+.more-tools li{
+    line-height: 2.2rem;
+}
+.more-tools li i{
+    margin-right: 5px;
+}

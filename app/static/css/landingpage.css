@@ -604,6 +604,5 @@ img{
   border-color: #4070F4;
   background-color: white;
   color: #4070F4;
-  width: 8.2em;
-  height: 3.1em;
+  transform: scale(1.02);
 }

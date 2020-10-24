@@ -1,4 +1,46 @@
 {% extends './layout.html' %}
 {% block content %}
+<link rel="stylesheet" href="./../../static/css/mgb.css">
 <h2>Hallo {{ current_user.username }}, willkommen zurück!</h2>
+{% for runde in eg_boost_runden[1:] %}
+<a href={{url_for('egboost')}}>
+    <div class="next-eg-round rounded-and-shadow">
+        <h3>EG-Boost</h3>
+        <div>
+            
+            <p>Die nächste Runde beginnt<br>in 
+                {% if runde['next-round-duration'][0] == 1%}
+                 einer Stunde und 
+                {% elif runde['next-round-duration'][0] == 0 %}
+                {% else %}
+                {{ runde['next-round-duration'][0]}}
+                Stunden und 
+                {% endif %}
+                
+                {% if runde['next-round-duration'][1] == 1%}
+                einer Minute. 
+                {% elif runde['next-round-duration'][1] == 0 and runde['next-round-duration'][0] != 0%}
+                {% else %}
+                {{ runde['next-round-duration'][1]}}
+                 Minuten.</p>
+                {% endif %}
+            <i class="fas fa-arrow-right"></i>
+        </div>
+    </div>
+</a>
+<ul class="more-tools">
+    <a href={{url_for('hashtaggenerator')}}><li><i class="fas fa-chevron-right"></i>Hashtag-Generator</li></a>
+    <a href={{url_for('accountanalyse')}}><li><i class="fas fa-chevron-right"></i>Account-Analyse</li></a>
+</ul>
+
+<a href={{url_for('premium')}}>
+    <div class="premium-ad rounded-and-shadow">
+        <h3>Premium-Rang</h3>
+        <div>    
+            <p>Du möchtest nicht mehr engagen? <br/>Hole dir jetzt für nur einen Euro am Tag den Premium-Rang!</p>        
+            <i class="fas fa-arrow-right"></i>
+        </div>
+    </div>
+</a>
+{% endfor %}
 {% endblock %}

@@ -46,6 +46,53 @@ def get_user_by_id(user_id):
             print("getting user failed, due to '{}'".format(e.message))
     return user
 
+def calc_egboost_times():
+    for runde in eg_boost_runden:
+
+        # aktuelle Zeit und Datum
+        date_now = datetime.datetime.utcnow()
+
+        # time Objekte mit datetime Objekten zu neuen datetime Objekten kombinieren
+        start_time = datetime.datetime.combine(date_now, runde["start-time"])
+        upload_end_time = datetime.datetime.combine(
+            date_now, runde["upload-end-time"])
+
+        # Differenz berechnen (timedelta Objekt entsteht), die Sekunden durch 60 teilen um Minuten zu erhalten
+        upload_anzMinutes = (upload_end_time - start_time).total_seconds() / 60
+
+        upload_minutes_passed = (date_now - start_time).total_seconds() / 60
+        # damit keine negative Zahl rauskommt
+        upload_minutes_passed = 0 if upload_minutes_passed < 0 else upload_minutes_passed
+
+        upload_time_factor = upload_minutes_passed / upload_anzMinutes * 100
+        # damit der Faktor für die Progressbar nicht > 100 wird
+        upload_time_factor = 100 if upload_time_factor > 100 else upload_time_factor
+
+        # time Objekte mit datetime Objekten zu neuen datetime Objekten kombinieren
+        engage_end_time = datetime.datetime.combine(
+            date_now, runde["engage-end-time"])
+
+        # Differenz berechnen (timedelta Objekt entsteht), die Sekunden durch 60 teilen um Minuten zu erhalten
+        engage_anzMinutes = (engage_end_time - start_time).total_seconds() / 60
+
+        engage_minutes_passed = (date_now - start_time).total_seconds() / 60
+        # damit keine negative Zahl rauskommt
+        engage_minutes_passed = 0 if engage_minutes_passed < 0 else engage_minutes_passed
+
+        engage_time_factor = engage_minutes_passed / engage_anzMinutes * 100
+        # damit der Faktor für die Progressbar nicht > 100 wird
+        engage_time_factor = 100 if engage_time_factor > 100 else engage_time_factor
+
+        # berechnen, wann die nächste Runde anfängt
+        next_round_duration = start_time - date_now
+        # print(next_round_duration)
+        m, s = divmod(next_round_duration.total_seconds() + 60, 60)
+        h, m = divmod(m, 60)
+        h = h+24 if h < 0 else h
+
+        runde['next-round-duration'] = [int(h), int(m)]
+        runde['upload-time-factor'] = upload_time_factor
+        runde['engage-time-factor'] = engage_time_factor
 
 @app.route('/test')
 def api_test():
@@ -226,58 +273,14 @@ def impressum():
 @app.route('/mgb')
 @login_required
 def mgb():
-    return render_template('pages/mgb.html', title="Home", loginRequired=True)
+    calc_egboost_times()
+    return render_template('pages/mgb.html', title="Home", loginRequired=True, eg_boost_runden=eg_boost_runden, datetime=datetime)
 
 
 @app.route('/mgb/egboost')
 @login_required
 def egboost():
-    for runde in eg_boost_runden:
-
-        # aktuelle Zeit und Datum
-        date_now = datetime.datetime.utcnow()
-
-        # time Objekte mit datetime Objekten zu neuen datetime Objekten kombinieren
-        start_time = datetime.datetime.combine(date_now, runde["start-time"])
-        upload_end_time = datetime.datetime.combine(
-            date_now, runde["upload-end-time"])
-
-        # Differenz berechnen (timedelta Objekt entsteht), die Sekunden durch 60 teilen um Minuten zu erhalten
-        upload_anzMinutes = (upload_end_time - start_time).total_seconds() / 60
-
-        upload_minutes_passed = (date_now - start_time).total_seconds() / 60
-        # damit keine negative Zahl rauskommt
-        upload_minutes_passed = 0 if upload_minutes_passed < 0 else upload_minutes_passed
-
-        upload_time_factor = upload_minutes_passed / upload_anzMinutes * 100
-        # damit der Faktor für die Progressbar nicht > 100 wird
-        upload_time_factor = 100 if upload_time_factor > 100 else upload_time_factor
-
-        # time Objekte mit datetime Objekten zu neuen datetime Objekten kombinieren
-        engage_end_time = datetime.datetime.combine(
-            date_now, runde["engage-end-time"])
-
-        # Differenz berechnen (timedelta Objekt entsteht), die Sekunden durch 60 teilen um Minuten zu erhalten
-        engage_anzMinutes = (engage_end_time - start_time).total_seconds() / 60
-
-        engage_minutes_passed = (date_now - start_time).total_seconds() / 60
-        # damit keine negative Zahl rauskommt
-        engage_minutes_passed = 0 if engage_minutes_passed < 0 else engage_minutes_passed
-
-        engage_time_factor = engage_minutes_passed / engage_anzMinutes * 100
-        # damit der Faktor für die Progressbar nicht > 100 wird
-        engage_time_factor = 100 if engage_time_factor > 100 else engage_time_factor
-
-        # berechnen, wann die nächste Runde anfängt
-        next_round_duration = start_time - date_now
-        # print(next_round_duration)
-        m, s = divmod(next_round_duration.total_seconds() + 60, 60)
-        h, m = divmod(m, 60)
-        h = h+24 if h < 0 else h
-
-        runde['next-round-duration'] = [int(h), int(m)]
-        runde['upload-time-factor'] = upload_time_factor
-        runde['engage-time-factor'] = engage_time_factor
+    calc_egboost_times()
     return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True, eg_boost_runden=eg_boost_runden, datetime=datetime)
 
 

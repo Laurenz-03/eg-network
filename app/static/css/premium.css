@@ -1,43 +1,144 @@
+* {
+  font-family: "Poppins";
+}
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: top;
+}
+.pricing-table {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: min(1600px, 100%);
+  margin: auto;
+}
 
-.pricing-card{
-    max-width: 360px;
-    border-radius: 25px;
-    text-align: center;
-    cursor: pointer;
-    overflow: hidden;
-    transition: .3s linear;
+.pricing-card {
+  flex: 1;
+  max-width: 360px;
+  background-color: #fff;
+  border-radius: 25px;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  color: #2d2d2d;
+  box-shadow: #e7e7e7 0px 0px 15px;
+  transition: 0.3s linear;
+  height: 660px;
 }
+
 .pricing-card-header {
-    background-color: #4070F4;
-    display: inline-block;
-    color: #fff;
-    padding: 12px 30px;
-    border-radius: 0 0 20px 20px;
-    font-size: 16px;
-    text-transform: uppercase;
-    font-weight: 600;
-    transition: .4s linear;
+  background-color: #4070f4;
+  display: inline-block;
+  color: #fff;
+  padding: 12px 30px;
+  border-radius: 0 0 20px 20px;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: 0.4s linear;
+  margin-top: 15px;
 }
-.price {
-    font-size: 70px;
-    color: #4070F4;
-    margin: 40px 0;
-    transition: .2s linear;
+
+.pricing-card:hover .pricing-card-header {
+  box-shadow: 0 0 0 26em #4070f4;
 }
+
+.price,
+.price span,
+.price sup {
+  font-size: 70px;
+  color: #4070f4;
+  margin: 40px 0;
+  transition: 0.2s linear;
+}
+
+.price sup,
+.price span {
+  font-size: 22px;
+  font-weight: 700;
+  color: #4070f4;
+}
+
+.pricing-card:hover ul li,
+.pricing-card:hover .price,
+.pricing-card:hover .price sup,
+.pricing-card:hover .price span {
+  color: white;
+}
+
 .pricing-card li {
-    font-size: 16px;
-    padding: 10px 0;
-    text-transform: uppercase;
+  font-size: 16px;
+  padding: 10px 0;
+  text-transform: uppercase;
+  transition: 0.4s linear;
 }
+
 .order-btn {
-    display: inline-block;
-    margin-bottom: 40px;
-    margin-top: 80px;
-    border: 2px solid#4070F4;
-    color: #4070F4;
-    padding: 18px 40px;
-    border-radius: 8px;
-    text-transform: uppercase;
-    font-weight: 500;
-    transition: .3s linear;
+  display: inline-block;
+  margin-bottom: 40px;
+  margin-top: 80px;
+  border: 2px solid#4070F4;
+  color: #4070f4;
+  padding: 18px 40px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  font-weight: 500;
+  background-color: white;
+  cursor: pointer;
+  transition: 0.3s linear;
+}
+
+.order-btn:hover {
+  background-color: #4070f4;
+  color: #fff;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  margin: 15% 10%; /* 15% from the top and centered */
+  margin-bottom: 30%;
+  background: #fff;
+  box-shadow: 0 0.2rem 0.5rem rgba(48, 55, 66, 0.3);
+  display: flex;
+  flex-direction: column;
+  max-height: 75vh;
+  max-width: 640px;
+  padding: 1.5em;
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: end;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }

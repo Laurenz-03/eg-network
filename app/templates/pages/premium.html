@@ -1,5 +1,6 @@
 {% extends './layout.html' %}
 {% block content %}
+
 <link rel="stylesheet" href="./../../static/css/premium.css">
 <div class="pricing-card rounded-and-shadow">
     <h3 class="pricing-card-header">Premium</h3>
@@ -11,6 +12,38 @@
         <li><strong>Komplettes</strong> EG-L.ink</li>
         <li><strong>30+</strong> Kurse & eBooks</li>
     </ul>
-    <a href="http://cutt.ly/eg-aufnahme-gruppe" class="order-btn">Direkt kaufen!</a>
+    <a href="https://t.me/felix173"><button id="myBtn" class="order-btn">Direkt kaufen!</button></a>
 </div>
+
+<!-- The Modal 
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <i class="close fas fa-times"></i>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos blanditiis rem quidem repellendus consectetur deserunt, quisquam impedit temporibus necessitatibus dolorem veritatis accusantium sit illum corporis, quae reiciendis ipsum alias aut!. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum, ex aliquid provident nobis temporibus odio numquam neque incidunt id cum optio assumenda possimus suscipit dolorem, praesentium, dicta magni consequuntur? Tempore?</p>
+    </div>
+</div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    // When the user clicks the button, open the modal 
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+-->
 {% endblock %}
