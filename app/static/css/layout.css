@@ -251,11 +251,16 @@ fieldset{
   }
   #mobile-nav ul li{
     padding: 20px 0;
+    margin-left: 1.5rem;
   }
   #mobile-nav ul li a{
     color: white;
     font-weight: 100;
   }
+  #mobile-nav i{
+    padding-right: 1rem;
+  }
+
   .mobile-menu-btn{
     display: flex;
     border: none;
