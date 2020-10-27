@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import app, db, bcrypt, mail, admins, eg_boost_runden
-from app.forms import RegistrationForm, LoginForm, ChangeUsername, ChangePassword, RequestResetForm, ResetPasswordForm, AddInstaAccForm, AdminChangeUserAcc
+from app.forms import RegistrationForm, LoginForm, ChangeUsername, ChangePassword, RequestResetForm, ResetPasswordForm, AddInstaAccForm, AdminChangeUserAcc, AnalyzerForm
 from app.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
@@ -321,12 +321,16 @@ def hashtaggenerator():
     return render_template('pages/hashtaggenerator.html', title="Hashtag-Generator", loginRequired=True)
 
 
-@app.route('/mgb/accountanalyse')
+@app.route('/mgb/accountanalyse', methods=['GET', 'POST'])
 @login_required
 def accountanalyse():
-    return render_template('pages/accountanalyse.html', title="Account-Analyse", loginRequired=True)
+    analyzer_form = AnalyzerForm()
+    if analyzer_form.validate_on_submit():
+        username = analyzer_form.instaname.data
+        return redirect(url_for('analyzeresults', username=username))
+    return render_template('pages/accountanalyse.html', title="Account-Analyse", loginRequired=True, form=analyzer_form)
     
-@app.route('/mgb/accountanalyse/<string:username>')
+@app.route('/mgb/accountanalyse/<username>')
 @login_required
 def analyzeresults(username):
     return render_template('pages/analyzeresults.html', title=str(username), loginRequired=True)

@@ -29,6 +29,8 @@ mail = Mail(app)
 
 admins = ['Laurenz', 'Felix', 'Stan']
 
+smz = 1
+
 eg_boost_runden = [
     {
         'id': 1,

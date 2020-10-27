@@ -56,6 +56,10 @@ button:focus {
 .blue-button:hover{
   transform: scale(1.1);
 }
+.transparent-button{
+  border: 0;
+  background-color: transparent;
+}
 
 /**** HEADER *************************/
 header {

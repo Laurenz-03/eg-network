@@ -118,3 +118,9 @@ class AdminChangeUserAcc(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('Diese Email-Adresse ist bereits vergeben.')
+
+class AnalyzerForm(FlaskForm):
+    instaname = StringField('Instagram Benutzername:',
+                        validators=[DataRequired(), Length(max=60, message='Das Benutzername darf nicht mehr als 60 Zeichen enthalten.')])
+
+    submit = SubmitField('Analysieren')
