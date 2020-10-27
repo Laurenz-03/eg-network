@@ -1,0 +1,4 @@
+Bild-Größen:
+
+Show: 1500px * 1000px
+Product: 923px * 892px

@@ -1,4 +1,14 @@
 {% extends './layout.html' %}
 {% block content %}
+<script src="./../../static/js/eg-analyzer.js"></script>
+<script>
+    function analyze(username){
+        var result = FetchData(username);
+        console.log(result);
+        //var Followers = result.Account.edge_followed_by.count;
+        //console.log(Followers);
+    }
+</script>
 <h2>Account-Analyse</h2>
+<button onclick="analyze('erfolgsarmee')" class="blue-button">Analyze</button>
 {% endblock %}

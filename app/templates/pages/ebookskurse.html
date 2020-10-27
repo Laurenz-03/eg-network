@@ -1,4 +1,246 @@
 {% extends './layout.html' %}
 {% block content %}
+<link rel="stylesheet" href="./../../static/css/ebookskurse.css">
+<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
+
+<!--Skripte wegen Auswahl der Sektionen-->
+
+<script>
+function showSectionEbooks() {
+    var eBooks = document.getElementById("eBooks");
+    var Kurse = document.getElementById("Kurse");
+    var Coachings = document.getElementById("Coachings");
+      eBooks.style.display = "block";
+      Kurse.style.display = "none";
+      Coachings.style.display = "none";
+    }
+</script>
+
+<script>
+function showSectionKurse() {
+    var eBooks = document.getElementById("eBooks");
+    var Kurse = document.getElementById("Kurse");
+    var Coachings = document.getElementById("Coachings");
+      eBooks.style.display = "none";
+      Kurse.style.display = "block";
+      Coachings.style.display = "none";    
+    }
+</script>
+
+<script>
+function showSectionCoachings() {
+    var eBooks = document.getElementById("eBooks");
+    var Kurse = document.getElementById("Kurse");
+    var Coachings = document.getElementById("Coachings");
+      eBooks.style.display = "none";
+      Kurse.style.display = "none";
+      Coachings.style.display = "block"; 
+    }
+</script>
+
+
+<div class="all" id="blur">
+
+
 <h2>eBooks & Kurse</h2>
+
+
+
+<div class="auswahlderkost">
+    <a onclick="showSectionEbooks()" class="auswaahl">
+        <div class="btnAuswahl">
+            eBooks
+        </div>
+    </a>
+    <a class="auswaahl" onclick="showSectionKurse()">
+        <div class="btnAuswahl">
+            Kurse
+        </div>
+    </a>
+    <a class="auswaahl" onclick="showSectionCoachings()">
+        <div class="btnAuswahl">
+            Coachings
+        </div>
+    </a>
+</div>
+
+
+
+<div id="eBooks" class="allListings">
+
+<h3 class="secondHeader">Deine eBooks</h3>
+<div class="deineEbookSektion">
+
+    <section class="productsShow">
+      
+        
+            <div class="productImg">
+                <a href="#" onclick="toggle()" id="ebook_unbegrenztereichweite">
+                <img class="productImgShow" src="./../../static/img/product-imgs/ebooks/show/unbegrenzteReichweite_show.jpg" alt="">
+            </a>   
+            </div>
+      </section>
+
+</div>
+<h3 class="secondHeader">Verfügbare eBooks</h3>
+<div class="verfuegbareEbookSektion">
+
+
+    <section class="productsShow" id="ebook_secretsofinstagram">
+      
+        
+            <div class="productImg">
+                <a href="#" onclick="toggle2()">
+                <img class="productImgShow" src="./../../static/img/product-imgs/ebooks/show/secretsOfInstagram_show.jpg" alt="">
+            </a>
+            </div>   
+      </section>
+
+
+</div>
+
+</div>
+
+
+<div id="Kurse" class="allListings">
+
+    <h3 class="secondHeader">Deine Kurse</h3>
+    <div class="deineKurseSektion">
+    
+    </div>
+    <h3 class="secondHeader">Verfügbare Kurse</h3>
+    <div class="verfuegbareKurseSektion">
+    
+    
+        <section class="productsShow">
+      
+            <a href="#">
+                <div class="productImg">
+                    <img src="./../../static/img/tools-img/eg-analytics-de.png" alt="">
+                </div>
+            </a>   
+          </section>
+    
+    
+    </div>
+    
+</div>
+
+<div id="Coachings" class="allListings">
+
+    <h3 class="secondHeader">Deine Coachings</h3>
+    <div class="deineCoachingsSektion">
+    </div>
+    <h3 class="secondHeader">Verfügbare Coachings</h3>
+    <div class="verfuegbareCoachingsSektion">
+    
+    
+        <section class="productsShow">
+      
+            <a href="#">
+                <div class="productImg">
+                    <img src="./../../static/img/tools-img/eg-analytics-de.png" alt="">
+                </div>
+            </a>   
+          </section>
+    
+    
+    </div>
+    
+</div>
+</div>
+
+<!--SCRIPT FÜR BLUR-POPUP-->
+
+<!--Ebook-Unbegrenzte-Reichweite-->
+
+<script type="text/javascript"> 
+    function toggle(){
+        var blur = document.getElementById('blur');
+        blur.classList.toggle('active');
+        var popup = document.getElementsByClassName('popUp');
+        popUp.classList.toggle('active');
+    }
+</script>
+
+<!--Ebook-Instagram-Secrets-->
+
+<script type="text/javascript"> 
+    function toggle2(){
+        var blur = document.getElementById('blur');
+        blur.classList.toggle('active');
+        var popup = document.getElementsByClassName('popUp2');
+        popUp2.classList.toggle('active');
+    }
+</script>
+<!--SCRIPT FÜR JEWEILIGE AUSWAHL-->
+
+
+
+<!-- HIER KOMMEN NUN DIE POPUPS FÜR JEDES PRODUKT -->
+<!-- HIER KOMMEN NUN DIE POPUPS FÜR JEDES PRODUKT -->
+<!-- HIER KOMMEN NUN DIE POPUPS FÜR JEDES PRODUKT -->
+<!-- HIER KOMMEN NUN DIE POPUPS FÜR JEDES PRODUKT -->
+<!-- HIER KOMMEN NUN DIE POPUPS FÜR JEDES PRODUKT -->
+<!-- HIER KOMMEN NUN DIE POPUPS FÜR JEDES PRODUKT -->
+<!-- HIER KOMMEN NUN DIE POPUPS FÜR JEDES PRODUKT -->
+
+<div id="popUp">
+    <div class="wrapper">
+        <div class="product-img">
+          <img src="./../../static/img/product-imgs/ebooks/product/unbegrenzteReichweite_product.png">
+        </div>
+        <div class="product-info">
+            <a href="#" onclick="toggle()" class="close-btn">✚</a>
+          <div class="product-text">
+            <h1>UNBEGRENZTE REICHWEITE</h1>
+            <h2>von dem EG-Network-Team</h2>
+            <p>In diesem eBook zeigen wir<br> dir genau, waorauf du achten<br> musst, um maximalre Reichweite<br> auf Instagram zu erhalten.<br> Es ist vollkommen kostenlos! </p>
+          </div>
+          <div class="product-price">
+            <p><span>0,00</span>€</p>
+            <a target="_blank" href="https://payhip.com/b/0yno">
+            <button class="buy-btn" type="button">DOWNLOAD</button>
+        </a>
+          </div>
+          
+        </div>
+      </div>
+</div>
+
+<!--2. eBook - Secretsofinstagram-->
+
+<div id="popUp2">
+
+
+        <div class="wrapper">
+            <div class="product-img">
+              <img src="./../../static/img/product-imgs/ebooks/product/secretsofinstagram_product.png">
+            </div>
+            <div class="product-info">
+                <a href="#" onclick="toggle2()" class="close-btn">✚</a>
+              <div class="product-text">
+                <h1>SECRETS OF INSTAGRAM</h1>
+                <h2>von Felix Gooßen</h2>
+                <p>Du wirst in diesem eBook<br> die unbekannten Tricks kennenlernen,<br> die ich selber erst nach jahrelanger<br> Nutzung herausgefunden habe.<br> Besiege damit den Algorithmus!</p>
+              </div>
+              <div class="product-price">
+                <p><span>6,99</span>€</p>
+                <a target="_blank" href="https://payhip.com/b/9mPp">
+                <button class="buy-btn" type="button">KAUFEN</button>
+            </a>
+              </div>
+              
+            </div>
+          </div>
+</div>
+
+
+
+
+
+
+
+
 {% endblock %}

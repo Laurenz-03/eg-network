@@ -253,12 +253,31 @@ fieldset{
     padding: 20px 0;
     margin-left: 1.5rem;
   }
-  #mobile-nav ul li a{
+  #mobile-nav ul li a, #mobile-nav ul p{
     color: white;
     font-weight: 100;
   }
   #mobile-nav i{
     padding-right: 1rem;
+  }
+  #mobile-nav button{
+    color: white;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    font-size: 1.1rem;
+    text-align: start;
+    transition: all 1s ease;
+  }
+  .mobile-nav-tools{
+    display: none;
+    
+    font-size: 1rem;
+    margin-left: 4rem !important;
+    padding: 10px 0 !important;
+  }
+  .mobile-nav-tools a{
+    font-size: 1rem !important;
   }
 
   .mobile-menu-btn{

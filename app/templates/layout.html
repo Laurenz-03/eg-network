@@ -27,6 +27,28 @@
         }
         //document.getElementById("main").style.marginLeft = "250px";
     }
+    var mobileNavToolsStatus = "close";
+    /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
+    function toggleTools() {
+        var toolElements = document.getElementsByClassName("mobile-nav-tools");
+        if (mobileNavToolsStatus === "close") {
+            for (var i = 0, max = toolElements.length; i < max; i++) {
+                toolElements[i].style.display = "block";
+            }
+            document.getElementById("toolButtonIcon").className = "fas fa-chevron-down";
+            //Abstand zwischen Tools und den Unterelementern verkleinern
+            document.getElementById("toolButton").style.paddingBottom = "10px";
+            mobileNavToolsStatus = "open";
+        } else {
+            for (var i = 0, max = toolElements.length; i < max; i++) {
+                toolElements[i].style.display = "none";
+            }
+            document.getElementById("toolButtonIcon").className = "fas fa-chevron-right";
+            document.getElementById("toolButton").style.paddingBottom = "20px";
+            mobileNavToolsStatus = "close";
+        }
+        //document.getElementById("main").style.marginLeft = "250px";
+    }
 </script>
 
 <body>
@@ -54,12 +76,17 @@
             <div id="mobile-nav">
                 <ul class="nav-links">
                     <li><a href={{url_for('profile')}}><i class="fas fa-user"></i>Mein Profil</a></li>
-                    <li><a href={{url_for('egboost')}}><i class="fas fa-rocket"></i>EG-Boost</a></li>
-                    <li><a href={{url_for('hashtaggenerator')}}><i class="fas fa-hashtag"></i>Hashtag-Generator</a></li>
-                    <li><a href={{url_for('accountanalyse')}}><i class="fas fa-chart-line"></i>Account-Analyse</a></li>
+                    <li id="toolButton"><button onClick="toggleTools()"><i id="toolButtonIcon" class="fas fa-chevron-right"></i>Tools</button></li>
+                    <li class="mobile-nav-tools"><a href={{url_for('egboost')}}><i
+                                class="fas fa-rocket"></i>EG-Boost</a></li>
+                    <li class="mobile-nav-tools"><a href={{url_for('hashtaggenerator')}}><i
+                                class="fas fa-hashtag"></i>Hashtag-Generator</a></li>
+                    <li class="mobile-nav-tools"><a href={{url_for('accountanalyse')}}><i
+                                class="fas fa-chart-line"></i>Account-Analyse</a></li>
                     <!--<li><a href={{url_for('shoutoutmatcher')}}>Shoutout-Matcher</a></li>-->
-                    <li><a href={{url_for('ebookskurse')}}><i class="fas fa-graduation-cap"></i>eBooks & Kurse</a></li>
-                    <li><a href={{url_for('telegramgroups')}}><i class="fab fa-telegram-plane"></i>Telegram Gruppen</a></li>
+                    <li class="mobile-nav-tools" style="padding-bottom: 20px !important;"><a href={{url_for('ebookskurse')}}><i class="fas fa-graduation-cap"></i>eBooks & Kurse</a></li>
+                    <li><a href={{url_for('telegramgroups')}}><i class="fab fa-telegram-plane"></i>Telegram Gruppen</a>
+                    </li>
                     <li><a href={{url_for('tutorials')}}><i class="fas fa-university"></i>Tutorials</a></li>
                     <li><a href={{url_for('premium')}}><i class="fas fa-gem"></i>Premium</a></li>
                 </ul>
@@ -146,7 +173,7 @@
                 <h2 class="footer__title">EG-Network</h2>
             </a>
             <p><a href={{url_for('impressum')}}>Impressum</a>
-            <a href={{url_for('policies')}}>| Policies</a>
+                <a href={{url_for('policies')}}>| Policies</a>
                 {% if current_user.is_authenticated %}
                 | <a href={{url_for('logout')}}>Logout</a>
                 {% endif %}

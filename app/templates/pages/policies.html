@@ -1,6 +1,8 @@
 {% extends './layout.html' %}
 {% block content %}
 <link rel="stylesheet" href="./../../static/css/policies.css">
+<script src="./../../static/js/insta-api.js"></script>
+<script src="./../../static/js/eg-analyzer.js"></script>
 
 <h2>Hier geht es zu unseren Policies</h2>
 <a href="https://www.cookiepolicygenerator.com/live.php?token=4VY50jrLnurQ2bFub4Gp9OD1GVb5O32z" target="_blank">
@@ -14,4 +16,7 @@
         Privacy-Policy
     </button>
 </a>
+<button onclick="get_user_information_by_username('zitate.flx')" class="blue-button">API</button>
+<button onclick="apiTest()" class="blue-button">API 2</button>
+<button onclick="console.log(FetchData('erfolgsarmee'))" class="blue-button">Analyzer</button>
 {% endblock %}
