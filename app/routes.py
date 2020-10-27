@@ -100,6 +100,7 @@ def calc_egboost_times():
 def api_test():
     resp = requests.get(url='https://api.coingecko.com/api/v3/coins/list').json()
     return str(resp)
+
 @app.route('/')
 def chooseLanguage():
     if current_user.is_authenticated:
@@ -324,6 +325,11 @@ def hashtaggenerator():
 @login_required
 def accountanalyse():
     return render_template('pages/accountanalyse.html', title="Account-Analyse", loginRequired=True)
+    
+@app.route('/mgb/accountanalyse/<string:username>')
+@login_required
+def analyzeresults(username):
+    return render_template('pages/analyzeresults.html', title=str(username), loginRequired=True)
 
 
 @app.route('/mgb/shoutoutmatcher')

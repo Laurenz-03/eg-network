@@ -258,7 +258,10 @@ fieldset{
     font-weight: 100;
   }
   #mobile-nav i{
-    padding-right: 1rem;
+    width: 40px;
+  }
+  .mobile-nav-tools i{
+    width: 26px !important;
   }
   #mobile-nav button{
     color: white;
@@ -273,7 +276,7 @@ fieldset{
     display: none;
     
     font-size: 1rem;
-    margin-left: 4rem !important;
+    margin-left: 4.1rem !important;
     padding: 10px 0 !important;
   }
   .mobile-nav-tools a{
