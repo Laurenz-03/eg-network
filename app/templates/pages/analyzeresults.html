@@ -2,8 +2,88 @@
 {% block content %}
 
 <link rel="stylesheet" href="./../../static/css/analyzeresults.css">
+<script src="./../../static/js/eg-analyzer.js"></script>
+<script src="./../../static/js/countUp.js"></script>
 
-<h2>Analyse</h2>
+<div class="loader-wrapper">
+    <!-- Loader Nummer 4 -->
+    <div class="box loader-4">
+        <div class="spinner">
+            <div class="loader-circle-1"></div>
+            <div class="loader-circle-2"></div>
+            <div class="loader-circle-3"></div>
+        </div>
+    </div>
+    <h3>Deine Account-Analyse wird geladen...</h3>
+    <a href={{url_for('accountanalyse')}}><button class="blue-button">Abbrechen</button></a>
+</div>
+
+<section id="analyze_results">
+    <div class="profile_info">
+        <img id="profile_pic" src="" alt="">
+        <div class="profile_names">
+            <a href="#" id="username"></a>
+            <p id="full_name"></p>
+        </div>
+    </div>
+    <hr>
+    </hr>
+    <div class="profile_stats">
+        <div class="single_stat">
+            <p class="stat_count" id="followers"></p>
+            <p class="stat_description">Abonnenten</p>
+        </div>
+        <div class="single_stat">
+            <p class="stat_count" id="following"></p>
+            <p class="stat_description">Abonniert</p>
+        </div>
+        <div class="single_stat">
+            <p class="stat_count" id="post_number"></p>
+            <p class="stat_description">Beiträge</p>
+        </div>
+    </div>
+    <section class="more_infos">
+        <img class="more_info_header" src="./../../static/img/brush-stroke-blue.svg" alt="">
+        <h3 class="more_infos_headline">Mehr Infos</h3>
+
+        <div class="eg_rate">
+            <p id="eg_rate_count"></p>
+            <p>Engagement Rate</p>
+        </div>
+        <div class="average_likes_comments">
+            <div>
+                <p>Likes</p>
+                <p id="average_likes"></p>
+            </div>
+            <div>
+                <p>Kommentare</p>
+                <p id="average_comments"></p>
+            </div>
+        </div>
+        <section class="content-info">
+            <h3>Content</h3>
+            <div class="top-mentions">
+                <p>Top Markierungen</p>
+                <table id="top_mentions_table"></table>
+            </div>
+        </section>
+    </section>
+</section>
+
+<script>
+    let loader_wrapper = document.querySelector(".loader-wrapper");
+
+    var path = location.pathname;
+    var directories = path.split("/");
+    var username = directories[(directories.length - 1)];
+    var result;
+    FetchData(username).then((result) => {
+        // Loader entfernen
+        loader_wrapper.parentElement.removeChild(loader_wrapper);
+        document.getElementById("analyze_results").style.display = "flex"
+        analyze(result)
+    })
 
 
+</script>
 {% endblock %}

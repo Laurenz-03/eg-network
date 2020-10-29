@@ -29,7 +29,9 @@ mail = Mail(app)
 
 admins = ['Laurenz', 'Felix', 'Stan']
 
-smz = 1
+smz = 2
+wtz= 1
+zeitfaktor = wtz
 
 eg_boost_runden = [
     {
@@ -37,9 +39,9 @@ eg_boost_runden = [
         'name': 'EG-Boost Germany',
         'engage-mode': 'like_save',
         'tag-profile': 'de_eg.boost',
-        'start-time': datetime.time(20 -2, 30),
-        'upload-end-time': datetime.time(21 -2, 10),
-        'engage-end-time': datetime.time(22 -2, 00),
+        'start-time': datetime.time(20 -zeitfaktor, 30),
+        'upload-end-time': datetime.time(21 -zeitfaktor, 10),
+        'engage-end-time': datetime.time(22 -zeitfaktor, 00),
         'upload-time-factor': 0,
         'engage-time-factor': 0,
         'next-round-duration': [0, 0]
@@ -50,9 +52,9 @@ eg_boost_runden = [
     #    'name': 'EG-Boost International',
     #    'engage-mode': 'like_save',
     #    'tag-profile': 'int_eg.boost',
-    #    'start-time': datetime.time(20 -2, 30),
-    #    'upload-end-time': datetime.time(21 -2, 10),
-    #    'engage-end-time': datetime.time(22 -2, 00),
+    #    'start-time': datetime.time(20 -zeitfaktor, 30),
+    #    'upload-end-time': datetime.time(21 -zeitfaktor, 10),
+    #    'engage-end-time': datetime.time(22 -zeitfaktor, 00),
     #    'upload-time-factor': 0,
     #    'engage-time-factor': 0,
     #    'next-round-duration': [0, 0]
@@ -63,9 +65,9 @@ eg_boost_runden = [
         'name': 'EG-Comment Germany',
         'engage-mode': 'comment',
         'tag-profile': 'de_eg.comment',
-        'start-time': datetime.time(20 -2, 30),
-        'upload-end-time': datetime.time(21 -2, 10),
-        'engage-end-time': datetime.time(22 -2, 00),
+        'start-time': datetime.time(20 -zeitfaktor, 30),
+        'upload-end-time': datetime.time(21 -zeitfaktor, 10),
+        'engage-end-time': datetime.time(22 -zeitfaktor, 00),
         'upload-time-factor': 0,
         'engage-time-factor': 0,
         'next-round-duration': [0, 0]
@@ -76,9 +78,9 @@ eg_boost_runden = [
     #    'name': 'EG-Comment International',
     #    'engage-mode': 'comment',
     #    'tag-profile': 'int_eg.comment',
-    #    'start-time': datetime.time(20 -2, 30),
-    #    'upload-end-time': datetime.time(21 -2, 10),
-    #    'engage-end-time': datetime.time(22 -2, 00),
+    #    'start-time': datetime.time(20 -zeitfaktor, 30),
+    #    'upload-end-time': datetime.time(21 -zeitfaktor, 10),
+    #    'engage-end-time': datetime.time(22 -zeitfaktor, 00),
     #    'upload-time-factor': 0,
     #    'engage-time-factor': 0,
     #    'next-round-duration': [0, 0]

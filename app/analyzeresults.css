@@ -121,11 +121,8 @@ input:-webkit-autofill:active {
   margin-top: -115px;
   color: white;
 }
-.more_infos_headline{
-
-  margin-top: -130px;
-}
 .more_infos h3{
+  margin-top: -130px;
   text-align: center;
   color: white;
   font-size: 26px;
@@ -162,36 +159,9 @@ input:-webkit-autofill:active {
   border: 2px solid #4070f4;
   border-radius: 6px;
   background-color: rgba(40, 70, 250, 0.06)
-  
+
 }
-.content-info{
-  margin-top: 4rem;
-  width: 100%;
-}
-.top-mentions{
-  width: 100%;
-  padding: 10px 15px;
-  background-color: white;
-  border-radius: 6px;
-}
-.top-mentions p{
-  color: black !important;
-  font-size: 14pt;
-  font-weight: bold;
-}
-#top_mentions_table{
-  width: 100%;
-  border-spacing: 0;
-}
-td{
-  border-bottom: 1px solid grey;
-  border-collapse: collapse;
-  padding: 5px 0;
-}
-tr:last-child td{
-  border: none;
-  padding-bottom: 0;
-}
+
 
 /**** LOADER *************************/
 .loader-wrapper{
@@ -287,20 +257,20 @@ tr:last-child td{
   }
   .more_infos{
     min-height: 100vh;
-    min-width: 100vw;
+    width: 100vw;
     background: linear-gradient(160deg, #0F2027, #203A43, #2C5364);
     margin-top: 5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: white;
-    padding: 0 1rem 1rem 1rem;
+    padding: 0 1rem;
   }
-  .more_infos p, .content_infos h3{
+  .more_infos p{
     color: white;
   }
-  .eg_rate, .average_likes_comments div, .words{
-    box-shadow: #111 0px 0px 12px;
+  .eg_rate, .average_likes_comments div{
+    box-shadow: #222 0px 0px 15px;
   
   }
   

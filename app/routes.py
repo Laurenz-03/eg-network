@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request
-from app import app, db, bcrypt, mail, admins, eg_boost_runden
+from app import app, db, bcrypt, mail, admins, eg_boost_runden, zeitfaktor
 from app.forms import RegistrationForm, LoginForm, ChangeUsername, ChangePassword, RequestResetForm, ResetPasswordForm, AddInstaAccForm, AdminChangeUserAcc, AnalyzerForm
 from app.models import User
 from flask_login import login_user, current_user, logout_user, login_required
@@ -289,7 +289,7 @@ def mgb():
 @login_required
 def egboost():
     calc_egboost_times()
-    return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True, eg_boost_runden=eg_boost_runden, datetime=datetime)
+    return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True, eg_boost_runden=eg_boost_runden, datetime=datetime, zeitfaktor=zeitfaktor)
 
 
 @app.route('/mgb/tools')
@@ -326,14 +326,14 @@ def hashtaggenerator():
 def accountanalyse():
     analyzer_form = AnalyzerForm()
     if analyzer_form.validate_on_submit():
-        username = analyzer_form.instaname.data
+        username = analyzer_form.instaname.data.replace(" ", "") #Leerzeichen entfernen
         return redirect(url_for('analyzeresults', username=username))
     return render_template('pages/accountanalyse.html', title="Account-Analyse", loginRequired=True, form=analyzer_form)
     
 @app.route('/mgb/accountanalyse/<username>')
 @login_required
 def analyzeresults(username):
-    return render_template('pages/analyzeresults.html', title=str(username), loginRequired=True)
+    return render_template('pages/analyzeresults.html', title=str(username), loginRequired=True, username=username)
 
 
 @app.route('/mgb/shoutoutmatcher')
