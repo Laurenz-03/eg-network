@@ -36,7 +36,7 @@ def get_user_information_by_username(username):
         user_info["profile_pic_url"] = userdata["profile_pic_url"]
     except:
         flash('Fehler 1', 'no-success')
-        return redirect(url_for('admin'))
+        return redirect(url_for('mgb'))
     return user_info
 
 
@@ -341,7 +341,8 @@ def egboost():
     if current_user.instaid1 == None:
         flash('Um an EG-Boost teilzunehmen, musst du erst deinen Instagram Account verknüpfen.', 'info')
     calc_egboost_times()
-    return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True, eg_boost_runden=eg_boost_runden, datetime=datetime, zeitfaktor=zeitfaktor)
+    instaname = get_user_by_id(current_user.instaid1)
+    return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True, eg_boost_runden=eg_boost_runden, instaname=instaname, datetime=datetime, zeitfaktor=zeitfaktor)
 
 
 @app.route('/mgb/tools')

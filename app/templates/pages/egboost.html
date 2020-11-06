@@ -2,6 +2,17 @@
 {% block content %}
 <link rel="stylesheet" href="./../../static/css/egboost.css">
 
+<script>
+    function openModal(modal) {
+        modal.style.display = "flex";
+
+    }
+    function closeModal(modal) {
+        modal.style.display = "none";
+
+    }
+</script>
+
 <h2>EG-Boost</h2>
 <section class="rounds-container">
     {% for runde in eg_boost_runden %}
@@ -25,7 +36,8 @@
                     <li><i class="fas fa-chevron-right"></i> Premium-Mitglieder müssen nicht engagen. <a
                             href={{url_for('premium')}}> Jetzt Premium kaufen.</a></li>
                 </ul>
-                <button id="myBtn" class="blue-button">Account anfragen</button>
+                <button id="myBtn" class="blue-button" onclick="openModal({{ 'myModal' + runde['id']|string}})">Account
+                    anfragen</button>
             </div>
             <div class="right-area">
 
@@ -60,7 +72,6 @@
                         </div>
                         <div class=progress_bar>
                             <div style="width: {{ runde['engage-time-factor']}}%;">
-                                </>
                             </div>
                         </div>
                     </div>
@@ -85,55 +96,48 @@
             </div>
         </div>
     </div>
+    <!-- The Modal -->
+    <div id="myModal{{ runde['id']|string}}" class="outer-modal">
+        <div class="modal">
+            <div class="modal-top">
+                <i class="close fas fa-times" onclick="closeModal({{ 'myModal' + runde['id']|string}})"></i>
+            </div>
+            <h3>Account hinzufügen</h3>
+            <div class="modal-main">
+
+                <p>Damit nur Mitglieder von EG-Network an den Engagement Runden teilnehmen können, müssen wir dir erst
+                    auf
+                    Instagram folgen bevor du uns markieren kannst.<br /></p>
+                <p>
+                    Mit dem Klick auf "Bestätigen" folgen wir deinem Account <strong>@{{ instaname }}</strong>. Das kann
+                    etwas
+                    Zeit in Anspruch nehmen.</p>
+                <button class="blue-button">Bestätigen</button>
+            </div>
+        </div>
+
+    </div>
     {% endfor %}
 </section>
-
-<!-- The Modal -->
-<div id="myModal" class="outer-modal">
-    <div class="modal">
-        <div class="modal-top">
-            <i class="close fas fa-times"></i>
-        </div>
-        <h3>Account hinzufügen</h3>
-        <div class="modal-main">
-
-            <p>Damit nur Mitglieder von EG-Network an den Engagement Runden teilnehmen können, müssen wir dir erst auf
-                Instagram folgen bevor du uns markieren kannst.<br /></p>
-            <p>
-                Mit dem Klick auf "Bestätigen" folgen wir deinem Account <strong>@erfolgsarmee</strong>. Das kann etwas
-                Zeit in Anspruch nehmen.</p>
-            <button class="blue-button">Bestätigen</button>
-        </div>
-    </div>
-
-</div>
 <script>
-    // Get the modal
-    var modal = document.getElementById("myModal");
 
-    // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks on the button, open the modal
-    btn.onclick = function () {
-        modal.style.display = "flex";
-        var blur = document.getElementById('blur');
-        blur.classList.toggle('active');
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
+    var modals = document.querySelectorAll(".outer-modal");
+    var values = Array.prototype.map.call(modals, function (el) {
+        return el.value;
+    });
+    console.log(values);
+    for (const modal in modals) {
+        console.log(modal.id);
     }
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
-        if (event.target == modal) {
+        //console.log(event.target);
+        if (event.target in modals) {
             modal.style.display = "none";
         }
+
     }
 </script>
+
 {% endblock %}

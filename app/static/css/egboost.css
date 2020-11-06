@@ -126,6 +126,9 @@ h4 {
   display: flex;
   justify-content: flex-end;
 }
+.modal-top i{
+  font-size: 1.2rem;
+}
 .modal h3{
   text-align: center;
   font-size: 1.3rem;
