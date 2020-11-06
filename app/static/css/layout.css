@@ -224,7 +224,7 @@ fieldset{
   margin-bottom: 10px;
 }
 
-.mobile-menu-btn, #mobile-nav{
+.mobile-menu-btn, #outer-mobile-nav{
   display: none;
 }
 /**** RESPONSIVE *************************/
@@ -238,17 +238,23 @@ fieldset{
   #nav-links-container{
     display: none;
   }
-  
-  #mobile-nav{
+  #outer-mobile-nav{
     position: fixed;
     display: flex;
     top: var(--header-height);
-    right: -80%;
+    right: -100%;
     height: calc(100vh - var(--header-height));
-    width: 80%;
-    background-color: #0e2431;
+    width: 100%;
     z-index: -10;
     transition: all .5s ease-in-out;
+    
+    padding-left: 20%;
+    background-color: transparent;
+  }
+  #mobile-nav{
+    background-color: #0e2431;
+    width: 100%;
+
   }
   #mobile-nav ul{
     display: list-item;

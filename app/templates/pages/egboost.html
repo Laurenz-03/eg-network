@@ -7,10 +7,6 @@
         modal.style.display = "flex";
 
     }
-    function closeModal(modal) {
-        modal.style.display = "none";
-
-    }
 </script>
 
 <h2>EG-Boost</h2>
@@ -100,9 +96,9 @@
     <div id="myModal{{ runde['id']|string}}" class="outer-modal">
         <div class="modal">
             <div class="modal-top">
-                <i class="close fas fa-times" onclick="closeModal({{ 'myModal' + runde['id']|string}})"></i>
+                <i class="close fas fa-times"></i>
             </div>
-            <h3>Account hinzufügen</h3>
+            <h3>Account anfragen</h3>
             <div class="modal-main">
 
                 <p>Damit nur Mitglieder von EG-Network an den Engagement Runden teilnehmen können, müssen wir dir erst
@@ -120,22 +116,26 @@
     {% endfor %}
 </section>
 <script>
+    var modalIDs = ["myModal1", "myModal2", "myModal3", "myModal4"];
+    var modalObjects = [];
+    modalIDs.forEach(modalID => {
+        try {
+            modalObject = document.getElementById(modalID);
+            if(modalObject != null){modalObjects.push(modalObject)}
+        } catch {
 
-    var modals = document.querySelectorAll(".outer-modal");
-    var values = Array.prototype.map.call(modals, function (el) {
-        return el.value;
-    });
-    console.log(values);
-    for (const modal in modals) {
-        console.log(modal.id);
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        //console.log(event.target);
-        if (event.target in modals) {
-            modal.style.display = "none";
         }
+    })
+
+
+    // Wenn der close button oder außerhalb geklickt wird, wird das modal geschlossen
+    window.onclick = function (event) {
+        modalObjects.forEach(modalObject => {
+            if (event.target == modalObject || event.target.className.includes("close")) {
+                modalObject.style.display = "none";
+            }
+
+        })
 
     }
 </script>
