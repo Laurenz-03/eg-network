@@ -67,15 +67,31 @@
 
         </div>
     </div>
-    <h3>Mein Engagement Level:</h3>
-    <p>{{ current_user.eg_level }}</p>
-    <p>Was ist das Engagement Level? Zu beginn hast du 100%. Unser Bot kontrolliert jeden Tag das Engagement an 10
-        zufälligen Posts.
-        Wenn du alle Beiträge geliked hast, wird dir nichts von deinem Level abgezogen. Hast du 0 von 10 geliked, wird
-        dir 35%
-        von deinem Level abgezogen. Hast du nur 5 von 10 geliked, so wird dir 20% abgezogen. Für jede Runde, an der du
-        teilnimmst bekommst
-        du 3% Engagement Level.
-    </p>
+    <h3>Engagement Level:</h3>
+    <div class="eg-level-container rounded-and-shadow">
+        <div class="eg-level-text">
+            <p>Mein EG-Level</p><p>{{ current_user.eg_level }}%</p>
+        </div>
+        <div class="eg-level-bar" style="width: {{ current_user.eg_level }}%;"></div>
+    </div>
+    {% if (current_user.eg_level < 20) %}
+    <div class="flash-message-no-success">
+        <p>
+            <strong>Dein EG-Level ist unter 20%</strong><br/>
+            Du bist jetzt für drei Tage von EG-Boost gesperrt!
+        </p>
+    </div>
+    {% endif %}
+    <div class="eg-level-description rounded-and-shadow">
+        <p><strong>Was ist das Engagement Level?</strong><br/> 
+            <i class="fas fa-chevron-right"></i> Zu Beginn hast du 100%. <br/>
+            <i class="fas fa-chevron-right"></i> Unser Bot kontrolliert nach jeder Runde an 10 zufälligen Beiträgen, ob alle Teilnehmer geliked haben.<br/>
+            <i class="fas fa-chevron-right"></i> Wenn du alle Beiträge geliked hast, wird dir nichts von deinem Level abgezogen. <br/>
+            <i class="fas fa-chevron-right"></i> Hast du 0 von 10 geliked, wird dir 35% von deinem Level abgezogen. <br/>
+            <i class="fas fa-chevron-right"></i> Hast du nur 5 von 10 geliked, so wird dir 20% abgezogen. <br/>
+            <i class="fas fa-chevron-right"></i> Für jede Runde, an der du teilnimmst, bekommst du +3% Engagement Level. <br/>
+            <i class="fas fa-chevron-right"></i> Wenn dein EG-Level unter 20% fällt, bist du für drei Tage von EG-Boost gesperrt. <br/>
+        </p>
+    </div>
 </section>
 {% endblock %}

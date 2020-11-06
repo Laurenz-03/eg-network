@@ -1,0 +1,15 @@
+{% extends './layout.html' %}
+{% block content %}
+
+
+<h2>Email-Adresse bestätigen:</h2>
+<form method="POST" action="" class="sign-in-form">
+    {{ form.hidden_tag() }}
+    
+    <button class="submit-btn" style="border: none;">
+      {{ form.submit(class="btn solid blue-button") }}
+    </button>
+
+  </form>
+
+{% endblock %}

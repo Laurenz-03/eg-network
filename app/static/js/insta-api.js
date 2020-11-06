@@ -1,8 +1,11 @@
+
+/*
 function apiTest(){
+    let headers = new Headers({
+        "User-Agent"   : "Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 105.0.0.11.118 (iPhone11,8; iOS 12_3_1; en_US; en-US; scale=2.00; 828x1792; 165586599)"
+    });
     fetch('https://i.instagram.com/api/v1/users/516679301/info/', {
-        headers: {
-            'user-agent':'Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 105.0.0.11.118 (iPhone11,8; iOS 12_3_1; en_US; en-US; scale=2.00; 828x1792; 165586599)'
-            }
+        headers: headers
     })
     .then(res => res.json())
     .then(data => console.log(data));
@@ -26,3 +29,4 @@ function get_user_information_by_username(username){
             console.log(user_info);
         })
 }
+*/

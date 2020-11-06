@@ -1,6 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import app, db, bcrypt, mail, admins, eg_boost_runden, zeitfaktor
-from app.forms import RegistrationForm, LoginForm, ChangeUsername, ChangePassword, RequestResetForm, ResetPasswordForm, AddInstaAccForm, AdminChangeUserAcc, AnalyzerForm
+from app.forms import (RegistrationForm, LoginForm, ChangeUsername, ChangePassword, RequestResetForm, 
+    ResetPasswordForm, AddInstaAccForm, AdminChangeUserAcc, AnalyzerForm, SendConfirmEmailForm)
 from app.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
@@ -11,16 +12,22 @@ import requests
 import json
 
 
+def create_session():
+    cookie = {"name": "sessionid", "value": "27196906023%3AhxTv1pEFwWu3Oh%3A20"}
+    session = requests.Session()
+    session.cookies.set(**cookie)
+    return session
+
 # Instagram API
 def get_user_information_by_username(username):
     user_info = {}
     url = 'https://www.instagram.com/'+username+'/?__a=1'
-    print(url)
-    #url = 'https://www.instagram.com/{}/?__a=1'
+    headers = {
+        'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 105.0.0.11.118 (iPhone11,8; iOS 12_3_1; en_US; en-US; scale=2.00; 828x1792; 165586599)'
+    }
     try:
-        resp = requests.get(url=url, headers={
-            'user-agent':'Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 105.0.0.11.118 (iPhone11,8; iOS 12_3_1; en_US; en-US; scale=2.00; 828x1792; 165586599)'
-        }).json()
+        s = create_session()
+        resp = s.get(url=url, headers=headers).json()
         userdata = resp["graphql"]["user"]
         user_info["id"] = userdata["id"]
         user_info["username"] = username
@@ -32,21 +39,21 @@ def get_user_information_by_username(username):
         return redirect(url_for('admin'))
     return user_info
 
+
 def get_user_by_id(user_id):
+    s = create_session()
     user = {}
     if user_id:
         base_url = "https://i.instagram.com/api/v1/users/{}/info/"
-        #valid user-agent
+        # valid user-agent
         headers = {
-            'user-agent':'Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 105.0.0.11.118 (iPhone11,8; iOS 12_3_1; en_US; en-US; scale=2.00; 828x1792; 165586599)'
+            'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 105.0.0.11.118 (iPhone11,8; iOS 12_3_1; en_US; en-US; scale=2.00; 828x1792; 165586599)'
         }
-        try:
-            res       = requests.get(base_url.format(user_id),headers=headers)
-            user_info = res.json()
-            user      = user_info.get('user',{})["username"]
-        except Exception as e:
-            print("getting user failed, due to '{}'".format(e.message))
+        res = s.get(base_url.format(user_id), headers=headers)
+        user_info = res.json()
+        user = user_info.get('user', {})["username"]
     return user
+
 
 def calc_egboost_times():
     for runde in eg_boost_runden:
@@ -96,10 +103,13 @@ def calc_egboost_times():
         runde['upload-time-factor'] = upload_time_factor
         runde['engage-time-factor'] = engage_time_factor
 
+
 @app.route('/test')
 def api_test():
-    resp = requests.get(url='https://api.coingecko.com/api/v3/coins/list').json()
+    resp = requests.get(
+        url='https://api.coingecko.com/api/v3/coins/list').json()
     return str(resp)
+
 
 @app.route('/')
 def chooseLanguage():
@@ -114,6 +124,7 @@ def landingPageDE():
         return redirect(url_for('mgb'))
     return render_template('pages/landingpageDE.html', title="Startseite", isLandingPage=True, language='de')
 
+
 @app.route('/en')
 def landingPageEN():
     if current_user.is_authenticated:
@@ -121,17 +132,26 @@ def landingPageEN():
     return render_template('pages/landingpageEN.html', title="Homepage", isLandingPage=True, language='en')
 
 # Login und registrieren
+
+
 def send_confirm_email(user):
     token = user.get_reset_token()
-    msg = Message('Confirm Email', sender='noreply@eg-network.co', recipients=[user.email])
+    msg = Message('Confirm Email', sender='noreply@eg-network.co',
+                  recipients=[user.email])
     #msg.html = render_template('./EG-Confirm/EG-Confirm-Email.html')
     msg.body = f'''Hallo {user.username},
 
 um deine Email zu bestätigen, klicke auf folgenden Link:
 {url_for("confirm_email", token=token, _external=True)}'''
-    
+
     mail.send(msg)
 
+
+def email_confirm_required():
+    if current_user.email_confirmed == 'false':
+        send_confirm_email(current_user)
+        flash(f'Um auf diese Funktion Zugriff zu erhalten, musst du deine Email-Adresse bestätigen. Wir haben dir eine Email an {current_user.email} gesendet. Bitte klicke auf den Link in der Email, um deinen Account zu bestätigen.', 'info')
+        return redirect(url_for('mgb'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -177,17 +197,18 @@ def login():
     return render_template('pages/login.html', title="Einloggen", register_form=register_form, login_form=login_form, nosidebar=True, nav_links_category='no-links')
 
 
-
 def send_reset_email(user):
     token = user.get_reset_token()
-    msg = Message('Password Reset Request', sender='noreply@eg-network.co', recipients=[user.email])
+    msg = Message('Password Reset Request',
+                  sender='noreply@eg-network.co', recipients=[user.email])
     #msg.html = render_template('./EG-Passwort-Reset-Email/EG-Passwort-Reset-Email.html')
     msg.body = f'''Hallo {user.username},
 
 um dein Passwort zurückzusetzen, klicke auf folgenden Link:
 {url_for("reset_token", token=token, _external=True)}'''
-    
+
     mail.send(msg)
+
 
 @app.route('/confirm-email/<token>', methods=['GET', 'POST'])
 def confirm_email(token):
@@ -200,6 +221,7 @@ def confirm_email(token):
         db.session.commit()
         flash('Dein Account wurde bestätigt!', 'success')
         return redirect(url_for('mgb'))
+
 
 @app.route('/reset_password', methods=['GET', 'POST'])
 def reset_request():
@@ -224,7 +246,8 @@ def reset_token(token):
         return redirect(url_for('reset_request'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        hashed_password = bcrypt.generate_password_hash(
+            form.password.data).decode('utf-8')
         user.password = hashed_password
         db.session.commit()
         login_user(user)
@@ -245,6 +268,7 @@ def change_username():
         return redirect(url_for('mgb'))
     return render_template('pages/change_username.html', title='Account bearbeiten', form=form)
 
+
 @app.route('/change-password', methods=['GET', 'POST'])
 @login_required
 def change_password():
@@ -252,7 +276,8 @@ def change_password():
     if form.validate_on_submit():
         user = current_user
         if bcrypt.check_password_hash(user.password, form.password.data):
-            hashed_password = bcrypt.generate_password_hash(form.new_password.data).decode('utf-8')
+            hashed_password = bcrypt.generate_password_hash(
+                form.new_password.data).decode('utf-8')
             user.password = hashed_password
             db.session.commit()
             flash('Deine Änderungen wurden gespeichert!', 'success')
@@ -277,6 +302,20 @@ def impressum():
 def policies():
     return render_template('pages/policies.html', title="Policies", nosidebar=True, nav_links_category='only-login')
 
+
+@app.route('/email-not-confirmed', methods=['GET', 'POST'])
+@login_required
+def email_not_confirmed():
+    if current_user.email_confirmed == 'false':
+        flash(f'Um auf diese Funktion Zugriff zu erhalten, musst du deine Email-Adresse bestätigen.', 'info')
+        form = SendConfirmEmailForm()
+        if form.validate_on_submit():
+            send_confirm_email(current_user)
+            flash(f'Die Email zur Bestätigung deines Accounts wurde an {current_user.email} gesendet.', 'success')
+            return redirect(url_for('mgb'))
+    return render_template('pages/email_not_confirmed.html', title="Email bestätigen", form=form)
+
+
 # Alle Seiten im Mitgliederbereich
 @app.route('/mgb')
 @login_required
@@ -288,6 +327,11 @@ def mgb():
 @app.route('/mgb/egboost')
 @login_required
 def egboost():
+    if current_user.email_confirmed == 'false':
+        return redirect(url_for('email_not_confirmed'))
+
+    if current_user.instaid1 == None:
+        flash('Um an EG-Boost teilzunehmen, musst du erst deinen Instagram Account verknüpfen.', 'info')
     calc_egboost_times()
     return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True, eg_boost_runden=eg_boost_runden, datetime=datetime, zeitfaktor=zeitfaktor)
 
@@ -309,6 +353,7 @@ def telegramgroups():
 def tutorials():
     return render_template('pages/tutorials.html', title="Tutorials", loginRequired=True)
 
+
 @app.route('/mgb/premium')
 @login_required
 def premium():
@@ -318,21 +363,30 @@ def premium():
 @app.route('/mgb/hashtaggenerator')
 @login_required
 def hashtaggenerator():
+    if current_user.email_confirmed == 'false':
+        return redirect(url_for('email_not_confirmed'))
     return render_template('pages/hashtaggenerator.html', title="Hashtag-Generator", loginRequired=True)
 
 
 @app.route('/mgb/accountanalyse', methods=['GET', 'POST'])
 @login_required
 def accountanalyse():
+    if current_user.email_confirmed == 'false':
+        return redirect(url_for('email_not_confirmed'))
+
     analyzer_form = AnalyzerForm()
     if analyzer_form.validate_on_submit():
-        username = analyzer_form.instaname.data.replace(" ", "") #Leerzeichen entfernen
+        username = analyzer_form.instaname.data.replace(
+            " ", "")  # Leerzeichen entfernen
         return redirect(url_for('analyzeresults', username=username))
     return render_template('pages/accountanalyse.html', title="Account-Analyse", loginRequired=True, form=analyzer_form)
-    
+
+
 @app.route('/mgb/accountanalyse/<username>')
 @login_required
 def analyzeresults(username):
+    email_confirm_required()
+
     return render_template('pages/analyzeresults.html', title=str(username), loginRequired=True, username=username)
 
 
@@ -357,10 +411,12 @@ def profile():
         try:
             #insta_acc1_info = get_user_information_by_username('erfolgsarmee')
             #insta_acc1_info['username'] = get_user_by_id(user.instaid1)
-            insta_acc1_info = get_user_information_by_username(get_user_by_id(user.instaid1))
+            insta_acc1_info = get_user_information_by_username(
+                get_user_by_id(user.instaid1))
         except:
             insta_acc1_info['username'] = "Fehler"
     return render_template('pages/profile.html', title="Mein Profil", loginRequired=True, insta_acc1_info=insta_acc1_info)
+
 
 @app.route('/add-insta-acc', methods=['GET', 'POST'])
 @login_required
@@ -373,13 +429,12 @@ def add_insta_acc():
         if form.validate_on_submit():
             user = current_user
             res = get_user_information_by_username(form.instaname.data)
-            print('test:')
-            print(res)
             user.instaid1 = res["id"]
             db.session.commit()
             return redirect(url_for('profile'))
             flash('Der Instagram Account wurde hinzugefügt!', 'success')
     return render_template('pages/add_insta_acc.html', title='Instagram Account verknüpfen', form=form)
+
 
 @app.route('/del-insta-acc')
 def del_insta_acc():
@@ -419,6 +474,7 @@ def delete_user(user_id):
         flash('Du hast keine Admin Rechte. Haha.', 'no-success')
         return redirect(url_for('chooseLanguage'))
 
+
 @app.route('/admin/change-user-details/<int:user_id>', methods=['GET', 'POST'])
 def admin_change_user_details(user_id):
     user = User.query.get_or_404(user_id)
@@ -429,10 +485,14 @@ def admin_change_user_details(user_id):
             user.username = form.username.data if form.username.data else user.username
             user.email = form.email.data if form.email.data else user.email
             user.rang = form.rang.data if form.rang.data else user.rang
-            user.eg_level = int(form.eg_level.data) if form.eg_level.data else user.eg_level
-            user.instaid1 = int(form.instaname1.data) if form.instaname1.data else user.instaid1
-            user.instaid2 = int(form.instaname2.data) if form.instaname2.data else user.instaid2
-            user.instaid3 = int(form.instaname3.data) if form.instaname3.data else user.instaid3
+            user.eg_level = int(
+                form.eg_level.data) if form.eg_level.data else user.eg_level
+            user.instaid1 = int(
+                form.instaname1.data) if form.instaname1.data else user.instaid1
+            user.instaid2 = int(
+                form.instaname2.data) if form.instaname2.data else user.instaid2
+            user.instaid3 = int(
+                form.instaname3.data) if form.instaname3.data else user.instaid3
             db.session.commit()
             flash('Deine Änderungen wurden gespeichert!', 'success')
             return redirect(url_for('admin'))

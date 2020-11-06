@@ -124,3 +124,7 @@ class AnalyzerForm(FlaskForm):
                         validators=[DataRequired(), Length(max=60, message='Das Benutzername darf nicht mehr als 60 Zeichen enthalten.')])
 
     submit = SubmitField('Analysieren')
+
+class SendConfirmEmailForm(FlaskForm):
+
+    submit = SubmitField('Email senden')

@@ -27,7 +27,7 @@ app.config['MAIL_USERNAME'] = 'egnetworkcomail@gmail.com'
 app.config['MAIL_PASSWORD'] = '4f98j34h8r0sg4temail'
 mail = Mail(app)
 
-admins = ['Laurenz', 'Felix', 'Stan']
+admins = ['Laurenz', 'Felix']
 
 smz = 2
 wtz= 1

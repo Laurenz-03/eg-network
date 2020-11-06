@@ -1,153 +1,166 @@
 <!DOCTYPE html>
 <html lang="de">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="./../static/img/logo-white.ico" />
-        <link rel="stylesheet" href="./../../static/css/landingpage.css">
-        <!--Icons von Boxicons-->
-        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
 
-        <title>Homepage | EG-Network</title>
-    </head>
-    <body>
-        <!--Header-->
-        <header class="l-header">
-            <nav class="nav bd-grid">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./../static/img/logo-white.ico" />
+    <link rel="stylesheet" href="./../../static/css/landingpage.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+    <!--Icons von Boxicons-->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>Homepage | EG-Network</title>
+</head>
+
+<body>
+    <!--Header-->
+    <header class="l-header">
+        <nav class="nav bd-grid">
+            <div>
+                <a href="#" class="nav__logo"><img src="./../../static/img/logo-blue.png"
+                        class="nav__logoimg">EG-Network</a>
+            </div>
+
+
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#waswirsind" class="nav__link">What we are</a></li>
+                    <li class="nav__item"><a href="#überdasnetzwerk" class="nav__link">About the network</a></li>
+                    <li class="nav__item"><a href="#unseretools" class="nav__link">Our tools</a></li>
+                    <li class="nav__item"><a href="#preise" class="nav__link">Pricing </a></li>
+                    <!--<li class="nav__item"><a href={{url_for('login')}}><button class="login-btn">Login</button></a></li>-->
+                </ul>
+            </div>
+
+            <div class="nav__toggle" id="nav-toggle">
+                <i class='bx bx-menu'></i>
+            </div>
+        </nav>
+    </header>
+
+    <main class="l-main">
+        <!--Home-->
+        <section class="home bd-grid" id="home">
+            <div class="home__data">
+                <h1 class="home__title">We connect.<br>You grow.<br> <span class="home__title-color">EG-Network.</span>
+                </h1>
+
+                <a href="https://t.me/joinchat/L8lrUVDPxgrfaggcRwVZag" class="button">Join now!</a>
+                <!--<a href={{ url_for('login', mode='register') }} class="button">Join now!</a>-->
+            </div>
+
+            <div class="home__social">
+            </div>
+
+            <div class="home__img">
+                <img src="./../../static/img/home.png" alt="">
+            </div>
+        </section>
+
+        <!--Über uns-->
+        <section class="about section " id="waswirsind">
+            <h2 class="section-title">What we are</h2>
+
+            <div class="about__container bd-grid">
+                <div class="about__img">
+                    <img src="./../../static/img/wasdubekommst.png" alt="">
+                </div>
+
                 <div>
-                    <a href="#" class="nav__logo"><img src="./../../static/img/logo-blue.png" class="nav__logoimg">EG-Network</a>
+                    <h2 class="about__subtitle">Your platform for Instagram that gives you everything you need (for
+                        free).</h2>
+                    <p class="about__text">EG-Network is more than just a network in which you can establish contact
+                        with major influencers and let your reach skyrocket through daily engagement rounds. We give you
+                        tools for Instagram to find the perfect hashtags, view all your statistics and access our large
+                        media library of courses, eBooks and everything else you need!
+                    </p><br> <a href="https://t.me/joinchat/L8lrUVDPxgrfaggcRwVZag" class="button">Join now!</a>
+                    <!--</p><br> <a href={{ url_for('login', mode='register') }} class="button">Join now!</a> -->
                 </div>
+            </div>
+        </section>
 
+        <!--Über das Netzwerk-->
+        <section class="skills section" id="überdasnetzwerk">
+            <h2 class="section-title">About the network</h2>
 
+            <div class="skills__container bd-grid">
+                <div>
+                    <h2 class="skills__subtitle">People from all over the world have joined us.</h2>
+                    <p class="skills__text">Our network is represented in German-speaking, but also in English-speaking
+                        countries! With over 1000 active members, we are one of the largest Instagram networks
+                        worldwide! With these you can exchange your likes every day under our control in order to let
+                        your reach on Instagram skyrocket!
+                    </p>
+                    <div class="skills__data">
+                        <div class="skills__names">
+                            <i class='bx bx-group' style='color:#4070F4'></i>
+                            <span class="skills__name"> &nbsp; &nbsp; Members</span>
+                        </div>
+                        <div class="skills__bar skills__html">
 
-                <div class="nav__menu" id="nav-menu">
-                    <ul class="nav__list">
-                        <li class="nav__item"><a href="#waswirsind" class="nav__link">What we are</a></li>
-                        <li class="nav__item"><a href="#überdasnetzwerk" class="nav__link">About the network</a></li>
-                        <li class="nav__item"><a href="#unseretools" class="nav__link">Our tools</a></li>
-                        <li class="nav__item"><a href="#preise" class="nav__link">Pricing </a></li>
-                        <!--<li class="nav__item"><a href={{url_for('login')}}><button class="login-btn">Login</button></a></li>-->
-                    </ul>
-                </div>
+                        </div>
+                        <div>
+                            <span class="skills__percentage">1000+</span>
+                        </div>
+                    </div>
+                    <div class="skills__data">
+                        <div class="skills__names">
+                            <i class='bx bxs-heart' style='color:#4070f4'></i>
+                            <span class="skills__name">&nbsp;&nbsp;Daily likes</span>
+                        </div>
+                        <div class="skills__bar skills__css">
 
-                <div class="nav__toggle" id="nav-toggle">
-                    <i class='bx bx-menu'></i>
-                </div>
-            </nav>
-        </header>
+                        </div>
+                        <div>
+                            <span class="skills__percentage">200+</span>
+                        </div>
+                    </div>
+                    <div class="skills__data">
+                        <div class="skills__names">
+                            <i class='bx bx-world' style='color:#4070f4'></i>
+                            <span class="skills__name">&nbsp;&nbsp;Different countries</span>
+                        </div>
+                        <div class="skills__bar skills__js">
 
-        <main class="l-main">
-            <!--Home-->
-            <section class="home bd-grid" id="home">
-                <div class="home__data">
-                    <h1 class="home__title">We connect.<br>You grow.<br> <span class="home__title-color">EG-Network.</span></h1>
+                        </div>
+                        <div>
+                            <span class="skills__percentage">7</span>
+                        </div>
+                    </div>
+                    <div class="skills__data">
+                        <div class="skills__names">
+                            <i class='bx bx-chart' style='color:#4070f4'></i>
+                            <span class="skills__name">&nbsp;&nbsp;Total followers</span>
+                        </div>
+                        <div class="skills__bar skills__ux">
 
+                        </div>
+                        <div>
+                            <span class="skills__percentage">1 Million+</span>
+                        </div>
+                    </div> <br>
                     <a href="https://t.me/joinchat/L8lrUVDPxgrfaggcRwVZag" class="button">Join now!</a>
                     <!--<a href={{ url_for('login', mode='register') }} class="button">Join now!</a>-->
                 </div>
 
-                <div class="home__social">
-                    <a href="#waswirsind" class="home__social-icon"><i class='bx bxs-arrow-from-top'></i></a>
+                <div>
+                    <img src="./../../static/img/überdasnetzwerk.png" alt="" class="skills__img">
                 </div>
+            </div>
+        </section>
 
-                <div class="home__img">    
-                    <img src="./../../static/img/home.png" alt="">
-                </div>
-            </section>
+        <!--Unsere Tools-->
+        <section class="work section" id="unseretools">
+            <h2 class="section-title">Our tools</h2>
 
-            <!--Über uns-->
-            <section class="about section " id="waswirsind">
-                <h2 class="section-title">What we are</h2>
-
-                <div class="about__container bd-grid">
-                    <div class="about__img">
-                        <img src="./../../static/img/wasdubekommst.png" alt="">
-                    </div>
-                    
-                    <div>
-                        <h2 class="about__subtitle">Your platform for Instagram that gives you everything you need (for free).</h2>
-                        <p class="about__text">EG-Network is more than just a network in which you can establish contact with major influencers and let your reach skyrocket through daily engagement rounds. We give you tools for Instagram to find the perfect hashtags, view all your statistics and access our large media library of courses, eBooks and everything else you need!
-                        </p><br> <a href="https://t.me/joinchat/L8lrUVDPxgrfaggcRwVZag" class="button">Join now!</a>         
-                        <!--</p><br> <a href={{ url_for('login', mode='register') }} class="button">Join now!</a> -->        
-                    </div>                                   
-                </div>
-            </section>
-
-            <!--Über das Netzwerk-->
-            <section class="skills section" id="überdasnetzwerk">
-                <h2 class="section-title">About the network</h2>
-
-                <div class="skills__container bd-grid">          
-                    <div>
-                        <h2 class="skills__subtitle">People from all over the world have joined us.</h2>
-                        <p class="skills__text">Our network is represented in German-speaking, but also in English-speaking countries! With over 1000 active members, we are one of the largest Instagram networks worldwide! With these you can exchange your likes every day under our control in order to let your reach on Instagram skyrocket!
-                        </p>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bx-group' style='color:#4070F4'  ></i>
-                                <span class="skills__name">  &nbsp; &nbsp; Members</span>
-                            </div>
-                            <div class="skills__bar skills__html">
-
-                            </div>
-                            <div>
-                                <span class="skills__percentage">1000+</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bxs-heart' style='color:#4070f4' ></i>
-                                <span class="skills__name">&nbsp;&nbsp;Daily likes</span>
-                            </div>
-                            <div class="skills__bar skills__css">
-                                
-                            </div>
-                            <div>
-                                <span class="skills__percentage">200+</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bx-world' style='color:#4070f4'  ></i>
-                                <span class="skills__name">&nbsp;&nbsp;Different countries</span>
-                            </div>
-                            <div class="skills__bar skills__js">
-                                
-                            </div>
-                            <div>
-                                <span class="skills__percentage">7</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bx-chart' style='color:#4070f4'  ></i>
-                                <span class="skills__name">&nbsp;&nbsp;Total followers</span>
-                            </div>
-                            <div class="skills__bar skills__ux">
-                                
-                            </div>
-                            <div>
-                                <span class="skills__percentage">1 Million+</span>
-                            </div>
-                        </div> <br> 
-                        <a href="https://t.me/joinchat/L8lrUVDPxgrfaggcRwVZag" class="button">Join now!</a>
-                        <!--<a href={{ url_for('login', mode='register') }} class="button">Join now!</a>-->
-                    </div>
-                    
-                    <div>              
-                        <img src="./../../static/img/überdasnetzwerk.png" alt="" class="skills__img">
-                    </div>
-                </div>
-            </section>
-
-            <!--Unsere Tools-->
-            <section class="work section" id="unseretools">
-                <h2 class="section-title">Our tools</h2>
-
-                <div class="work__container bd-grid">
+            <div class="work__container bd-grid">
 
 
-                    <a href="#modal-boost">
+                <a href="#modal-boost">
                     <div class="work__img">
                         <img src="./../../static/img/tools-img/eg-boost-en.png" alt="">
                     </div>
@@ -160,139 +173,173 @@
 
 
                     <a href="#modal-hashtags">
-                    <div class="work__img">
-                        <img src="./../../static/img/tools-img/eg-hashtags-en.png" alt="">
-                    </div>
+                        <div class="work__img">
+                            <img src="./../../static/img/tools-img/eg-hashtags-en.png" alt="">
+                        </div>
+                    </a>
+
+                    <a href="#modal-groups">
+                        <div class="work__img">
+                            <img src="./../../static/img/tools-img/eg-groups-en.png" alt="">
+                        </div>
+                    </a>
+
+                    <a href="#modal-library">
+                        <div class="work__img">
+                            <img src="./../../static/img/tools-img/eg-library-en.png" alt="">
+                        </div>
+                    </a>
+
+                    <a href="#modal-link">
+                        <div class="work__img">
+                            <img src="./../../static/img/tools-img/eg-link-en.png" alt="">
+                        </div>
+                    </a>
+
+
+            </div>
+        </section>
+        <div id="modal-boost" class="modal">
+            <div class="modal-container">
+                <h3>EG-Boost</h3>
+                <p>With EG-Boost, our engagement group, you get around 200 likes & saves every day! The exchange of
+                    engagement works with a completely new concept, which is not detectable by Instagram.</p>
+                <a href="#unseretools">
+                    <button class="klingtgut-btn">Nice!</button>
                 </a>
+            </div>
+        </div>
 
-                <a href="#modal-groups">
-                    <div class="work__img">
-                        <img src="./../../static/img/tools-img/eg-groups-en.png" alt="">
-                    </div>
+        <div id="modal-analytics" class="modal">
+            <div class="modal-container">
+                <h3>EG-Analytics</h3>
+                <p> With the help of EG-Analytics you can closely follow your account growth, view your best posts,
+                    observe many statistics on your engagement and most importantly: use our unique comparison tool
+                    where you can compare your account with that of a competitor.</p>
+                <a href="#unseretools">
+                    <button class="klingtgut-btn">Nice!</button>
                 </a>
+            </div>
+        </div>
 
-                <a href="#modal-library">
-                    <div class="work__img">
-                        <img src="./../../static/img/tools-img/eg-library-en.png" alt="">
-                    </div>
+        <div id="modal-hashtags" class="modal">
+            <div class="modal-container">
+                <h3>EG-Hashtags</h3>
+                <p>One of our most important tools! With our hashtag-generator you can generate the perfect hashtags for
+                    your post in a few seconds! Reach more people, get more followers and above all: Take the chance,
+                    use EG-hashtags! </p>
+                <a href="#unseretools">
+                    <button class="klingtgut-btn">Nice!</button>
                 </a>
+            </div>
+        </div>
 
-                <a href="#modal-link">
-                    <div class="work__img">
-                        <img src="./../../static/img/tools-img/eg-link-en.png" alt="">
-                    </div>
-                </a>
-
-
-                </div>
-            </section>
-            <div id="modal-boost" class="modal">
-                <div class="modal-container">
-                 <h3>EG-Boost</h3>
-                  <p>With EG-Boost, our engagement group, you get around 200 likes & saves every day! The exchange of engagement works with a completely new concept, which is not detectable by Instagram.</p>
+        <div id="modal-groups" class="modal">
+            <div class="modal-container">
+                <h3>EG-Groups</h3>
+                <p>The EG-Network will not only help you technically, but also communicatively! Through our telegram
+                    groups you will be in contact with over 1,000 people, all of whom want more reach on Instagram.
+                    Exchange ideas, make contacts, use the EG-Groups!
                     <a href="#unseretools">
-                  <button class="klingtgut-btn">Nice!</button>
-                </a>
-                </div>
-               </div>
+                        <button class="klingtgut-btn">Nice!</button>
+                    </a>
+            </div>
+        </div>
 
-               <div id="modal-analytics" class="modal">
-                <div class="modal-container">
-                 <h3>EG-Analytics</h3>
-                 <p> With the help of EG-Analytics you can closely follow your account growth, view your best posts, observe many statistics on your engagement and most importantly: use our unique comparison tool where you can compare your account with that of a competitor.</p>
-                 <a href="#unseretools">
-                  <button class="klingtgut-btn">Nice!</button>
+        <div id="modal-library" class="modal">
+            <div class="modal-container">
+                <h3>EG-Library</h3>
+                <p>The EG-library is full of courses, eBooks and videos, which contain a lot of knowledge about
+                    instagram, branding, selling and much more! They are created exclusively for EG-Network members only
+                    and there are also many eBooks and videos (even one course) included for free!</p>
+                <a href="#unseretools">
+                    <button class="klingtgut-btn">Nice!</button>
                 </a>
-                </div>
-               </div>
+            </div>
+        </div>
 
-               <div id="modal-hashtags" class="modal">
-                <div class="modal-container">
-                 <h3>EG-Hashtags</h3>
-                 <p>One of our most important tools! With our hashtag-generator you can generate the perfect hashtags for your post in a few seconds! Reach more people, get more followers and above all: Take the chance, use EG-hashtags! </p>
-                 <a href="#unseretools">
-                  <button class="klingtgut-btn">Nice!</button>
+        <div id="modal-link" class="modal">
+            <div class="modal-container">
+                <h3>EG-Links</h3>
+                <p>With EG-L.INK you will shorten your links very fast! This is helpful for the aesthetics of your
+                    biography, for affiliate marketing and of course to make space!</p>
+                <a href="#unseretools">
+                    <button class="klingtgut-btn">Nice!</button>
                 </a>
-                </div>
-               </div>
+            </div>
+        </div>
 
-               <div id="modal-groups" class="modal">
-                <div class="modal-container">
-                 <h3>EG-Groups</h3>
-                 <p>The EG-Network will not only help you technically, but also communicatively! Through our telegram groups you will be in contact with over 1,000 people, all of whom want more reach on Instagram. Exchange ideas, make contacts, use the EG-Groups!
-                    <a href="#unseretools">
-                  <button class="klingtgut-btn">Nice!</button>
-                </a>
-                </div>
-               </div>
-
-               <div id="modal-library" class="modal">
-                <div class="modal-container">
-                 <h3>EG-Library</h3>
-                 <p>The EG-library is full of courses, eBooks and videos, which contain a lot of knowledge about instagram, branding, selling and much more! They are created exclusively for EG-Network members only and there are also many eBooks and videos (even one course) included for free!</p>
-                 <a href="#unseretools">
-                  <button class="klingtgut-btn">Nice!</button>
-                </a>
-                </div>
-               </div>
-
-               <div id="modal-link" class="modal">
-                <div class="modal-container">
-                 <h3>EG-Links</h3>
-                 <p>With EG-L.INK you will shorten your links very fast! This is helpful for the aesthetics of your biography, for affiliate marketing and of course to make space!</p>
-                    <a href="#unseretools">
-                  <button class="klingtgut-btn">Nice!</button>
-                </a>
-                </div>
-               </div>
-
-            <!--Preislisten-->
-            <section class="Preise bd-grid" id="preise">
+        <!--Preislisten-->
+        <section class="Preise bd-grid" id="preise">
             <div class="pricing-table">
                 <div class="pricing-card">
-                  <h3 class="pricing-card-header">Free</h3>
-                  <div class="price"><sup>$</sup>0<span>/MO</span></div>
-                  <ul>
-                    <li><strong>200+</strong> Likes per day</li>
-                    <li><strong>Limited</strong> EG-Analytics</li>
-                    <li><strong>Limited</strong> EG-Hahstags</li>
-                    <li><strong>Limited</strong> EG-L.ink</li>
-                    <li><strong>3</strong> Courses & eBooks</li>
-                  </ul>
-                  <a href="https://t.me/joinchat/L8lrUVDPxgrfaggcRwVZag" class="order-btn">Join now for free!</a>
-                  <!--<a href={{ url_for('login', mode='register') }} class="order-btn">Join now for free!</a>-->
+                    <h3 class="pricing-card-header">Free</h3>
+                    <div class="price"><sup>$</sup>0<span>/MO</span></div>
+                    <ul>
+                        <li><strong>200+</strong> Likes per day</li>
+                        <li><strong>Limited</strong> EG-Analytics</li>
+                        <li><strong>Limited</strong> EG-Hahstags</li>
+                        <li><strong>Limited</strong> EG-L.ink</li>
+                        <li><strong>3</strong> Courses & eBooks</li>
+                    </ul>
+                    <a href="https://t.me/joinchat/L8lrUVDPxgrfaggcRwVZag" class="order-btn">Join now for free!</a>
+                    <!--<a href={{ url_for('login', mode='register') }} class="order-btn">Join now for free!</a>-->
                 </div>
-            
+
                 <div class="pricing-card">
-                  <h3 class="pricing-card-header">Premium</h3>
-                  <div class="price"><sup>$</sup>30<span>/MO</span></div>
-                  <ul>
-                    <li><strong>200+</strong> Likes per day without engagement</li>
-                    <li><strong>Full</strong> EG-Analytics</li>
-                    <li><strong>Full</strong> EG-Hashtags</li>
-                    <li><strong>Full</strong> EG-L.ink</li>
-                    <li><strong>30+</strong> Courses & eBooks</li>
-                  </ul>
-                  <a href="https://t.me/joinchat/L8lrUVDPxgrfaggcRwVZag" class="order-btn">Buy now!</a>
+                    <h3 class="pricing-card-header">Premium</h3>
+                    <div class="price"><sup>$</sup>30<span>/MO</span></div>
+                    <ul>
+                        <li><strong>200+</strong> Likes per day without engagement</li>
+                        <li><strong>Full</strong> EG-Analytics</li>
+                        <li><strong>Full</strong> EG-Hashtags</li>
+                        <li><strong>Full</strong> EG-L.ink</li>
+                        <li><strong>30+</strong> Courses & eBooks</li>
+                    </ul>
+                    <a href="https://t.me/joinchat/L8lrUVDPxgrfaggcRwVZag" class="order-btn">Buy now!</a>
                 </div>
-            </section>
-            
-                
-              </div>
-        </main>
-
-        <!--Footer-->
-        <footer class="footer">
-            <p class="footer__title">EG-Network</p>
-                <a href={{url_for('impressum')}}>Impressum</a>
-            <p>&#169; 2020 copyright all rights reserved</p>
-        </footer>
+        </section>
 
 
-        <!--Scrollreveal oder so-->
-        <script src="https://unpkg.com/scrollreveal"></script>
+        </div>
+    </main>
 
-        <!--Javascript halt-->
-        <script src="./../../static/js/landingpage.js"></script>
-    </body>
+    <!--Footer-->
+    <footer class="footer">
+        <p class="footer__title">EG-Network</p>
+        <a href={{url_for('impressum')}}>Impressum</a>
+        <p>&#169; 2020 copyright all rights reserved</p>
+    </footer>
+
+
+    <!--Scrollreveal oder so-->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <!--Javascript halt-->
+    <script src="./../../static/js/landingpage.js"></script>
+</body>
+
+<script>
+    window.cookieconsent.initialise({
+        "palette": {
+            "popup": {
+                "background": "#0e2431"
+            },
+            "button": {
+                "background": "#fff",
+                "text": "#0e2431"
+            }
+        },
+        "theme": "classic",
+        "position": "bottom-left",
+        "type": "info",
+        "content": {
+            "message": "We use cookies to provide you a better experience on our website. We hope, it's okay for you.",
+            "dismiss": "OK, THANKS 😊",
+            "link": "More information",
+            "href": "https://www.eg-network.co/policies"
+        }
+    });
+</script>
+
 </html>

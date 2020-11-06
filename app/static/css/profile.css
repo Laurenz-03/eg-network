@@ -116,6 +116,30 @@ section{
   justify-content: space-between;
 }
 
+/**** EG-LEVEL *************************/
+.eg-level-container{
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.eg-level-text{
+  padding: 8px 15px 5px 15px;
+  display: flex;
+  justify-content: space-between;
+}
+.eg-level-bar{
+  height: 6px;
+  background-color: #4070f4;
+  border-radius: 2px;
+}
+.eg-level-description{
+  padding: 10px 15px;
+}
+.flash-message-no-success{
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
 /**** RESPONSIVE *************************/
 @media  screen and (max-width: 800px){
   .profile-section .top {

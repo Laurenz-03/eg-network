@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./../static/img/logo-white.ico" />
     <link rel="stylesheet" href="./../../static/css/landingpage.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
     <!--Icons von Boxicons-->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
 
@@ -51,7 +54,6 @@
             </div>
 
             <div class="home__social">
-                <a href="#waswirsind" class="home__social-icon"><i class='bx bxs-arrow-from-top'></i></a>
             </div>
 
             <div class="home__img">
@@ -315,5 +317,28 @@
     <!--Javascript halt-->
     <script src="./../../static/js/landingpage.js"></script>
 </body>
+
+<script>
+    window.cookieconsent.initialise({
+        "palette": {
+            "popup": {
+                "background": "#0e2431"
+            },
+            "button": {
+                "background": "#fff",
+                "text": "#0e2431"
+            }
+        },
+        "theme": "classic",
+        "position": "bottom-left",
+        "type": "info",
+        "content": {
+            "message": "Wir setzen Cookies für eine bessere Nutzung dieser Website ein. Wir hoffen, das ist ok für dich.",
+            "dismiss": "OK, DANKE 😊",
+            "link": "Mehr dazu",
+            "href": "https://www.eg-network.co/policies"
+        }
+    });
+</script>
 
 </html>

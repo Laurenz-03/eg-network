@@ -64,13 +64,12 @@ input:-webkit-autofill:active {
   justify-content: center;
 }
 
-
-#analyze_results{
+#analyze_results {
   display: none;
   flex-direction: column;
   align-items: center;
 }
-.main-content{
+.main-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,7 +79,7 @@ input:-webkit-autofill:active {
   align-items: center;
   margin-bottom: 1rem;
 }
-.profile_info .profile_names{
+.profile_info .profile_names {
   display: flex;
   flex-direction: column;
 }
@@ -90,47 +89,46 @@ input:-webkit-autofill:active {
   width: 62px;
   margin-right: 1rem;
 }
-.main-content hr{
+.main-content hr {
   width: 120%;
   border: none;
   border-top: 1px solid #aaa;
 }
-.profile_stats{
+.profile_stats {
   display: flex;
   margin-top: 1rem;
   margin-bottom: 2rem;
 }
-.single_stat{
+.single_stat {
   display: flex;
   flex-direction: column;
   align-items: center;
   border-right: 2px solid #aaa;
-  padding-right: .5rem;
-  margin-right: .5rem;
+  padding-right: 0.5rem;
+  margin-right: 0.5rem;
 }
-.single_stat:last-child{
+.single_stat:last-child {
   border: none;
   padding-right: 0;
   margin-right: 0;
 }
-.stat_count{
+.stat_count {
   font-size: 18pt;
 }
-.more_info_header{
+.more_info_header {
   height: 220px;
   margin-top: -115px;
   color: white;
 }
-.more_infos_headline{
-
+.more_infos_headline {
   margin-top: -130px;
 }
-.more_infos h3{
+.more_infos h3 {
   text-align: center;
   color: white;
   font-size: 26px;
 }
-.eg_rate{
+.eg_rate {
   margin-top: 4rem;
   display: flex;
   flex-direction: column;
@@ -138,63 +136,69 @@ input:-webkit-autofill:active {
   align-items: center;
   padding: 2px 0 12px 0;
 }
-#eg_rate_count{
+#eg_rate_count {
   font-size: 24pt;
 }
-.average_likes_comments{
+.average_likes_comments {
   display: flex;
   justify-content: space-between;
   width: 85%;
-  
 }
-.average_likes_comments div{
-  width: calc(50% - .5rem);
+.average_likes_comments div {
+  width: calc(50% - 0.5rem);
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 1rem;
   padding: 5px 0 5px 0;
 }
-#average_likes, #average_comments{
+#average_likes,
+#average_comments {
   font-size: 18pt;
 }
-.eg_rate, .average_likes_comments div{
+.eg_rate,
+.average_likes_comments div {
   border: 2px solid #4070f4;
   border-radius: 6px;
-  background-color: rgba(40, 70, 250, 0.06)
-  
+  background-color: rgba(40, 70, 250, 0.06);
 }
-.content-info{
+.content-info {
   margin-top: 4rem;
   width: 100%;
 }
-.top-mentions{
+.top-mentions-hashtags {
   width: 100%;
   padding: 10px 15px;
   background-color: white;
   border-radius: 6px;
+  margin-bottom: 2rem;
 }
-.top-mentions p{
+.top-mentions-hashtags p {
   color: black !important;
   font-size: 14pt;
   font-weight: bold;
 }
-#top_mentions_table{
+.top_mentions_hashtags_table {
   width: 100%;
   border-spacing: 0;
 }
-td{
+.top_mentions_hashtags_table a {
+  display: flex;
+}
+.top_mentions_hashtags_table td,
+.top_mentions_hashtags_table a {
   border-bottom: 1px solid grey;
   border-collapse: collapse;
   padding: 5px 0;
 }
-tr:last-child td{
+.top_mentions_hashtags_table tr:last-child td,
+.top_mentions_hashtags_table tr:last-child a {
   border: none;
   padding-bottom: 0;
 }
 
 /**** LOADER *************************/
-.loader-wrapper{
+.loader-wrapper {
   width: 100%;
   height: 70%;
   display: flex;
@@ -202,20 +206,20 @@ tr:last-child td{
   justify-content: center;
   align-items: center;
 }
-.loader-wrapper h3{
-  margin-bottom: .8rem;
+.loader-wrapper h3 {
+  margin-bottom: 0.8rem;
   text-align: center;
 }
 .loader-4 {
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: center;
-          justify-content: center;
+  justify-content: center;
   -webkit-box-align: center;
-          align-items: center;
+  align-items: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-          flex-direction: column;
+  flex-direction: column;
   position: relative;
 }
 .loader-4 .spinner {
@@ -233,7 +237,7 @@ tr:last-child td{
   border-radius: 50%;
   border-left: 0.3rem #4070f4 solid;
   -webkit-animation: spinner 1.5s infinite;
-          animation: spinner 1.5s infinite;
+  animation: spinner 1.5s infinite;
 }
 .loader-4 .spinner .loader-circle-2 {
   position: absolute;
@@ -245,7 +249,7 @@ tr:last-child td{
   border-radius: 50%;
   border-left: 0.3rem #4070f4 solid;
   -webkit-animation: spinner 1.5s 200ms infinite;
-          animation: spinner 1.5s 200ms infinite;
+  animation: spinner 1.5s 200ms infinite;
 }
 .loader-4 .spinner .loader-circle-3 {
   position: absolute;
@@ -257,38 +261,38 @@ tr:last-child td{
   border-radius: 50%;
   border-left: 0.3rem #4070f4 solid;
   -webkit-animation: spinner 1.5s 350ms infinite;
-          animation: spinner 1.5s 350ms infinite;
+  animation: spinner 1.5s 350ms infinite;
 }
 @-webkit-keyframes spinner {
   0% {
     -webkit-transform: rotate(0);
-            transform: rotate(0);
+    transform: rotate(0);
   }
   100% {
     -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 @keyframes spinner {
   0% {
     -webkit-transform: rotate(0);
-            transform: rotate(0);
+    transform: rotate(0);
   }
   100% {
     -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
 /**** RESPONSIVE *************************/
-@media  screen and (max-width: 800px){
-  .main-content hr{
+@media screen and (max-width: 800px) {
+  .main-content hr {
     width: 95%;
   }
-  .more_infos{
+  .more_infos {
     min-height: 100vh;
     min-width: 100vw;
-    background: linear-gradient(160deg, #0F2027, #203A43, #2C5364);
+    background: linear-gradient(160deg, #0f2027, #203a43, #2c5364);
     margin-top: 5rem;
     display: flex;
     flex-direction: column;
@@ -296,31 +300,44 @@ tr:last-child td{
     color: white;
     padding: 0 1rem 1rem 1rem;
   }
-  .more_infos p, .content_infos h3{
+  .more_infos p,
+  .content_infos h3 {
     color: white;
   }
-  .eg_rate, .average_likes_comments div, .words{
+  .eg_rate,
+  .average_likes_comments div,
+  .words {
     box-shadow: #111 0px 0px 12px;
-  
   }
-  
 }
-@media  screen and (min-width: 800px){
-  .more_info_header{
+@media screen and (min-width: 800px) {
+  .more_info_header {
     height: 200px;
     width: 100%;
   }
-  .more_infos h3{
+  .more_infos h3 {
     margin-top: -123px;
   }
-  .more_infos{
-    width: 135%;
+  .more_infos {
+    width: 160%;
     margin-top: 5rem;
   }
-  .eg_rate, .average_likes_comments{
+  .eg_rate,
+  .average_likes_comments {
     width: 100%;
   }
-  .eg_rate{
+  .eg_rate {
     margin-top: 1.5rem;
+  }
+  .content-info {
+    padding-top: 8rem;
+  }
+  .content-info h3 {
+    color: black;
+  }
+  .top-mentions-hashtags {
+    box-shadow: #e7e7e7 0px 0px 15px;
+    border-radius: 6px;
+    padding: 10px 15px;
   }
 }
