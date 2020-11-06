@@ -321,6 +321,14 @@ def email_not_confirmed():
 @login_required
 def mgb():
     calc_egboost_times()
+
+    # neue Zeit setzen
+    current_time = str(datetime.datetime.utcnow())
+    user_info_json = json.loads(current_user.user_info)
+    user_info_json["last_online"] = current_time
+    current_user.user_info = json.dumps(user_info_json)
+    db.session.commit()
+
     return render_template('pages/mgb.html', title="Home", loginRequired=True, eg_boost_runden=eg_boost_runden, datetime=datetime)
 
 
@@ -385,8 +393,17 @@ def accountanalyse():
 @app.route('/mgb/accountanalyse/<username>')
 @login_required
 def analyzeresults(username):
-    email_confirm_required()
+    if current_user.email_confirmed == 'false':
+        return redirect(url_for('email_not_confirmed'))
+    user_info_json = json.loads(current_user.user_info)
+    try:
+        user_info_json["analyzer_usage"] = int(user_info_json["analyzer_usage"]) + 1
+        print(user_info_json["analyzer_usage"])
+    except:
+        user_info_json["analyzer_usage"] = 1
 
+    current_user.user_info = json.dumps(user_info_json)
+    db.session.commit()
     return render_template('pages/analyzeresults.html', title=str(username), loginRequired=True, username=username)
 
 

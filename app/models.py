@@ -20,6 +20,9 @@ class User(db.Model, UserMixin):
     instaid2 = db.Column(db.Integer())
     instaid3 = db.Column(db.Integer())
     email_confirmed = db.Column(db.String(10), default='false')
+    user_info = db.Column(db.String(), default="{}")
+    marketplace_info = db.Column(db.String(), default="{}")
+    rang_info = db.Column(db.String(), default="{}")
 
     def get_confirm_email_token(self, expires_sec=1800):
         s = Serializer(app.config['SECRET_KEY'], expires_sec)

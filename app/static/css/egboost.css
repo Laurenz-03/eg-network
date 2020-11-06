@@ -34,7 +34,7 @@ h4 {
 }
 .left-area {
   padding-right: 20px;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
 }

@@ -29,6 +29,19 @@ mail = Mail(app)
 
 admins = ['Laurenz', 'Felix']
 
+# Variablen in der Datenbank:
+# user_info
+#   - last_online
+#   - htg_generator_usage
+#   - analyzer_usage
+#
+#
+#
+#
+#
+#
+#
+
 smz = 2
 wtz= 1
 zeitfaktor = wtz
