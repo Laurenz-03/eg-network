@@ -76,7 +76,8 @@
             <div id="mobile-nav">
                 <ul class="nav-links">
                     <li><a href={{url_for('profile')}}><i class="fas fa-user"></i>Mein Profil</a></li>
-                    <li id="toolButton"><button onClick="toggleTools()"><i id="toolButtonIcon" class="fas fa-chevron-right"></i>Tools</button></li>
+                    <li id="toolButton"><button onClick="toggleTools()"><i id="toolButtonIcon"
+                                class="fas fa-chevron-right"></i>Tools</button></li>
                     <li class="mobile-nav-tools"><a href={{url_for('egboost')}}><i
                                 class="fas fa-rocket"></i>EG-Boost</a></li>
                     <li class="mobile-nav-tools"><a href={{url_for('hashtaggenerator')}}><i
@@ -112,55 +113,57 @@
             </div>
         </div>
     </header>
-    <div class="content">
-        <div class="main-content">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-            {% for category, message in messages %}
-            <div class="flash-message-{{ category }}">
-                <p>{{ message }}</p>
+    <div id="blur">
+        <div class="content">
+            <div class="main-content">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="flash-message-{{ category }}">
+                    <p>{{ message }}</p>
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                {% block content %}
+
+                {% endblock %}
             </div>
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
-            {% block content %}
 
-            {% endblock %}
-        </div>
+            {% if nosidebar != True %}
+            <div class="sidebar" id="sidebar">
+                <div class="inner-sidebar">
+                    <h3>Sidebar</h3>
 
-        {% if nosidebar != True %}
-        <div class="sidebar" id="sidebar">
-            <div class="inner-sidebar">
-                <h3>Sidebar</h3>
-
-                <ul class="sidebar-links">
-                    <li><a href={{url_for('profile')}}>Mein Profil</a></li>
-                    <hr>
-                    <li><a href={{url_for('egboost')}}></i>EG-Boost</a></li>
-                    <hr>
-                    <li><a href={{url_for('hashtaggenerator')}}>Hashtag-Generator</a></li>
-                    <hr>
-                    <li><a href={{url_for('accountanalyse')}}>Account-Analyse</a></li>
-                    <hr>
-                    <!--<li><a href={{url_for('shoutoutmatcher')}}>Shoutout-Matcher</a></li>
+                    <ul class="sidebar-links">
+                        <li><a href={{url_for('profile')}}>Mein Profil</a></li>
+                        <hr>
+                        <li><a href={{url_for('egboost')}}></i>EG-Boost</a></li>
+                        <hr>
+                        <li><a href={{url_for('hashtaggenerator')}}>Hashtag-Generator</a></li>
+                        <hr>
+                        <li><a href={{url_for('accountanalyse')}}>Account-Analyse</a></li>
+                        <hr>
+                        <!--<li><a href={{url_for('shoutoutmatcher')}}>Shoutout-Matcher</a></li>
                     <hr>-->
-                    <li><a href={{url_for('telegramgroups')}}>Telegram Gruppen</a></li>
-                    <hr>
-                    <li><a href={{url_for('tutorials')}}>Tutorials</a></li>
-                    <hr>
-                    <li><a href={{url_for('ebookskurse')}}>eBooks & Kurse</a></li>
-                    <div class="sidebar-infos">
-                        <p class="blue-underline">Information:</p>
-                        <p class="top-spacing">Aktuelle Mitgliederzahl: 850</p>
-                        <p class="blue-underline">Kontakt/Support:</p>
-                        <p class="top-spacing">Instagram: <br /><strong>@eg.boost.privat</strong></p>
-                        <p class="top-spacing">Telegram: <br /><strong>t.me/eg_network</strong></p>
-                        <p class="top-spacing">eMail: <br /><strong>support@eg-network.co</strong></p>
-                    </div>
-                </ul>
+                        <li><a href={{url_for('telegramgroups')}}>Telegram Gruppen</a></li>
+                        <hr>
+                        <li><a href={{url_for('tutorials')}}>Tutorials</a></li>
+                        <hr>
+                        <li><a href={{url_for('ebookskurse')}}>eBooks & Kurse</a></li>
+                        <div class="sidebar-infos">
+                            <p class="blue-underline">Information:</p>
+                            <p class="top-spacing">Aktuelle Mitgliederzahl: 850</p>
+                            <p class="blue-underline">Kontakt/Support:</p>
+                            <p class="top-spacing">Instagram: <br /><strong>@eg.boost.privat</strong></p>
+                            <p class="top-spacing">Telegram: <br /><strong>t.me/eg_network</strong></p>
+                            <p class="top-spacing">eMail: <br /><strong>support@eg-network.co</strong></p>
+                        </div>
+                    </ul>
+                </div>
             </div>
+            {% endif %}
         </div>
-        {% endif %}
     </div>
 
     <!--Footer-->

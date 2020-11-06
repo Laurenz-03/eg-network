@@ -25,7 +25,7 @@
                     <li><i class="fas fa-chevron-right"></i> Premium-Mitglieder müssen nicht engagen. <a
                             href={{url_for('premium')}}> Jetzt Premium kaufen.</a></li>
                 </ul>
-                <button class="blue-button">Account anfragen</button>
+                <button id="myBtn" class="blue-button">Account anfragen</button>
             </div>
             <div class="right-area">
 
@@ -33,15 +33,18 @@
                     <div class="upload-container">
                         <p><i class="fas fa-chevron-right"></i> Beitrag hochladen:</p>
                         <div class=hochladen_engagen>
-                            <p>von {{ (runde['start-time'].hour + zeitfaktor )}}{{ runde['start-time'].strftime(':%M')}}</p>
-                            <p>bis {{ (runde['upload-end-time'].hour + zeitfaktor )}}{{ runde['upload-end-time'].strftime(':%M')}} Uhr</p>
+                            <p>von {{ (runde['start-time'].hour + zeitfaktor )}}{{ runde['start-time'].strftime(':%M')}}
+                            </p>
+                            <p>bis
+                                {{ (runde['upload-end-time'].hour + zeitfaktor )}}{{ runde['upload-end-time'].strftime(':%M')}}
+                                Uhr</p>
                         </div>
                         <div class=progress_bar>
                             <div style="width: {{ runde['upload-time-factor']}}%;"></div>
                         </div>
                     </div>
                     <div>
-                        <p><i class="fas fa-chevron-right"></i> 
+                        <p><i class="fas fa-chevron-right"></i>
                             {% if runde['engage-mode'] == 'like_save' %}
                             Liken und speichern:
                             {% elif runde['engage-mode'] == 'comment' %}
@@ -49,29 +52,34 @@
                             {% endif %}
                         </p>
                         <div class=hochladen_engagen>
-                            <p>von {{ (runde['start-time'].hour + zeitfaktor )}}{{ runde['start-time'].strftime(':%M')}}</p>
-                            <p>bis {{ (runde['engage-end-time'].hour + zeitfaktor )}}{{ runde['engage-end-time'].strftime(':%M')}} Uhr</p>
+                            <p>von {{ (runde['start-time'].hour + zeitfaktor )}}{{ runde['start-time'].strftime(':%M')}}
+                            </p>
+                            <p>bis
+                                {{ (runde['engage-end-time'].hour + zeitfaktor )}}{{ runde['engage-end-time'].strftime(':%M')}}
+                                Uhr</p>
                         </div>
                         <div class=progress_bar>
-                            <div style="width: {{ runde['engage-time-factor']}}%;"></></div>
+                            <div style="width: {{ runde['engage-time-factor']}}%;">
+                                </>
+                            </div>
                         </div>
                     </div>
-                    <p class="next-round-info">Die nächste Runde beginnt<br>in 
+                    <p class="next-round-info">Die nächste Runde beginnt<br>in
                         {% if runde['next-round-duration'][0] == 1%}
-                         einer Stunde und 
+                        einer Stunde und
                         {% elif runde['next-round-duration'][0] == 0 %}
                         {% else %}
                         {{ runde['next-round-duration'][0]}}
-                        Stunden und 
+                        Stunden und
                         {% endif %}
-                        
+
                         {% if runde['next-round-duration'][1] == 1%}
-                        einer Minute. 
+                        einer Minute.
                         {% elif runde['next-round-duration'][1] == 0 and runde['next-round-duration'][0] != 0%}
                         {% else %}
                         {{ runde['next-round-duration'][1]}}
-                         Minuten.</p>
-                        {% endif %}
+                        Minuten.</p>
+                    {% endif %}
                 </ul>
 
             </div>
@@ -79,4 +87,53 @@
     </div>
     {% endfor %}
 </section>
+
+<!-- The Modal -->
+<div id="myModal" class="outer-modal">
+    <div class="modal">
+        <div class="modal-top">
+            <i class="close fas fa-times"></i>
+        </div>
+        <h3>Account hinzufügen</h3>
+        <div class="modal-main">
+
+            <p>Damit nur Mitglieder von EG-Network an den Engagement Runden teilnehmen können, müssen wir dir erst auf
+                Instagram folgen bevor du uns markieren kannst.<br /></p>
+            <p>
+                Mit dem Klick auf "Bestätigen" folgen wir deinem Account <strong>@erfolgsarmee</strong>. Das kann etwas
+                Zeit in Anspruch nehmen.</p>
+            <button class="blue-button">Bestätigen</button>
+        </div>
+    </div>
+
+</div>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "flex";
+        var blur = document.getElementById('blur');
+        blur.classList.toggle('active');
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 {% endblock %}
