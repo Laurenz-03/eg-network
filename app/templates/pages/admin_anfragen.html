@@ -1,4 +1,23 @@
 {% extends './layout.html' %}
 {% block content %}
+<link rel="stylesheet" href="./../../static/css/admin_anfragen.css">
+
 <h3>Anfragen</h3>
+
+{% for eg_account in anfragenliste %}
+<div class="eg_acc_container rounded-and-shadow">
+
+    <h4>{{ eg_account }}</h4>
+    <table>
+        
+        {% for insta_username in anfragenliste[eg_account] %}
+        <tr>
+            <th><a href="http://instagram.com/{{ insta_username }}">{{ insta_username }}</th></a>
+            <th><a href={{url_for('anfrage_entfernen', eg_acc_name=eg_account, insta_username=insta_username)}}><i class="fas fa-check"></i></a></th>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endfor %}
 {% endblock %}

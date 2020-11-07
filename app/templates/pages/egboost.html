@@ -32,8 +32,15 @@
                     <li><i class="fas fa-chevron-right"></i> Premium-Mitglieder müssen nicht engagen. <a
                             href={{url_for('premium')}}> Jetzt Premium kaufen.</a></li>
                 </ul>
-                <button id="myBtn" class="blue-button" onclick="openModal({{ 'myModal' + runde['id']|string}})">Account
-                    anfragen</button>
+                {% if current_user.instaid1 %}
+                {% if user_info["acc_request_status"][runde['tag-profile']] == "pending" %}
+                    <button id="myBtn" class="blue-button" style="background-color: rgb(0, 192, 226);">Anfrage gestellt</button>
+                {% elif user_info["acc_request_status"][runde['tag-profile']] == "accepted" %}
+                    <button id="myBtn" class="blue-button" style="background-color: rgb(67, 182, 0);">Account folgt dir</button>
+                {% else %}
+                    <button id="myBtn" class="blue-button" onclick="openModal({{ 'myModal' + runde['id']|string}})">Account anfragen</button>
+                {% endif %}
+                {% endif %}
             </div>
             <div class="right-area">
 

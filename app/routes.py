@@ -319,6 +319,8 @@ def email_not_confirmed():
             flash(
                 f'Die Email zur Bestätigung deines Accounts wurde an {current_user.email} gesendet.', 'success')
             return redirect(url_for('mgb'))
+    else:
+        return redirect(url_for('mgb'))
     return render_template('pages/email_not_confirmed.html', title="Email bestätigen", form=form)
 
 
@@ -346,9 +348,16 @@ def egboost():
 
     if current_user.instaid1 == None:
         flash('Um an EG-Boost teilzunehmen, musst du erst deinen Instagram Account verknüpfen.', 'info')
+
+    user_info_json = json.loads(current_user.user_info)
+    if user_info_json["acc_request_status"] != None:
+        user_info_json["acc_request_status"] = {}
+    
     calc_egboost_times()
+
     instaname = get_user_by_id(current_user.instaid1)
-    return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True, eg_boost_runden=eg_boost_runden, instaname=instaname, datetime=datetime, zeitfaktor=zeitfaktor)
+    user_info_json = json.loads(current_user.user_info)
+    return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True, eg_boost_runden=eg_boost_runden, instaname=instaname, user_info=user_info_json, datetime=datetime, zeitfaktor=zeitfaktor)
 
 
 @app.route('/mgb/account_anfragen/<eg_acc_name>/<insta_username>')
@@ -364,8 +373,17 @@ def account_anfragen(eg_acc_name, insta_username):
     with open('anfragenliste.json', 'w') as f:
         json.dump(anfragenliste, f)
 
-    flash("Anfrage wurde erfolgreich gesendet!", "success")
     user_info_json = json.loads(current_user.user_info)
+    if "acc_request_status" in user_info_json:
+        print("yes")
+    else:
+        user_info_json["acc_request_status"] = {eg_acc_name: "pending"}
+
+    user_info_json["acc_request_status"][eg_acc_name] = "pending"
+    current_user.user_info = json.dumps(user_info_json)
+    db.session.commit()
+    print(user_info_json)
+    flash("Anfrage wurde erfolgreich gesendet!", "success")
     return redirect(url_for('egboost'))
 
 @app.route('/mgb/tools')
@@ -481,6 +499,10 @@ def add_insta_acc():
 def del_insta_acc():
     user = current_user
     user.instaid1 = None
+
+    user_info_json = json.loads(current_user.user_info)
+    user_info_json["acc_request_status"] = {}
+    current_user.user_info = json.dumps(user_info_json)
     db.session.commit()
     flash('Der Instagram Account wurde entfernt.', 'success')
     return redirect(url_for('profile'))
@@ -497,17 +519,38 @@ def admin():
     else:
         flash('Du hast keine Admin Rechte. Haha.', 'no-success')
         return redirect(url_for('chooseLanguage'))
+  
 @app.route('/admin/anfragen')
 @login_required
 def admin_anfragen():
     # Man kommt nur auf die Admin Seite, wenn der Benutzername in der Liste der Admins steht
     if current_user.username in admins:
-        users = User.query.all()
-        return render_template('pages/admin_anfragen.html', title="Anfragen", loginRequired=True, nosidebar=True, nav_links_category='only-login', users=users)
+
+        with open('anfragenliste.json') as f:
+            anfragenliste = json.load(f)
+        return render_template('pages/admin_anfragen.html', title="Anfragen", loginRequired=True, nosidebar=True, nav_links_category='only-login', anfragenliste=anfragenliste)
     else:
         flash('Du hast keine Admin Rechte. Haha.', 'no-success')
         return redirect(url_for('chooseLanguage'))
 
+@app.route('/admin/anfragen/remove/<eg_acc_name>/<insta_username>')
+@login_required
+def anfrage_entfernen(eg_acc_name, insta_username):
+    # Fragenliste bearbeiten
+    with open('anfragenliste.json') as f:
+        anfragenliste = json.load(f)
+    if insta_username in anfragenliste[eg_acc_name]:
+        anfragenliste[eg_acc_name].remove(insta_username)
+    with open('anfragenliste.json', 'w') as f:
+        json.dump(anfragenliste, f)
+
+    # user_info bearbeiten
+    user_info_json = json.loads(current_user.user_info)
+    user_info_json["acc_request_status"][eg_acc_name] = "accepted"
+    current_user.user_info = json.dumps(user_info_json)
+    db.session.commit()
+
+    return redirect(url_for('admin_anfragen'))
 
 @app.route('/admin/delete/<int:user_id>')
 def delete_user(user_id):
