@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import app, db, bcrypt, mail, admins, eg_boost_runden, zeitfaktor
-from app.forms import (RegistrationForm, LoginForm, ChangeUsername, ChangePassword, RequestResetForm, 
+from app.forms import (RegistrationForm, LoginForm, ChangeUsername, ChangePassword, RequestResetForm,
     ResetPasswordForm, AddInstaAccForm, AdminChangeUserAcc, AnalyzerForm, SendConfirmEmailForm)
 from app.models import User
 from flask_login import login_user, current_user, logout_user, login_required
@@ -13,12 +13,15 @@ import json
 
 
 def create_session():
-    cookie = {"name": "sessionid", "value": "27196906023%3AhxTv1pEFwWu3Oh%3A20"}
+    cookie = {"name": "sessionid",
+        "value": "27196906023%3AhxTv1pEFwWu3Oh%3A20"}
     session = requests.Session()
     session.cookies.set(**cookie)
     return session
 
 # Instagram API
+
+
 def get_user_information_by_username(username):
     user_info = {}
     url = 'https://www.instagram.com/'+username+'/?__a=1'
@@ -138,7 +141,7 @@ def send_confirm_email(user):
     token = user.get_reset_token()
     msg = Message('Confirm Email', sender='noreply@eg-network.co',
                   recipients=[user.email])
-    #msg.html = render_template('./EG-Confirm/EG-Confirm-Email.html')
+    # msg.html = render_template('./EG-Confirm/EG-Confirm-Email.html')
     msg.body = f'''Hallo {user.username},
 
 um deine Email zu bestätigen, klicke auf folgenden Link:
@@ -150,8 +153,10 @@ um deine Email zu bestätigen, klicke auf folgenden Link:
 def email_confirm_required():
     if current_user.email_confirmed == 'false':
         send_confirm_email(current_user)
-        flash(f'Um auf diese Funktion Zugriff zu erhalten, musst du deine Email-Adresse bestätigen. Wir haben dir eine Email an {current_user.email} gesendet. Bitte klicke auf den Link in der Email, um deinen Account zu bestätigen.', 'info')
+        flash(
+            f'Um auf diese Funktion Zugriff zu erhalten, musst du deine Email-Adresse bestätigen. Wir haben dir eine Email an {current_user.email} gesendet. Bitte klicke auf den Link in der Email, um deinen Account zu bestätigen.', 'info')
         return redirect(url_for('mgb'))
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -201,7 +206,7 @@ def send_reset_email(user):
     token = user.get_reset_token()
     msg = Message('Password Reset Request',
                   sender='noreply@eg-network.co', recipients=[user.email])
-    #msg.html = render_template('./EG-Passwort-Reset-Email/EG-Passwort-Reset-Email.html')
+    # msg.html = render_template('./EG-Passwort-Reset-Email/EG-Passwort-Reset-Email.html')
     msg.body = f'''Hallo {user.username},
 
 um dein Passwort zurückzusetzen, klicke auf folgenden Link:
@@ -311,7 +316,8 @@ def email_not_confirmed():
         form = SendConfirmEmailForm()
         if form.validate_on_submit():
             send_confirm_email(current_user)
-            flash(f'Die Email zur Bestätigung deines Accounts wurde an {current_user.email} gesendet.', 'success')
+            flash(
+                f'Die Email zur Bestätigung deines Accounts wurde an {current_user.email} gesendet.', 'success')
             return redirect(url_for('mgb'))
     return render_template('pages/email_not_confirmed.html', title="Email bestätigen", form=form)
 
@@ -344,6 +350,23 @@ def egboost():
     instaname = get_user_by_id(current_user.instaid1)
     return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True, eg_boost_runden=eg_boost_runden, instaname=instaname, datetime=datetime, zeitfaktor=zeitfaktor)
 
+
+@app.route('/mgb/account_anfragen/<eg_acc_name>/<insta_username>')
+@login_required
+def account_anfragen(eg_acc_name, insta_username):
+    # öffnet die Datei mit der Anfragenliste
+    with open('anfragenliste.json') as f:
+        anfragenliste = json.load(f)
+
+    if insta_username not in anfragenliste[eg_acc_name]:
+        anfragenliste[eg_acc_name].append(insta_username)
+
+    with open('anfragenliste.json', 'w') as f:
+        json.dump(anfragenliste, f)
+
+    flash("Anfrage wurde erfolgreich gesendet!", "success")
+    user_info_json = json.loads(current_user.user_info)
+    return redirect(url_for('egboost'))
 
 @app.route('/mgb/tools')
 @login_required
@@ -427,8 +450,8 @@ def profile():
     insta_acc1_info = {}
     if user.instaid1:
         try:
-            #insta_acc1_info = get_user_information_by_username('erfolgsarmee')
-            #insta_acc1_info['username'] = get_user_by_id(user.instaid1)
+            # insta_acc1_info = get_user_information_by_username('erfolgsarmee')
+            # insta_acc1_info['username'] = get_user_by_id(user.instaid1)
             insta_acc1_info = get_user_information_by_username(
                 get_user_by_id(user.instaid1))
         except:
@@ -471,6 +494,16 @@ def admin():
         users = User.query.all()
         # register_date=user.date_created.strftime('%d')
         return render_template('pages/admin.html', title="Admin-Dashboard", loginRequired=True, nosidebar=True, nav_links_category='only-login', users=users)
+    else:
+        flash('Du hast keine Admin Rechte. Haha.', 'no-success')
+        return redirect(url_for('chooseLanguage'))
+@app.route('/admin/anfragen')
+@login_required
+def admin_anfragen():
+    # Man kommt nur auf die Admin Seite, wenn der Benutzername in der Liste der Admins steht
+    if current_user.username in admins:
+        users = User.query.all()
+        return render_template('pages/admin_anfragen.html', title="Anfragen", loginRequired=True, nosidebar=True, nav_links_category='only-login', users=users)
     else:
         flash('Du hast keine Admin Rechte. Haha.', 'no-success')
         return redirect(url_for('chooseLanguage'))

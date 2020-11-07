@@ -98,7 +98,7 @@
             <div class="modal-top">
                 <i class="close fas fa-times"></i>
             </div>
-            <h3>Account anfragen</h3>
+            <h3>Account anfragen (@{{ runde['tag-profile'] }})</h3>
             <div class="modal-main">
 
                 <p>Damit nur Mitglieder von EG-Network an den Engagement Runden teilnehmen können, müssen wir dir erst
@@ -108,7 +108,7 @@
                     Mit dem Klick auf "Bestätigen" folgen wir deinem Account <strong>@{{ instaname }}</strong>. Das kann
                     etwas
                     Zeit in Anspruch nehmen.</p>
-                <button class="blue-button">Bestätigen</button>
+                <a href={{ url_for('account_anfragen', eg_acc_name=runde['tag-profile'], insta_username=instaname)}}><button class="blue-button">Bestätigen</button></a>
             </div>
         </div>
 
