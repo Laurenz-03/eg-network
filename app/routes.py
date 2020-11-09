@@ -10,6 +10,7 @@ import pytz
 
 import requests
 import json
+import random
 
 
 def create_session():
@@ -33,6 +34,7 @@ def get_user_information_by_username(username):
     userdata = resp["graphql"]["user"]
     user_info["id"] = userdata["id"]
     user_info["username"] = username
+    user_info["bio"] = userdata["biography"]
     user_info["followers"] = userdata["edge_followed_by"]["count"]
     user_info["following"] = userdata["edge_follow"]["count"]
     user_info["profile_pic_url"] = userdata["profile_pic_url"]
@@ -503,6 +505,17 @@ def profile():
 @login_required
 def add_insta_acc():
     form = AddInstaAccForm()
+
+    user_info_json = json.loads(current_user.user_info)
+    print(user_info_json)
+    if "insta_auth_code" in user_info_json:
+        auth_code = user_info_json["insta_auth_code"]
+    else:
+        user_info_json["insta_auth_code"] = "#" + str(random.randint(1000, 9999))
+        auth_code = user_info_json["insta_auth_code"]
+        current_user.user_info = json.dumps(user_info_json)
+        db.session.commit()
+
     if current_user.instaid1 and current_user.rang == "kein Rang":
         flash('Du hast bereits einen Instagram Account hinzugefügt. Kaufe den Premium-Rang um bis zu drei Accounts hinzuzufügen.', 'success')
         return redirect('mgb/profile')
@@ -511,47 +524,53 @@ def add_insta_acc():
             user = current_user
             try:
                 res = get_user_information_by_username(form.instaname.data)
+                bio = res["bio"]
+                if auth_code in bio:
+                    print("success")
 
-                if user.instaid1 == None:
-                    user.instaid1 = res["id"]
-                    db.session.commit()
-                elif user.instaid2 == None:
-                    user.instaid2 = res["id"]
-                    db.session.commit()
-                elif user.instaid3 == None:
-                    user.instaid3 = res["id"]
-                    db.session.commit()
-                else:
-                    flash('Du hast bereits die maximale Anzahl an Instagram Accounts hinzugefügt.', 'info')
-                
-                # von der unfollow Liste entfernen, falls vorhanden
-                with open('unfollowliste.json') as f:
-                    unfollowliste = json.load(f)
-                if form.instaname.data in unfollowliste:
-                    unfollowliste.remove(form.instaname.data)
-                with open('unfollowliste.json', 'w') as f:
-                    json.dump(unfollowliste, f)
-
-                # Account Follow Anfrage stellen
-                with open('anfragenliste.json') as f:
-                    anfragenliste = json.load(f)
+                    if user.instaid1 == None:
+                        user.instaid1 = res["id"]
+                        db.session.commit()
+                    elif user.instaid2 == None:
+                        user.instaid2 = res["id"]
+                        db.session.commit()
+                    elif user.instaid3 == None:
+                        user.instaid3 = res["id"]
+                        db.session.commit()
+                    else:
+                        flash('Du hast bereits die maximale Anzahl an Instagram Accounts hinzugefügt.', 'info')
                     
-                user_info_json = json.loads(current_user.user_info)
+                    # von der unfollow Liste entfernen, falls vorhanden
+                    with open('unfollowliste.json') as f:
+                        unfollowliste = json.load(f)
+                    if form.instaname.data in unfollowliste:
+                        unfollowliste.remove(form.instaname.data)
+                    with open('unfollowliste.json', 'w') as f:
+                        json.dump(unfollowliste, f)
 
-                for eg_acc_name in user_info_json["acc_request_status"]: 
-                    print("1111111111") 
-                    if user_info_json["acc_request_status"][eg_acc_name] == "accepted" or user_info_json["acc_request_status"][eg_acc_name] == "pending":
-                        print("22222222") 
-                        anfragenliste[eg_acc_name].append(form.instaname.data)
-                
-                with open('anfragenliste.json', 'w') as f:
-                    json.dump(anfragenliste, f)
+                    # Account Follow Anfrage stellen
+                    with open('anfragenliste.json') as f:
+                        anfragenliste = json.load(f)
+                        
+                    user_info_json = json.loads(current_user.user_info)
 
-                flash('Der Instagram Account wurde hinzugefügt!', 'success')
+                    for eg_acc_name in user_info_json["acc_request_status"]: 
+                        print("1111111111") 
+                        if user_info_json["acc_request_status"][eg_acc_name] == "accepted" or user_info_json["acc_request_status"][eg_acc_name] == "pending":
+                            print("22222222") 
+                            anfragenliste[eg_acc_name].append(form.instaname.data)
+                    
+                    with open('anfragenliste.json', 'w') as f:
+                        json.dump(anfragenliste, f)
+
+                    flash('Der Instagram Account wurde hinzugefügt!', 'success')
+                else:
+                    flash('Deine Bio enthält nicht den richtigen Code, versuche es bitte erneut.', 'no-success')
+
             except:
                 flash('Dieser Instagram Account existiert nicht. Versuche es erneut.', 'no-success')
             return redirect(url_for('profile'))
-    return render_template('pages/add_insta_acc.html', title='Instagram Account verknüpfen', form=form)
+    return render_template('pages/add_insta_acc.html', title='Instagram Account verknüpfen', form=form, insta_auth_code=auth_code)
 
 
 @app.route('/del-insta-acc/<acc_id>/<insta_username>')

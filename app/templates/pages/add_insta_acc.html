@@ -18,6 +18,9 @@
         <form method="POST" action="" class="sign-in-form">
             {{ form.hidden_tag() }}
             <h2 class="title">Instagram Account verknüpfen</h2>
+            <div class="flash-message-info">
+              <p>Du musst bestätigen, dass der Instagram Account dir gehört. Mache dafür folgenden Code in deine Bio: <strong>{{ insta_auth_code }}</strong></p>
+            </div>
   
             {% if request.args.mode == 'register' %}
             {% with messages = get_flashed_messages(with_categories=true) %}
