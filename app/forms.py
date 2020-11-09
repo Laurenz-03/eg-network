@@ -96,6 +96,7 @@ class AdminChangeUserAcc(FlaskForm):
     username = StringField('Benutzername:')
 
     email = StringField('eMail:')
+    email_confirmed = StringField('eMail confirmed:')
 
     rang = StringField('Rang:')
     

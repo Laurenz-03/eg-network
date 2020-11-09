@@ -29,21 +29,22 @@
             <h3>Verbundene Instagram Accounts:</h3>
             {% if current_user.instaid1 %}
 
-            <div class="insta-acc rounded-and-shadow">
-                    <img class="insta-profile-pic" src="{{insta_acc1_info['profile_pic_url']}}" alt="">
+            <div class="insta-acc">
+                <img class="insta-profile-pic" src="{{insta_acc1_info['profile_pic_url']}}" alt="">
                 <ul>
                     <li>
-                        <a href="https://www.instagram.com/{{insta_acc1_info['username']}}">{{insta_acc1_info['username']}}</a>
+                        <a
+                            href="https://www.instagram.com/{{insta_acc1_info['username']}}">{{insta_acc1_info['username']}}</a>
                     </li>
                     <li class="bottom-line">
                         <p>{{insta_acc1_info['followers']}} Follower</p>
-                        <a href={{url_for('del_insta_acc')}}><i class="fas fa-trash"></i></a>
+                        <button id="del_acc_btn1"><i class="fas fa-trash"></i></button>
                     </li>
                 </ul>
             </div>
             {% else %}
             <a href={{url_for('add_insta_acc')}}>
-                <div class="insta-acc add-account rounded-and-shadow">
+                <div class="insta-acc add-account">
                     <div class="add-account-inner">
                         <h4>Instagram Account hinzufügen</h4>
                         <div class="plus-icon">
@@ -55,8 +56,8 @@
             </a>
             {% endif %}
 
-
-            <div class="rounded-and-shadow connect-more-accs">
+            {% if current_user.rang == 'kein Rang' %}
+            <div class="connect-more-accs">
                 <div>
 
                     <h4>Weitere Accounts verbinden</h4>
@@ -65,33 +66,252 @@
                 <a href={{url_for('premium')}}><button class="blue-button">Jetzt informieren</button></a>
             </div>
 
+            {% else %}
+
+            {% if current_user.instaid2 %}
+            <div class="insta-acc">
+                <img class="insta-profile-pic" src="{{insta_acc2_info['profile_pic_url']}}" alt="">
+                <ul>
+                    <li>
+                        <a
+                            href="https://www.instagram.com/{{insta_acc2_info['username']}}">{{insta_acc2_info['username']}}</a>
+                    </li>
+                    <li class="bottom-line">
+                        <p>{{insta_acc2_info['followers']}} Follower</p>
+                        <button id="del_acc_btn2"><i class="fas fa-trash"></i></button>
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if current_user.instaid3 %}
+            <div class="insta-acc">
+                <img class="insta-profile-pic" src="{{insta_acc3_info['profile_pic_url']}}" alt="">
+                <ul>
+                    <li>
+                        <a
+                            href="https://www.instagram.com/{{insta_acc3_info['username']}}">{{insta_acc3_info['username']}}</a>
+                    </li>
+                    <li class="bottom-line">
+                        <p>{{insta_acc3_info['followers']}} Follower</p>
+                        <button id="del_acc_btn3"><i class="fas fa-trash"></i></button>
+                    </li>
+                </ul>
+            </div>
+            
+            {% else %}
+            <div class="connect-more-accs">
+                <div>
+                    <h4>Weitere Accounts verbinden</h4>
+                    <p>Bis zu zwei weitere Accounts sind möglich.</p>
+                </div>
+                <a href={{url_for('add_insta_acc')}}><button class="blue-button">Account verbinden</button></a>
+            </div>
+            {% endif %}
+
+            {% endif %}
+
         </div>
     </div>
     <h3>Engagement Level:</h3>
     <div class="eg-level-container rounded-and-shadow">
         <div class="eg-level-text">
-            <p>Mein EG-Level</p><p>{{ current_user.eg_level }}%</p>
+            <p>Mein EG-Level</p>
+            <p>{{ current_user.eg_level }}%</p>
         </div>
         <div class="eg-level-bar" style="width: {{ current_user.eg_level }}%;"></div>
     </div>
     {% if (current_user.eg_level < 20) %}
     <div class="flash-message-no-success">
         <p>
-            <strong>Dein EG-Level ist unter 20%</strong><br/>
+            <strong>Dein EG-Level ist unter 20%</strong><br />
             Du bist jetzt für drei Tage von EG-Boost gesperrt!
         </p>
     </div>
     {% endif %}
     <div class="eg-level-description rounded-and-shadow">
-        <p><strong>Was ist das Engagement Level?</strong><br/> 
-            <i class="fas fa-chevron-right"></i> Zu Beginn hast du 100%. <br/>
-            <i class="fas fa-chevron-right"></i> Unser Bot kontrolliert nach jeder Runde an 10 zufälligen Beiträgen, ob alle Teilnehmer geliked haben.<br/>
-            <i class="fas fa-chevron-right"></i> Wenn du alle Beiträge geliked hast, wird dir nichts von deinem Level abgezogen. <br/>
-            <i class="fas fa-chevron-right"></i> Hast du 0 von 10 geliked, wird dir 35% von deinem Level abgezogen. <br/>
-            <i class="fas fa-chevron-right"></i> Hast du nur 5 von 10 geliked, so wird dir 20% abgezogen. <br/>
-            <i class="fas fa-chevron-right"></i> Für jede Runde, an der du teilnimmst, bekommst du +3% Engagement Level. <br/>
-            <i class="fas fa-chevron-right"></i> Wenn dein EG-Level unter 20% fällt, bist du für drei Tage von EG-Boost gesperrt. <br/>
+        <p><strong>Was ist das Engagement Level?</strong><br />
+            <i class="fas fa-chevron-right"></i> Zu Beginn hast du 100%. <br />
+            <i class="fas fa-chevron-right"></i> Unser Bot kontrolliert nach jeder Runde an 10 zufälligen Beiträgen,
+            ob
+            alle Teilnehmer geliked haben.<br />
+            <i class="fas fa-chevron-right"></i> Wenn du alle Beiträge geliked hast, wird dir nichts von deinem
+            Level
+            abgezogen. <br />
+            <i class="fas fa-chevron-right"></i> Hast du 0 von 10 geliked, wird dir 35% von deinem Level abgezogen.
+            <br />
+            <i class="fas fa-chevron-right"></i> Hast du nur 5 von 10 geliked, so wird dir 20% abgezogen. <br />
+            <i class="fas fa-chevron-right"></i> Für jede Runde, an der du teilnimmst, bekommst du +3% Engagement
+            Level.
+            <br />
+            <i class="fas fa-chevron-right"></i> Wenn dein EG-Level unter 20% fällt, bist du für drei Tage von
+            EG-Boost
+            gesperrt. <br />
         </p>
     </div>
 </section>
+
+<!-- The Modal -->
+<div id="myModal1" class="outer-modal">
+    <div class="modal">
+        <div class="modal-top">
+            <i class="close1 fas fa-times"></i>
+        </div>
+        <h3>Account entfernen</h3>
+        <div class="modal-main">
+
+            <p>Bist du dir sicher, dass du deinen Account <strong>@{{insta_acc1_info['username']}}</strong> entfernen
+                willst?</p>
+            <p>Es hat folgende Konsequenzen:</p>
+            <p>
+                <i class="fas fa-chevron-right"></i> Du kannst nur einmal alle 7 Tage einen neuen Account hinzufügen.
+                <br />
+                <i class="fas fa-chevron-right"></i> Wir entfolgen dir mit allen Instagram Accounts und du kannst uns
+                nicht mehr markieren.<br />
+                <i class="fas fa-chevron-right"></i> Wenn du einen neuen Account hinzufügst, musst du wieder bei allen
+                EG-Runden eine Anfrage stellen.<br />
+            </p>
+            <a href={{url_for('del_insta_acc', acc_id=1, insta_username=insta_acc1_info["username"])}}><button class="blue-button"
+                    style="background-color: tomato;">Account entfernen</button></a>
+        </div>
+    </div>
+
+</div>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal1");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("del_acc_btn1");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close1")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "flex";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+{% if current_user.rang != 'kein Rang' %}
+<!-- The Modal -->
+<div id="myModal2" class="outer-modal">
+    <div class="modal">
+        <div class="modal-top">
+            <i class="close2 fas fa-times"></i>
+        </div>
+        <h3>Account entfernen</h3>
+        <div class="modal-main">
+
+            <p>Bist du dir sicher, dass du deinen Account <strong>@{{insta_acc2_info['username']}}</strong> entfernen
+                willst?</p>
+            <p>Es hat folgende Konsequenzen:</p>
+            <p>
+                <i class="fas fa-chevron-right"></i> Du kannst nur einmal alle 7 Tage einen neuen Account hinzufügen.
+                <br />
+                <i class="fas fa-chevron-right"></i> Wir entfolgen dir mit allen Instagram Accounts und du kannst uns
+                nicht mehr markieren.<br />
+                <i class="fas fa-chevron-right"></i> Wenn du einen neuen Account hinzufügst, musst du wieder bei allen
+                EG-Runden eine Anfrage stellen.<br />
+            </p>
+            <a href={{url_for('del_insta_acc', acc_id=2, insta_username=insta_acc2_info["username"])}}><button class="blue-button"
+                    style="background-color: tomato;">Account entfernen</button></a>
+        </div>
+    </div>
+
+</div>
+<script>
+    // Get the modal
+    var modal2 = document.getElementById("myModal2");
+
+    // Get the button that opens the modal
+    var btn2 = document.getElementById("del_acc_btn2");
+
+    // Get the <span> element that closes the modal
+    var close2 = document.getElementsByClassName("close2")[0];
+
+    // When the user clicks on the button, open the modal
+    btn2.onclick = function () {
+        modal2.style.display = "flex";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    close2.onclick = function () {
+        modal2.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal2) {
+            modal2.style.display = "none";
+        }
+    }
+</script>
+<!-- The Modal -->
+<div id="myModal3" class="outer-modal">
+    <div class="modal">
+        <div class="modal-top">
+            <i class="close3 fas fa-times"></i>
+        </div>
+        <h3>Account entfernen</h3>
+        <div class="modal-main">
+
+            <p>Bist du dir sicher, dass du deinen Account <strong>@{{insta_acc3_info['username']}}</strong> entfernen
+                willst?</p>
+            <p>Es hat folgende Konsequenzen:</p>
+            <p>
+                <i class="fas fa-chevron-right"></i> Du kannst nur einmal alle 7 Tage einen neuen Account hinzufügen.
+                <br />
+                <i class="fas fa-chevron-right"></i> Wir entfolgen dir mit allen Instagram Accounts und du kannst uns
+                nicht mehr markieren.<br />
+                <i class="fas fa-chevron-right"></i> Wenn du einen neuen Account hinzufügst, musst du wieder bei allen
+                EG-Runden eine Anfrage stellen.<br />
+            </p>
+            <a href={{url_for('del_insta_acc', acc_id=3, insta_username=insta_acc3_info["username"])}}><button class="blue-button"
+                    style="background-color: tomato;">Account entfernen</button></a>
+        </div>
+    </div>
+
+</div>
+<script>
+    // Get the modal
+    var modal3 = document.getElementById("myModal3");
+
+    // Get the button that opens the modal
+    var btn3 = document.getElementById("del_acc_btn3");
+
+    // Get the <span> element that closes the modal
+    var close3 = document.getElementsByClassName("close3")[0];
+
+    // When the user clicks on the button, open the modal
+    btn3.onclick = function () {
+        modal3.style.display = "flex";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    close3.onclick = function () {
+        modal3.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal3) {
+            modal3.style.display = "none";
+        }
+    }
+</script>
+{% endif %}
+
 {% endblock %}

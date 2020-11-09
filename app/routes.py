@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import app, db, bcrypt, mail, admins, eg_boost_runden, zeitfaktor
 from app.forms import (RegistrationForm, LoginForm, ChangeUsername, ChangePassword, RequestResetForm,
-    ResetPasswordForm, AddInstaAccForm, AdminChangeUserAcc, AnalyzerForm, SendConfirmEmailForm)
+                       ResetPasswordForm, AddInstaAccForm, AdminChangeUserAcc, AnalyzerForm, SendConfirmEmailForm)
 from app.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
@@ -14,7 +14,7 @@ import json
 
 def create_session():
     cookie = {"name": "sessionid",
-        "value": "27196906023%3AhxTv1pEFwWu3Oh%3A20"}
+              "value": "27196906023%3AhxTv1pEFwWu3Oh%3A20"}
     session = requests.Session()
     session.cookies.set(**cookie)
     return session
@@ -28,18 +28,14 @@ def get_user_information_by_username(username):
     headers = {
         'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 105.0.0.11.118 (iPhone11,8; iOS 12_3_1; en_US; en-US; scale=2.00; 828x1792; 165586599)'
     }
-    try:
-        s = create_session()
-        resp = s.get(url=url, headers=headers).json()
-        userdata = resp["graphql"]["user"]
-        user_info["id"] = userdata["id"]
-        user_info["username"] = username
-        user_info["followers"] = userdata["edge_followed_by"]["count"]
-        user_info["following"] = userdata["edge_follow"]["count"]
-        user_info["profile_pic_url"] = userdata["profile_pic_url"]
-    except:
-        flash('Fehler 1', 'no-success')
-        return redirect(url_for('mgb'))
+    s = create_session()
+    resp = s.get(url=url, headers=headers).json()
+    userdata = resp["graphql"]["user"]
+    user_info["id"] = userdata["id"]
+    user_info["username"] = username
+    user_info["followers"] = userdata["edge_followed_by"]["count"]
+    user_info["following"] = userdata["edge_follow"]["count"]
+    user_info["profile_pic_url"] = userdata["profile_pic_url"]
     return user_info
 
 
@@ -350,25 +346,34 @@ def egboost():
         flash('Um an EG-Boost teilzunehmen, musst du erst deinen Instagram Account verknüpfen.', 'info')
 
     user_info_json = json.loads(current_user.user_info)
-    if user_info_json["acc_request_status"] != None:
+    if "acc_request_status" not in user_info_json:
         user_info_json["acc_request_status"] = {}
-    
+        current_user.user_info = json.dumps(user_info_json)
+        db.session.commit()
+
     calc_egboost_times()
 
-    instaname = get_user_by_id(current_user.instaid1)
     user_info_json = json.loads(current_user.user_info)
-    return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True, eg_boost_runden=eg_boost_runden, instaname=instaname, user_info=user_info_json, datetime=datetime, zeitfaktor=zeitfaktor)
+    return render_template('pages/egboost.html', title="EG-Boost", loginRequired=True, eg_boost_runden=eg_boost_runden, user_info=user_info_json, datetime=datetime, zeitfaktor=zeitfaktor)
 
 
-@app.route('/mgb/account_anfragen/<eg_acc_name>/<insta_username>')
+@app.route('/mgb/account_anfragen/<eg_acc_name>')
 @login_required
-def account_anfragen(eg_acc_name, insta_username):
+def account_anfragen(eg_acc_name): 
+    instaname1 = get_user_by_id(current_user.instaid1)
+    instaname2 = get_user_by_id(current_user.instaid2) if current_user.instaid2 else "None"
+    instaname3 = get_user_by_id(current_user.instaid3) if current_user.instaid3 else "None"
+
     # öffnet die Datei mit der Anfragenliste
     with open('anfragenliste.json') as f:
         anfragenliste = json.load(f)
 
-    if insta_username not in anfragenliste[eg_acc_name]:
-        anfragenliste[eg_acc_name].append(insta_username)
+    if instaname1 not in anfragenliste[eg_acc_name]:
+        anfragenliste[eg_acc_name].append(instaname1)
+    if instaname2 not in anfragenliste[eg_acc_name] and instaname2 != "None":
+        anfragenliste[eg_acc_name].append(instaname2)
+    if instaname3 not in anfragenliste[eg_acc_name] and instaname3 != "None":
+        anfragenliste[eg_acc_name].append(instaname3)
 
     with open('anfragenliste.json', 'w') as f:
         json.dump(anfragenliste, f)
@@ -385,6 +390,7 @@ def account_anfragen(eg_acc_name, insta_username):
     print(user_info_json)
     flash("Anfrage wurde erfolgreich gesendet!", "success")
     return redirect(url_for('egboost'))
+
 
 @app.route('/mgb/tools')
 @login_required
@@ -439,7 +445,8 @@ def analyzeresults(username):
         return redirect(url_for('email_not_confirmed'))
     user_info_json = json.loads(current_user.user_info)
     try:
-        user_info_json["analyzer_usage"] = int(user_info_json["analyzer_usage"]) + 1
+        user_info_json["analyzer_usage"] = int(
+            user_info_json["analyzer_usage"]) + 1
         print(user_info_json["analyzer_usage"])
     except:
         user_info_json["analyzer_usage"] = 1
@@ -466,46 +473,116 @@ def ebookskurse():
 def profile():
     user = current_user
     insta_acc1_info = {}
+    insta_acc2_info = {}
+    insta_acc3_info = {}
+
     if user.instaid1:
         try:
-            # insta_acc1_info = get_user_information_by_username('erfolgsarmee')
-            # insta_acc1_info['username'] = get_user_by_id(user.instaid1)
             insta_acc1_info = get_user_information_by_username(
                 get_user_by_id(user.instaid1))
         except:
             insta_acc1_info['username'] = "Fehler"
-    return render_template('pages/profile.html', title="Mein Profil", loginRequired=True, insta_acc1_info=insta_acc1_info)
+
+    if user.instaid2:
+        try:
+            insta_acc2_info = get_user_information_by_username(
+                get_user_by_id(user.instaid2))
+        except:
+            insta_acc2_info['username'] = "Fehler"
+    if user.instaid3:
+        try:
+            insta_acc3_info = get_user_information_by_username(
+                get_user_by_id(user.instaid3))
+        except:
+            insta_acc3_info['username'] = "Fehler"
+
+    return render_template('pages/profile.html', title="Mein Profil", loginRequired=True, insta_acc1_info=insta_acc1_info, insta_acc2_info=insta_acc2_info, insta_acc3_info=insta_acc3_info)
 
 
 @app.route('/add-insta-acc', methods=['GET', 'POST'])
 @login_required
 def add_insta_acc():
     form = AddInstaAccForm()
-    if current_user.instaid1:
+    if current_user.instaid1 and current_user.rang == "kein Rang":
         flash('Du hast bereits einen Instagram Account hinzugefügt. Kaufe den Premium-Rang um bis zu drei Accounts hinzuzufügen.', 'success')
         return redirect('mgb/profile')
     else:
         if form.validate_on_submit():
             user = current_user
-            res = get_user_information_by_username(form.instaname.data)
-            user.instaid1 = res["id"]
-            db.session.commit()
+            try:
+                res = get_user_information_by_username(form.instaname.data)
+
+                if user.instaid1 == None:
+                    user.instaid1 = res["id"]
+                    db.session.commit()
+                elif user.instaid2 == None:
+                    user.instaid2 = res["id"]
+                    db.session.commit()
+                elif user.instaid3 == None:
+                    user.instaid3 = res["id"]
+                    db.session.commit()
+                else:
+                    flash('Du hast bereits die maximale Anzahl an Instagram Accounts hinzugefügt.', 'info')
+                
+                # von der unfollow Liste entfernen, falls vorhanden
+                with open('unfollowliste.json') as f:
+                    unfollowliste = json.load(f)
+                if form.instaname.data in unfollowliste:
+                    unfollowliste.remove(form.instaname.data)
+                with open('unfollowliste.json', 'w') as f:
+                    json.dump(unfollowliste, f)
+
+                # Account Follow Anfrage stellen
+                with open('anfragenliste.json') as f:
+                    anfragenliste = json.load(f)
+                    
+                user_info_json = json.loads(current_user.user_info)
+
+                for eg_acc_name in user_info_json["acc_request_status"]: 
+                    print("1111111111") 
+                    if user_info_json["acc_request_status"][eg_acc_name] == "accepted" or user_info_json["acc_request_status"][eg_acc_name] == "pending":
+                        print("22222222") 
+                        anfragenliste[eg_acc_name].append(form.instaname.data)
+                
+                with open('anfragenliste.json', 'w') as f:
+                    json.dump(anfragenliste, f)
+
+                flash('Der Instagram Account wurde hinzugefügt!', 'success')
+            except:
+                flash('Dieser Instagram Account existiert nicht. Versuche es erneut.', 'no-success')
             return redirect(url_for('profile'))
-            flash('Der Instagram Account wurde hinzugefügt!', 'success')
     return render_template('pages/add_insta_acc.html', title='Instagram Account verknüpfen', form=form)
 
 
-@app.route('/del-insta-acc')
-def del_insta_acc():
+@app.route('/del-insta-acc/<acc_id>/<insta_username>')
+def del_insta_acc(acc_id, insta_username):
     user = current_user
-    user.instaid1 = None
+    if acc_id == "1":
+        if user.instaid1 and user.instaid2 and user.instaid3:
+            user.instaid1 = user.instaid2
+            user.instaid2 = user.instaid3
+            user.instaid3 = None
+        elif user.instaid1 and user.instaid2:
+            user.instaid1 = user.instaid2
+            user.instaid2 = None
+        elif user.instaid1:
+            user.instaid1 = None
+    if acc_id == "2":
+        if user.instaid1 and user.instaid2 and user.instaid3:
+            user.instaid2 = user.instaid3
+            user.instaid3 = None
+        elif user.instaid1 and user.instaid2:
+            user.instaid2 = None
+    if acc_id == "3":
+        if user.instaid1 and user.instaid2 and user.instaid3:
+            user.instaid3 = None
 
     user_info_json = json.loads(current_user.user_info)
     user_info_json["acc_request_status"] = {}
     current_user.user_info = json.dumps(user_info_json)
     db.session.commit()
     flash('Der Instagram Account wurde entfernt.', 'success')
-    return redirect(url_for('profile'))
+    return redirect(url_for('follow_entfernen_request', insta_username=insta_username))
 
 # Nur für Admins
 @app.route('/admin')
@@ -519,7 +596,8 @@ def admin():
     else:
         flash('Du hast keine Admin Rechte. Haha.', 'no-success')
         return redirect(url_for('chooseLanguage'))
-  
+
+
 @app.route('/admin/anfragen')
 @login_required
 def admin_anfragen():
@@ -528,10 +606,15 @@ def admin_anfragen():
 
         with open('anfragenliste.json') as f:
             anfragenliste = json.load(f)
-        return render_template('pages/admin_anfragen.html', title="Anfragen", loginRequired=True, nosidebar=True, nav_links_category='only-login', anfragenliste=anfragenliste)
+
+        with open('unfollowliste.json') as f:
+            unfollowliste = json.load(f)
+
+        return render_template('pages/admin_anfragen.html', title="Anfragen", loginRequired=True, nosidebar=True, nav_links_category='only-login', anfragenliste=anfragenliste, unfollowliste=unfollowliste)
     else:
         flash('Du hast keine Admin Rechte. Haha.', 'no-success')
         return redirect(url_for('chooseLanguage'))
+
 
 @app.route('/admin/anfragen/remove/<eg_acc_name>/<insta_username>')
 @login_required
@@ -551,6 +634,40 @@ def anfrage_entfernen(eg_acc_name, insta_username):
     db.session.commit()
 
     return redirect(url_for('admin_anfragen'))
+
+
+@app.route('/admin/anfragen/removefollow/<insta_username>')
+@login_required
+def follow_entfernen(insta_username):
+
+    # Fragenliste bearbeiten
+    with open('unfollowliste.json') as f:
+        unfollowliste = json.load(f)
+    if insta_username in unfollowliste:
+        unfollowliste.remove(insta_username)
+    with open('unfollowliste.json', 'w') as f:
+        json.dump(unfollowliste, f)
+
+    return redirect(url_for('admin_anfragen'))
+
+
+@app.route('/admin/anfragen/removefollowrequest/<insta_username>')
+@login_required
+def follow_entfernen_request(insta_username):
+    # Fragenliste bearbeiten
+    with open('unfollowliste.json') as f:
+        unfollowliste = json.load(f)
+    if insta_username not in unfollowliste:
+        unfollowliste.append(insta_username)
+    with open('unfollowliste.json', 'w') as f:
+        json.dump(unfollowliste, f)
+
+    # debug
+    print(current_user.instaid1)
+    print(current_user.instaid2)
+    print(current_user.instaid3)
+    return redirect(url_for('profile'))
+
 
 @app.route('/admin/delete/<int:user_id>')
 def delete_user(user_id):
@@ -578,6 +695,7 @@ def admin_change_user_details(user_id):
         if form.validate_on_submit():
             user.username = form.username.data if form.username.data else user.username
             user.email = form.email.data if form.email.data else user.email
+            user.email_confirmed = form.email_confirmed.data if form.email_confirmed.data else user.email_confirmed
             user.rang = form.rang.data if form.rang.data else user.rang
             user.eg_level = int(
                 form.eg_level.data) if form.eg_level.data else user.eg_level

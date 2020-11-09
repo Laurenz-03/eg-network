@@ -23,10 +23,11 @@ section{
 .insta-acc,
 .connect-more-accs {
   transition: all 0.2s ease-out;
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 6px;
 }
 .insta-acc:hover,
 .connect-more-accs:hover {
-  transform: scale(1.05);
 }
 .insta-acc a{
   color: #4070f4;
@@ -42,6 +43,11 @@ section{
 }
 .bottom-line i{
   color: tomato;
+  font-size: 1.05rem;
+}
+.bottom-line button{
+  border: none;
+  background-color: transparent;
 }
 .add-account {
   background-color: rgb(210, 255, 210);
@@ -97,6 +103,11 @@ section{
   display: grid;
   grid-template-rows: 1fr 5fr 10fr;
   gap: 1.2rem;
+  overflow-x: auto;
+  overflow-y: scroll;
+}
+.connected-accounts::-webkit-scrollbar {
+  display: none;
 }
 
 .insta-acc {
@@ -137,6 +148,55 @@ section{
 }
 .flash-message-no-success{
   margin: 0;
+  margin-bottom: 1rem;
+}
+
+/**** DELETE ACCOUNT MODAL *************************/
+.outer-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(8, 14, 27, 0.3); /* Black w/ opacity */
+  backdrop-filter: blur(12px);
+  justify-content: center;
+  align-items: center;
+  transition: all 3s ease-in-out;
+}
+.modal {
+  width: 90%;
+  max-width: 600px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+}
+.modal-top {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.modal-top i{
+  font-size: 1.2rem;
+}
+.modal h3{
+  text-align: center;
+  font-size: 1.2rem;
+}
+.modal .modal-main{
+  margin-top: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.modal-main p{
   margin-bottom: 1rem;
 }
 
