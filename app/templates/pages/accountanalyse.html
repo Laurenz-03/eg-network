@@ -2,27 +2,10 @@
 {% block content %}
 <script src="./../../static/js/eg-analyzer.js"></script>
 <link rel="stylesheet" href='./../../static/css/analyzeresults.css' />
-<script>
-    function analyze(username){
-        var result = FetchData(username);
-        console.log(result);
-        //var Followers = result.Account.edge_followed_by.count;
-        //console.log(Followers);
-    }
-</script>
 <h2>Account-Analyse</h2>
 <form method="POST" action="" class="analyze-form">
     {{ form.hidden_tag() }}
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    <div class="flash-message-{{ category }}">
-      <p>{{ message }}</p>
-    </div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
     <div class='input-field'>
       <i class="fas fa-user"></i>
       {% if form.instaname.errors %}

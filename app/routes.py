@@ -443,19 +443,30 @@ def accountanalyse():
 @app.route('/mgb/accountanalyse/<username>')
 @login_required
 def analyzeresults(username):
-    if current_user.email_confirmed == 'false':
-        return redirect(url_for('email_not_confirmed'))
-    user_info_json = json.loads(current_user.user_info)
-    try:
-        user_info_json["analyzer_usage"] = int(
-            user_info_json["analyzer_usage"]) + 1
-        print(user_info_json["analyzer_usage"])
-    except:
-        user_info_json["analyzer_usage"] = 1
+    if current_user.rang == "kein Rang":
+        res = get_user_information_by_username(username)
+        user_id = int(res["id"])
+    else:
+        user_id = "premium"
+    
+    if (user_id == "premium") or (user_id == current_user.instaid1):
+        print("success")
+        if current_user.email_confirmed == 'false':
+            return redirect(url_for('email_not_confirmed'))
+        user_info_json = json.loads(current_user.user_info)
+        try:
+            user_info_json["analyzer_usage"] = int(
+                user_info_json["analyzer_usage"]) + 1
+            print(user_info_json["analyzer_usage"])
+        except:
+            user_info_json["analyzer_usage"] = 1
 
-    current_user.user_info = json.dumps(user_info_json)
-    db.session.commit()
-    return render_template('pages/analyzeresults.html', title=str(username), loginRequired=True, username=username)
+        current_user.user_info = json.dumps(user_info_json)
+        db.session.commit()
+        return render_template('pages/analyzeresults.html', title=str(username), loginRequired=True, username=username)
+    else:
+        flash("Du kannst nur verbundene Accounts analysieren. Kaufe dir den Premium Rang, um alle Instagram Accounts zu analysieren.", "info")
+        return redirect(url_for('accountanalyse'))
 
 
 @app.route('/mgb/shoutoutmatcher')
