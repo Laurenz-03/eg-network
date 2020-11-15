@@ -55,7 +55,7 @@ img {
 }
 
 /*Blur-Effekt bei PopUp*/
-.all#blur.active {
+.all#popup_blur.active {
   filter: blur(20px);
   pointer-events: none;
   user-select: none;

@@ -137,14 +137,9 @@ def landingPageEN():
 
 def send_confirm_email(user):
     token = user.get_reset_token()
-    msg = Message('Confirm Email', sender='noreply@eg-network.co',
-                  recipients=[user.email])
-    # msg.html = render_template('./EG-Confirm/EG-Confirm-Email.html')
-    msg.body = f'''Hallo {user.username},
-
-um deine Email zu bestätigen, klicke auf folgenden Link:
-{url_for("confirm_email", token=token, _external=True)}'''
-
+    msg = Message('Confirm Email', sender='noreply@eg-network.co', recipients=[user.email])
+    link = url_for("confirm_email", token=token, _external=True)
+    msg.html = render_template('pages/EG-Confirm-Email.html', link=link)
     mail.send(msg)
 
 
@@ -202,14 +197,9 @@ def login():
 
 def send_reset_email(user):
     token = user.get_reset_token()
-    msg = Message('Password Reset Request',
-                  sender='noreply@eg-network.co', recipients=[user.email])
-    # msg.html = render_template('./EG-Passwort-Reset-Email/EG-Passwort-Reset-Email.html')
-    msg.body = f'''Hallo {user.username},
-
-um dein Passwort zurückzusetzen, klicke auf folgenden Link:
-{url_for("reset_token", token=token, _external=True)}'''
-
+    msg = Message('Password Reset Request', sender='noreply@eg-network.co', recipients=[user.email])
+    link = url_for("reset_token", token=token, _external=True)
+    msg.html = render_template('pages/EG-Passwort-Reset-Email.html', link=link)
     mail.send(msg)
 
 
