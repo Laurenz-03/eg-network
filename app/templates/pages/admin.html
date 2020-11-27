@@ -4,33 +4,39 @@
 <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
 <h2>Moin {{ current_user.username }}.</h2>
 <h3>Du befindest dich in der Admin-Kommandozentrale und hast jetzt die Macht über alle Benutzer!</h3>
+<a href={{url_for('admin_anfragen')}} style="color: #4070f4; font-weight: bold">Account-Anfragen</a>
 <h4>Registrierte Benutzer ({{ users|length }}):</h4>
-<table>
-    <tr>
-        <th>Benutzername</th>
-        <th>Email</th>
-        <th>Rang</th>
-        <th>EG-Level</th>
-        <th>Insta ID</th>
-        <th>Registrierungsdatum</th>
-        <th>Email confirmed</th>
-        <th>ID</th>
-        <th></th>
-    </tr>
-    {% for user in users %}
-    <tr>
-        <th>{{ user.username }}</th>
-        <th>{{ user.email }}</th>
-        <th>{{ user.rang }}</th>
-        <th>{{ user.eg_level }}</th>
-        <th>{{ user.instaid1 }}</th>
-        <th>{{ user.date_created.strftime('%d. %B %Y, %H:%M Uhr') }}</th>
-        <th>{{ user.email_confirmed }}</th>
-        <th>{{ user.id }}</th>
-        <th><a href={{url_for('admin_change_user_details', user_id=user.id)}}><i class="fas fa-pen"></i></a></th>
-    </tr>
-    {% endfor %}
-</table>
+<section>
+
+    <table>
+        <tr>
+            <th>Benutzername</th>
+            <th>Email</th>
+            <th>Rang</th>
+            <th>EG-Level</th>
+            <th>Insta ID</th>
+            <th>Registrierungsdatum</th>
+            <th>Email confirmed</th>
+            <th>Einladungen</th>
+            <th>ID</th>
+            <th></th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <th>{{ user.username }}</th>
+            <th>{{ user.email }}</th>
+            <th>{{ user.rang }}</th>
+            <th>{{ user.eg_level }}</th>
+            <th>{{ user.instaid1 }}</th>
+            <th>{{ user.date_created.strftime('%d. %B %Y, %H:%M Uhr') }}</th>
+            <th>{{ user.email_confirmed }}</th>
+            <th>{{ user.user_info }}</th>
+            <th>{{ user.id }}</th>
+            <th><a href={{url_for('admin_change_user_details', user_id=user.id)}}><i class="fas fa-pen"></i></a></th>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
 <p>Folgende Features kommen noch:<br/>
     - man kann einzelnen Nutzern eine Nachricht schreiben (z. B. 'Du hast gestern nicht engaged.')<br/>
     - Admins können neue EG-Boost runden erstellen<br/>

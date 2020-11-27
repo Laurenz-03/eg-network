@@ -56,6 +56,9 @@ button:focus {
 .blue-button:hover{
   transform: scale(1.1);
 }
+.blue-button:active{
+  transform: scale(0.92);
+}
 .transparent-button{
   border: 0;
   background-color: transparent;
@@ -174,6 +177,9 @@ footer p,
 footer h2 {
   color: white;
 }
+footer i{
+  font-size: 2.5rem;
+}
 
 /**** SCROLLBAR *************************/
 /* width */
@@ -227,6 +233,27 @@ fieldset{
 .mobile-menu-btn, #outer-mobile-nav{
   display: none;
 }
+
+.tutorial-link div{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.tutorial-link i{
+  font-size: 1.3rem;
+  margin:  0 5px 5px 10%;
+  color: #fff;
+}
+.tutorial-link{
+  padding: 10px 15px;
+  margin-top: 10px;
+  background: linear-gradient(120deg, #4b7afa , #1417bd);
+}
+.tutorial-link p, .tutorial-link h3{
+  color: #fff;
+}
+
 /**** RESPONSIVE *************************/
 @media  screen and (max-width: 800px){
   .sidebar{
@@ -301,4 +328,10 @@ fieldset{
     margin-right: 10px;
   }
   
+  .blue-button:hover{
+    transform: scale(1);
+  }
+  .blue-button:active{
+    transform: scale(0.92);
+  }
 }

@@ -1,0 +1,59 @@
+{% extends './layout.html' %}
+{% block content %}
+
+<link rel="stylesheet" href="./../../static/css/eglink.css">
+
+<h2>EG-Link Shortener</h2>
+<section>
+
+  <form>
+    <div class="inputlinkplusbtn">
+      <input name="text" type="url" id="linkinput" placeholder="Lange URL einfügen" class="kürzung"
+      autocomplete="off"> <br><br>
+      <input type="submit" id="myinput" value="Kürzen!" class="btn">
+    </div>
+  </form>
+  <div class="output">
+    <p id="message">Dein Link wird lauten:</p>
+    <input id="shortlink" class="shortl" placeholder="eg-l.ink/xxxxxx"></input> <button id="btnCopy"
+    onclick="copy()">KOPIEREN&nbsp;&nbsp;<i class="far fa-clipboard" id="clipboardicon"></i></button>
+  </div>
+</section>
+  <script>
+
+    const outP = document.getElementById("shortlink");
+    const btnCopy = document.getElementById("btnCopy");
+
+    function copy() {
+      outP.select();
+      document.execCommand("Copy");
+    }
+
+
+    document.getElementById("myinput").onclick = function () {
+      var link = document.getElementById("linkinput").value;
+      var data = {
+        "domain": "eg-l.ink",
+        "originalURL": link,
+        "allowDuplicates": false
+      };
+      fetch('https://api.short.cm/links/public', {
+        method: 'post',
+        headers: {
+          'accept': 'application/json',
+          'Content-Type': 'application/json',
+          'authorization': 'tVr30bErpaP1SssVDtIIFgp2Q2GryfbF'
+        },
+        body: JSON.stringify(data)
+      }).then(function (response) {
+        return response.json();
+      })
+        .then(function (data) {
+          document.getElementById("message").innerHTML = "Dein gekürzter Link lautet:"
+        
+      document.getElementById("shortlink").value = data.shortURL;
+      document.getElementById("linkinput").value = '';})
+    }
+  </script>
+
+  {% endblock %}

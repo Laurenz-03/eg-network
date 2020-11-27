@@ -1,0 +1,130 @@
+
+section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.inputlinkplusbtn {
+    align-items: center;
+    text-align: center;
+    margin-top: 10%;
+}
+
+
+.kürzung {
+    padding: 18px;
+    text-align: center;
+     font-size: 20px;
+     border: none;
+     background-color: #FFFFFF;
+     color: #000000;
+     border-radius: 50px;
+     box-shadow: 0px 0px 30px rgba(207,207,207,.74);
+     width: 75%;
+     transition: 0.3s all ease-in-out;
+}
+
+.kürzung:focus {
+    outline: none;
+    box-shadow: 0px 0px 50px rgba(207,207,207,.74);
+}
+
+.btn {
+    margin-top: 50px;
+    background: #4070f4;
+    border-radius: 11px;
+    padding: 10px 30px;
+    color: #ffffff;
+    display: flex;
+    text-align: center;
+    margin: 0 auto;
+    border: none;
+    box-shadow: 0px 0px 30px rgba(207,207,207,.74);
+    transition: 0.3s all ease-in-out;
+    font-family: Poppins;
+    font-weight: 150;
+    font-size: medium;
+    
+}
+
+.btn:hover {
+    background: #2b57cf;
+    cursor: pointer;
+    box-shadow: 0px 0px 50px rgba(143, 143, 143, 0.603);
+}
+
+.btn:focus {
+    outline: none;
+}
+
+
+
+.output {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 3rem;
+    font-size: larger;
+    width: 50%;
+    box-shadow: #e7e7e7 0px 0px 15px;
+    border-radius: 6px;
+    padding: 1rem;
+}
+
+#btnCopy {
+    background: #4070f4;
+    border-radius: 6px;
+    padding: 10px 20px;
+    color: #ffffff;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+    border: none;
+    box-shadow: 0px 0px 30px rgba(207,207,207,.74);
+    transition: 0.3s all ease-in-out;
+    font-family: Poppins;
+    font-weight: 150;
+    font-size: 300;
+
+}
+
+.shortl {
+    text-align: center;
+    font-family: Poppins;
+    font-weight: bolder;
+    margin-bottom: 20px;
+    border: none;
+    outline: none;
+}
+
+#btnCopy:focus {
+    outline: none;
+}
+
+#btnCopy:hover {
+    background: #2b57cf;
+    cursor: pointer;
+    box-shadow: 0px 0px 20px rgba(143, 143, 143, 0.603);
+}
+
+#message {
+    font-weight:bold;
+    margin-bottom: 5%;
+}
+
+/**** RESPONSIVE *************************/
+@media screen and (max-width: 800px) {
+    .output{
+        width: 80%;
+    }
+    .kürzung{
+        width: 90%;
+        font-size: 1.1rem;
+        font-family: Poppins;
+        padding: 13px 16px;
+    }
+    .linkinput{
+        font-size: 2rem;
+    }
+}

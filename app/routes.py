@@ -15,7 +15,7 @@ import random
 
 def create_session():
     cookie = {"name": "sessionid",
-              "value": "27196906023%3AhxTv1pEFwWu3Oh%3A20"}
+              "value": "27196906023%3Af21lSHNt9Q1aX1%3A14"}
     session = requests.Session()
     session.cookies.set(**cookie)
     return session
@@ -137,7 +137,8 @@ def landingPageEN():
 
 def send_confirm_email(user):
     token = user.get_reset_token()
-    msg = Message('Confirm Email', sender='noreply@eg-network.co', recipients=[user.email])
+    msg = Message('Confirm Email', sender='noreply@eg-network.co',
+                  recipients=[user.email])
     link = url_for("confirm_email", token=token, _external=True)
     msg.html = render_template('pages/EG-Confirm-Email.html', link=link)
     mail.send(msg)
@@ -151,17 +152,41 @@ def email_confirm_required():
         return redirect(url_for('mgb'))
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+@app.route('/login/<a>', methods=['GET', 'POST'], defaults={'a': None})
+@app.route('/login/<a>', methods=['GET', 'POST'])
+def login(a):
+    affiliate_id = a
+    print(a)
+    if affiliate_id != None:
+        try:
+            aff_user = User.query.filter_by(id=affiliate_id).first()
+            print(aff_user.username)
+
+
+        except:
+            affiliate_id = None
     if current_user.is_authenticated:
         return redirect(url_for('mgb'))
 
+
     register_form = RegistrationForm()
     if register_form.validate_on_submit():
+
+        # Affiliate Einladung verwalten  
+        aff_user_info_json = json.loads(aff_user.user_info)
+        if "affiliate_invites" in aff_user_info_json:
+            aff_user_info_json["affiliate_invites"] += 1
+        else:
+            aff_user_info_json["affiliate_invites"] = 1
+        aff_user.user_info = json.dumps(aff_user_info_json)
+        db.session.commit()
+        print(aff_user.user_info)
+        print(aff_user.username)
+
         hashed_password = bcrypt.generate_password_hash(
-            register_form.password.data).decode('utf-8')
-        user = User(username=register_form.username.data,
-                    email=register_form.email.data, password=hashed_password)
+            register_form.password.data.strip()).decode('utf-8')
+        user = User(username=register_form.username.data.strip(),
+                    email=register_form.email.data.strip().lower(), password=hashed_password)
         db.session.add(user)
         db.session.commit()
         login_user(user)
@@ -176,17 +201,17 @@ def login():
     login_form = LoginForm()
     if login_form.validate_on_submit():
         user_by_email = User.query.filter_by(
-            email=login_form.email_username.data).first()
+            email=login_form.email_username.data.strip().lower()).first()
         user_by_name = User.query.filter_by(
-            username=login_form.email_username.data).first()
+            username=login_form.email_username.data.strip()).first()
         next_page = request.args.get('next')
         print("success")
-        if user_by_email and bcrypt.check_password_hash(user_by_email.password, login_form.password.data):
+        if user_by_email and bcrypt.check_password_hash(user_by_email.password, login_form.password.data.strip()):
             login_user(user_by_email, remember=login_form.remember.data)
             flash('Du hast dich erfolgreich eingeloggt!', 'success')
             # Weiterleiten auf die Seite vor dem login
             return redirect(next_page) if next_page else redirect(url_for('mgb'))
-        elif user_by_name and bcrypt.check_password_hash(user_by_name.password, login_form.password.data):
+        elif user_by_name and bcrypt.check_password_hash(user_by_name.password, login_form.password.data.strip()):
             login_user(user_by_name, remember=login_form.remember.data)
             flash('Du hast dich erfolgreich eingeloggt!', 'success')
             return redirect(next_page) if next_page else redirect(url_for('mgb'))
@@ -197,7 +222,8 @@ def login():
 
 def send_reset_email(user):
     token = user.get_reset_token()
-    msg = Message('Password Reset Request', sender='noreply@eg-network.co', recipients=[user.email])
+    msg = Message('Password Reset Request',
+                  sender='noreply@eg-network.co', recipients=[user.email])
     link = url_for("reset_token", token=token, _external=True)
     msg.html = render_template('pages/EG-Passwort-Reset-Email.html', link=link)
     mail.send(msg)
@@ -222,7 +248,8 @@ def reset_request():
         return redirect(url_for('mgb'))
     form = RequestResetForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(
+            email=form.email.data.strip().lower()).first()
         send_reset_email(user)
         flash('Die Email zum Zurücksetzen deines Passwortes wurde versendet.', 'success')
         return redirect(url_for('login'))
@@ -351,10 +378,12 @@ def egboost():
 
 @app.route('/mgb/account_anfragen/<eg_acc_name>')
 @login_required
-def account_anfragen(eg_acc_name): 
+def account_anfragen(eg_acc_name):
     instaname1 = get_user_by_id(current_user.instaid1)
-    instaname2 = get_user_by_id(current_user.instaid2) if current_user.instaid2 else "None"
-    instaname3 = get_user_by_id(current_user.instaid3) if current_user.instaid3 else "None"
+    instaname2 = get_user_by_id(
+        current_user.instaid2) if current_user.instaid2 else "None"
+    instaname3 = get_user_by_id(
+        current_user.instaid3) if current_user.instaid3 else "None"
 
     # öffnet die Datei mit der Anfragenliste
     with open('anfragenliste.json') as f:
@@ -422,12 +451,17 @@ def accountanalyse():
     if current_user.email_confirmed == 'false':
         return redirect(url_for('email_not_confirmed'))
 
+    if current_user.rang == "kein Rang":
+        username = get_user_by_id(current_user.instaid1)
+    else:
+        username = ""
+
     analyzer_form = AnalyzerForm()
     if analyzer_form.validate_on_submit():
         username = analyzer_form.instaname.data.replace(
             " ", "")  # Leerzeichen entfernen
         return redirect(url_for('analyzeresults', username=username))
-    return render_template('pages/accountanalyse.html', title="Account-Analyse", loginRequired=True, form=analyzer_form)
+    return render_template('pages/accountanalyse.html', title="Account-Analyse", loginRequired=True, form=analyzer_form, username=username)
 
 
 @app.route('/mgb/accountanalyse/<username>')
@@ -438,7 +472,7 @@ def analyzeresults(username):
         user_id = int(res["id"])
     else:
         user_id = "premium"
-    
+
     if (user_id == "premium") or (user_id == current_user.instaid1):
         print("success")
         if current_user.email_confirmed == 'false':
@@ -458,6 +492,10 @@ def analyzeresults(username):
         flash("Du kannst nur verbundene Accounts analysieren. Kaufe dir den Premium Rang, um alle Instagram Accounts zu analysieren.", "info")
         return redirect(url_for('accountanalyse'))
 
+@app.route('/mgb/eglink')
+@login_required
+def eglink():
+    return render_template('pages/eglink.html', title="EG-Link", loginRequired=True)
 
 @app.route('/mgb/shoutoutmatcher')
 @login_required
@@ -498,8 +536,12 @@ def profile():
                 get_user_by_id(user.instaid3))
         except:
             insta_acc3_info['username'] = "Fehler"
-
-    return render_template('pages/profile.html', title="Mein Profil", loginRequired=True, insta_acc1_info=insta_acc1_info, insta_acc2_info=insta_acc2_info, insta_acc3_info=insta_acc3_info)
+    user_info_json = json.loads(current_user.user_info)
+    if "affiliate_invites" in user_info_json:
+        aff_invites = user_info_json["affiliate_invites"]
+    else:
+        aff_invites = "0"
+    return render_template('pages/profile.html', title="Mein Profil", loginRequired=True, insta_acc1_info=insta_acc1_info, insta_acc2_info=insta_acc2_info, insta_acc3_info=insta_acc3_info, aff_invites=aff_invites)
 
 
 @app.route('/add-insta-acc', methods=['GET', 'POST'])
@@ -512,7 +554,8 @@ def add_insta_acc():
     if "insta_auth_code" in user_info_json:
         auth_code = user_info_json["insta_auth_code"]
     else:
-        user_info_json["insta_auth_code"] = "#" + str(random.randint(1000, 9999))
+        user_info_json["insta_auth_code"] = "#" + \
+            str(random.randint(1000, 9999))
         auth_code = user_info_json["insta_auth_code"]
         current_user.user_info = json.dumps(user_info_json)
         db.session.commit()
@@ -524,7 +567,8 @@ def add_insta_acc():
         if form.validate_on_submit():
             user = current_user
             try:
-                res = get_user_information_by_username(form.instaname.data)
+                res = get_user_information_by_username(
+                    form.instaname.data.replace(" ", ""))
                 bio = res["bio"]
                 if auth_code in bio:
                     print("success")
@@ -539,8 +583,9 @@ def add_insta_acc():
                         user.instaid3 = res["id"]
                         db.session.commit()
                     else:
-                        flash('Du hast bereits die maximale Anzahl an Instagram Accounts hinzugefügt.', 'info')
-                    
+                        flash(
+                            'Du hast bereits die maximale Anzahl an Instagram Accounts hinzugefügt.', 'info')
+
                     # von der unfollow Liste entfernen, falls vorhanden
                     with open('unfollowliste.json') as f:
                         unfollowliste = json.load(f)
@@ -552,24 +597,27 @@ def add_insta_acc():
                     # Account Follow Anfrage stellen
                     with open('anfragenliste.json') as f:
                         anfragenliste = json.load(f)
-                        
+
                     user_info_json = json.loads(current_user.user_info)
 
-                    for eg_acc_name in user_info_json["acc_request_status"]: 
-                        print("1111111111") 
+                    for eg_acc_name in user_info_json["acc_request_status"]:
+                        print("1111111111")
                         if user_info_json["acc_request_status"][eg_acc_name] == "accepted" or user_info_json["acc_request_status"][eg_acc_name] == "pending":
-                            print("22222222") 
-                            anfragenliste[eg_acc_name].append(form.instaname.data)
-                    
+                            print("22222222")
+                            anfragenliste[eg_acc_name].append(
+                                form.instaname.data)
+
                     with open('anfragenliste.json', 'w') as f:
                         json.dump(anfragenliste, f)
 
                     flash('Der Instagram Account wurde hinzugefügt!', 'success')
                 else:
-                    flash('Deine Bio enthält nicht den richtigen Code, versuche es bitte erneut.', 'no-success')
+                    flash(
+                        'Deine Bio enthält nicht den richtigen Code, versuche es bitte erneut.', 'no-success')
 
             except:
-                flash('Dieser Instagram Account existiert nicht. Versuche es erneut.', 'no-success')
+                flash(
+                    'Dieser Instagram Account existiert nicht. Versuche es erneut.', 'no-success')
             return redirect(url_for('profile'))
     return render_template('pages/add_insta_acc.html', title='Instagram Account verknüpfen', form=form, insta_auth_code=auth_code)
 

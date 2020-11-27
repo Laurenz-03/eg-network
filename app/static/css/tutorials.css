@@ -1,0 +1,24 @@
+
+.tutorial_container{
+    padding: 12px;
+    padding-top: 0;
+    margin-bottom: 1.5rem;
+}
+.tutorial_container p{
+    padding: 3px 0;
+    font-weight: bold;
+}
+
+.iframe-container{
+    overflow: hidden;
+    padding-top: 56.25%;
+    position: relative;
+}
+.iframe-container iframe{
+    border: 0;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top:0;
+    position: absolute;
+}

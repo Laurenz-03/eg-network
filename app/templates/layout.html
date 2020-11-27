@@ -95,6 +95,8 @@
                                     class="fas fa-hashtag"></i>Hashtag-Generator</a></li>
                         <li class="mobile-nav-tools"><a href={{url_for('accountanalyse')}}><i
                                     class="fas fa-chart-line"></i>Account-Analyse</a></li>
+                        <li class="mobile-nav-tools"><a href={{url_for('eglink')}}><i
+                                    class="fas fa-link"></i>EG-Link</a></li>
                         <!--<li><a href={{url_for('shoutoutmatcher')}}>Shoutout-Matcher</a></li>-->
                         <li><a href={{url_for('ebookskurse')}}><i class="fas fa-graduation-cap"></i>eBooks & Kurse</a>
                         </li>
@@ -103,6 +105,9 @@
                         </li>
                         <li><a href={{url_for('tutorials')}}><i class="fas fa-university"></i>Tutorials</a></li>
                         <li><a href={{url_for('premium')}}><i class="fas fa-gem"></i>Premium</a></li>
+                        {% if current_user.rang == "Admin" %}
+                        <li><a href={{url_for('admin')}}><i class="fas fa-crown"></i>Admin-Dashboard</a></li>
+                        {% endif %}
                     </ul>
 
                 </div>
@@ -158,6 +163,8 @@
                         <hr>
                         <li><a href={{url_for('accountanalyse')}}>Account-Analyse</a></li>
                         <hr>
+                        <li><a href={{url_for('eglink')}}>EG-Link</a></li>
+                        <hr>
                         <!--<li><a href={{url_for('shoutoutmatcher')}}>Shoutout-Matcher</a></li>
                     <hr>-->
                         <li><a href={{url_for('telegramgroups')}}>Telegram Gruppen</a></li>
@@ -165,11 +172,15 @@
                         <li><a href={{url_for('tutorials')}}>Tutorials</a></li>
                         <hr>
                         <li><a href={{url_for('ebookskurse')}}>eBooks & Kurse</a></li>
+                        {% if current_user.rang == "Admin" %}
+                        <hr>
+                        <li><a href={{url_for('admin')}}>Admin-Dashboard</a></li>
+                        {% endif %}
                         <div class="sidebar-infos">
                             <p class="blue-underline">Information:</p>
-                            <p class="top-spacing">Aktuelle Mitgliederzahl: 850</p>
+                            <p class="top-spacing">Aktuelle Mitgliederzahl: 1170</p>
                             <p class="blue-underline">Kontakt/Support:</p>
-                            <p class="top-spacing">Instagram: <br /><strong>@eg.boost.privat</strong></p>
+                            <p class="top-spacing">Instagram: <br /><strong>@egnetwork.co</strong></p>
                             <p class="top-spacing">Telegram: <br /><strong>t.me/eg_network</strong></p>
                             <p class="top-spacing">eMail: <br /><strong>support@eg-network.co</strong></p>
                         </div>
@@ -183,12 +194,14 @@
     <!--Footer-->
     <footer class="footer">
         {% if language=='de' %}
-        <a href={{url_for('landingPageDE')}}>
+            <a href={{url_for('landingPageDE')}}>
             {% else %}
             <a href={{url_for('landingPageEN')}}>
                 {% endif %}
                 <h2 class="footer__title">EG-Network</h2>
             </a>
+            <a href="https://instagram.com/egnetwork.co">
+            <i class="fab fa-instagram"></i></a>
             <p><a href={{url_for('impressum')}}>Impressum</a>
                 <a href={{url_for('policies')}}>| Policies</a>
                 {% if current_user.is_authenticated %}
@@ -196,7 +209,8 @@
                 {% endif %}
             </p>
 
-            <p>&#169; 2020 copyright all rights reserved</p>
+            <p style="text-align: center;">&#169; 2020 copyright all rights reserved</br>not affiliated with instagram</p>
+            <p></p>
     </footer>
 </body>
 

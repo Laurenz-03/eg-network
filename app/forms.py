@@ -9,7 +9,7 @@ class RegistrationForm(FlaskForm):
                            validators=[DataRequired(), Length(min=3, message='Der Benutzername muss mindestens drei Zeichen enthalten.'), Length(max=25, message='Der Benutzername darf nicht mehr als 25 Zeichen enthalten.')])
 
     email = StringField('eMail:',
-                        validators=[DataRequired(), Email(message='Ungültige Email-Adresse.')])
+                        validators=[DataRequired()])
 
     password = PasswordField('Password:',
                              validators=[DataRequired(), Length(min=8, message='Das Passwort muss mindestens acht Zeichen enthalten.'), Length(max=60, message='Das Passwort darf nicht mehr als 60 Zeichen enthalten.')])
@@ -21,13 +21,13 @@ class RegistrationForm(FlaskForm):
 
     # Testet, ob der Benutzername bereits in der Datenbank vorhanden ist
     def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
+        user = User.query.filter_by(username=username.data.replace(" ", "")).first()
         if user:
             raise ValidationError('Dieser Benutzername ist bereits vergeben.')
 
     # Testet, ob die Email-Adresse bereits in der Datenbank vorhanden ist
     def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
+        user = User.query.filter_by(email=email.data.replace(" ", "")).first()
         if user:
             raise ValidationError('Diese Email-Adresse ist bereits vergeben.')
 
@@ -68,12 +68,12 @@ class ChangePassword(FlaskForm):
 
 class RequestResetForm(FlaskForm):
     email = StringField('Email:',
-                        validators=[DataRequired(), Email(message='Ungültige Email-Adresse.')])
+                        validators=[DataRequired()])
     submit = SubmitField('Passwort zurücksetzen')
 
     # Testet, ob die Email-Adresse bereits in der Datenbank vorhanden ist
     def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
+        user = User.query.filter_by(email=email.data.strip().lower()).first()
         if user is None:
             raise ValidationError('Es existiert kein Account mit dieser Email-Adresse.')
 

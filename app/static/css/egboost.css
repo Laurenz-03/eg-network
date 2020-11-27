@@ -143,6 +143,27 @@ h4 {
   margin-bottom: 1rem;
 }
 
+.iframe-container{
+  overflow: hidden;
+  padding-top: 56.25%;
+  position: relative;
+}
+.iframe-container iframe{
+  border: 0;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top:0;
+  position: absolute;
+}
+.tut-btn{
+  border: none;
+  background-color: transparent;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+}
+
 /**** RESPONSIVE *************************/
 @media screen and (max-width: 800px) {
   .inner-container {
@@ -155,5 +176,8 @@ h4 {
   }
   .left-area {
     padding: 10px 0;
+  }
+  .eg-boost-round:hover {
+    transform: scale(1);
   }
 }

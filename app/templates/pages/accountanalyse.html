@@ -3,15 +3,25 @@
 <script src="./../../static/js/eg-analyzer.js"></script>
 <link rel="stylesheet" href='./../../static/css/analyzeresults.css' />
 <h2>Account-Analyse</h2>
+<!--
+<button id="openTut" class="tut-btn">
+  <div class="tutorial-link rounded-and-shadow">
+      <h3>Wie funktioniert es?</h3>
+      <div>    
+          <p>Schaue dir jetzt das Tutorial zu EG-Analytics an!</p>        
+          <i class="fas fa-arrow-right"></i>
+      </div>
+  </div>
+</button>-->
 <form method="POST" action="" class="analyze-form">
     {{ form.hidden_tag() }}
 
     <div class='input-field'>
       <i class="fas fa-user"></i>
       {% if form.instaname.errors %}
-      {{ form.instaname(class="input-error", placeholder="Instagram Benutzername") }}
+      {{ form.instaname(class="input-error", placeholder="Instagram Benutzername", value=username) }}
       {% else %}
-      {{ form.instaname(placeholder="Instagram Benutzername") }}
+      {{ form.instaname(placeholder="Instagram Benutzername", value=username) }}
       {% endif %}
     </div>
     <div class="invalid-feedback" id="test">
@@ -25,4 +35,49 @@
     </div>
 
 </form>
+
+
+<div id="modal_tut" class="outer-modal">
+  <div class="modal">
+      <div class="modal-top">
+          <i id="closeTut" class="close fas fa-times"></i>
+      </div>
+      <h3>EG-Analytics Tutorial</h3>
+      <h4>Das Tutorial ist bald verfügbar :-)</h4>
+        <!-- 
+      <div class="modal-main">
+          <div class="iframe-container"><iframe loading="lazy" allowfullscreen="1" src="https://www.youtube.com/embed/FwwIYdB_wic"></iframe></div>
+
+      </div>-->
+  </div>
+
+</div>
+<script>
+  // Get the modal
+  var modal_tut = document.getElementById("modal_tut");
+
+  // Get the button that opens the modal
+  var openTut = document.getElementById("openTut");
+
+  // Get the <span> element that closes the modal
+  var closeTut = document.getElementById("closeTut");
+
+  // When the user clicks on the button, open the modal
+  openTut.onclick = function () {
+      modal_tut.style.display = "flex";
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  closeTut.onclick = function () {
+      modal_tut.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+      console.log("test");
+      if (event.target == modal_tut) {
+          modal_tut.style.display = "none";
+      }
+  }
+</script>
 {% endblock %}

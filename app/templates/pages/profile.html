@@ -1,7 +1,21 @@
 {% extends './layout.html' %}
 {% block content %}
 <link rel="stylesheet" href="./../../static/css/profile.css">
+
+
 <h2>Mein Profil</h2>
+<div style="margin-bottom: 1.5rem;">
+
+    <button class="tut-btn" id="openTut">
+        <div class="tutorial-link rounded-and-shadow">
+            <h3>Wie funktioniert es?</h3>
+            <div>    
+                <p>Schaue dir das Tutorial an, wenn du dir nicht sicher bist, wie du deinen Insta-Account verknüpfen kannst!</p>        
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </div>
+    </button>
+</div>
 <section class="profile-section">
     <div class="top">
 
@@ -23,6 +37,8 @@
                     <p><strong>Email:</strong> {{ current_user.email }}</p>
                 </li>
                 <li><a href={{url_for('change_password')}}>Passwort ändern <i class="fas fa-pen"></i></a></li>
+                <li><strong>Affiliate Einladungen:  </strong>{{aff_invites}}</p></li>
+                <li><strong>Mein Affiliate Link:  </strong><br/><a href="https://eg-network.co/login/{{current_user.id}}?mode=register">eg-network.co/login/{{current_user.id}}?mode=register</a></li>
             </ul>
         </div>
         <div class="connected-accounts">
@@ -113,6 +129,7 @@
 
         </div>
     </div>
+    
     <h3>Engagement Level:</h3>
     <div class="eg-level-container rounded-and-shadow">
         <div class="eg-level-text">
@@ -150,6 +167,48 @@
         </p>
     </div>
 </section>
+
+<div id="modal_tut" class="outer-modal">
+    <div class="modal">
+        <div class="modal-top">
+            <i id="closeTut" class="close fas fa-times"></i>
+        </div>
+        <h3>Mein Profil - Tutorial</h3>
+        <div class="modal-main">
+            <div class="iframe-container"><iframe loading="lazy" allowfullscreen="1" src="https://www.youtube.com/embed/T4RWis_2fTM"></iframe></div>
+
+        </div>
+    </div>
+
+</div>
+<script>
+    // Get the modal
+    var modal_tut = document.getElementById("modal_tut");
+
+    // Get the button that opens the modal
+    var openTut = document.getElementById("openTut");
+
+    // Get the <span> element that closes the modal
+    var closeTut = document.getElementById("closeTut");
+
+    // When the user clicks on the button, open the modal
+    openTut.onclick = function () {
+        modal_tut.style.display = "flex";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    closeTut.onclick = function () {
+        modal_tut.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        console.log("test");
+        if (event.target == modal_tut) {
+            modal_tut.style.display = "none";
+        }
+    }
+</script>
 
 <!-- The Modal -->
 <div id="myModal1" class="outer-modal">
