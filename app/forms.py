@@ -129,3 +129,9 @@ class AnalyzerForm(FlaskForm):
 class SendConfirmEmailForm(FlaskForm):
 
     submit = SubmitField('Email senden')
+
+class ActivateProductForm(FlaskForm):
+    product_key = StringField('Product Key:',
+                        validators=[DataRequired()])
+
+    submit = SubmitField('Aktivieren')

@@ -1,0 +1,43 @@
+{% extends './layout.html' %}
+{% block content %}
+
+<link rel="stylesheet" href="./../../static/css/activate_product.css">
+<link rel="stylesheet" href='./../../static/css/registerlogin.css' />
+
+
+<h2>Produkt aktivieren</h2>
+<p>{{product_name}}</p>
+<form method="POST" action="" class="sign-in-form">
+    {{ form.hidden_tag() }}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="flash-message-{{ category }}">
+        <p>{{ message }}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class='input-field'>
+        <i class="fas fa-key"></i>
+        {% if form.product_key.errors %}
+        {{ form.product_key(class="input-error", placeholder="Product Key") }}
+        {% else %}
+        {{ form.product_key(placeholder="Product Key") }}
+        {% endif %}
+    </div>
+    <div class="invalid-feedback log" id="test">
+        {% for error in form.product_key.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="submit-btn">
+        {{ form.submit(class="btn solid", style="width: 14rem;") }}
+    </div>
+
+</form>
+
+{% endblock %}

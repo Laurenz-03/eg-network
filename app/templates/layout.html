@@ -120,8 +120,8 @@
                     {% if current_user.is_authenticated %}
                     <li><a href={{url_for('mgb')}}>Zum Mitgliederbereich</a></li>
                     {% else %}
-                    <li><a href={{url_for('login')}}>Einloggen</a></li>
-                    <li><a href={{url_for('login', mode='register')}}>Registrieren</a></li>
+                    <li><a href={{url_for('login', a="1")}}>Einloggen</a></li>
+                    <li><a href={{url_for('login', a="1", mode='register')}}>Registrieren</a></li>
                     {% endif %}
                     {% else %}
                     <!--<li><a href={{url_for('egboost')}}>EG-Boost</a></li>-->

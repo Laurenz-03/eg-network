@@ -29,3 +29,11 @@
     max-width: 20rem;
     padding: 20px 0;
 }
+
+.login-link{
+    max-width: 20rem;
+    padding: 20px 0 0 0;
+    width: 90%;
+    color: #4070f4;
+    text-align: right;
+}
