@@ -1,0 +1,6 @@
+.flash-message-no-success:first-child{
+    display: none;
+  }
+  .flash-message-success:first-child{
+    display: none;
+  }

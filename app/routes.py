@@ -151,10 +151,12 @@ def email_confirm_required():
             f'Um auf diese Funktion Zugriff zu erhalten, musst du deine Email-Adresse bestätigen. Wir haben dir eine Email an {current_user.email} gesendet. Bitte klicke auf den Link in der Email, um deinen Account zu bestätigen.', 'info')
         return redirect(url_for('mgb'))
 
+
 @app.route('/login', methods=['GET', 'POST'])
 @app.route('/login/', methods=['GET', 'POST'])
 def login_no_aff():
     return redirect(url_for('login', a="1"))
+
 
 @app.route('/login/<a>', methods=['GET', 'POST'])
 def login(a):
@@ -165,17 +167,15 @@ def login(a):
             aff_user = User.query.filter_by(id=affiliate_id).first()
             print(aff_user.username)
 
-
         except:
             affiliate_id = None
     if current_user.is_authenticated:
         return redirect(url_for('mgb'))
 
-
     register_form = RegistrationForm()
     if register_form.validate_on_submit():
 
-        # Affiliate Einladung verwalten  
+        # Affiliate Einladung verwalten
         aff_user_info_json = json.loads(aff_user.user_info)
         if "affiliate_invites" in aff_user_info_json:
             aff_user_info_json["affiliate_invites"] += 1
@@ -495,14 +495,17 @@ def analyzeresults(username):
         flash("Du kannst nur verbundene Accounts analysieren. Kaufe dir den Premium Rang, um alle Instagram Accounts zu analysieren.", "info")
         return redirect(url_for('accountanalyse'))
 
+
 @app.route('/mgb/eglink')
 @login_required
 def eglink():
     return render_template('pages/eglink.html', title="EG-Link", loginRequired=True)
 
+
 @app.route('/eglinknotfound')
 def eglinknotfound():
     return render_template('pages/eglinknotfound.html', title="EG-Link")
+
 
 @app.route('/mgb/shoutoutmatcher')
 @login_required
@@ -550,15 +553,40 @@ def profile():
         aff_invites = "0"
     return render_template('pages/profile.html', title="Mein Profil", loginRequired=True, insta_acc1_info=insta_acc1_info, insta_acc2_info=insta_acc2_info, insta_acc3_info=insta_acc3_info, aff_invites=aff_invites)
 
-@app.route('/mgb/activate-product/<product_link>')
+
+@app.route('/mgb/activate-product/<product_link>', methods=['GET', 'POST'])
 @login_required
 def activate_product(product_link):
     form = ActivateProductForm()
     if product_link == "zpHv":
         product_name = "EG-Premium (ein Monat)"
     else:
-        product_name ="kein name"
+        product_name = "kein name"
+
+    if form.validate_on_submit():
+        key = form.product_key.data
+        url = "https://payhip.com/api/v1/license/verify?product_link=zpHv&license_key=" + key
+        headers = {
+            'payhip-api-key': '10e808d815eaecef361713f8a75e4e604b29837e'
+        }
+        resp = requests.get(url=url, headers=headers).json()
+        print(resp)
+        try:
+            if resp["data"]["enabled"] == True:
+                flash("Herzlichen Glückwunsch, dein Produkt wurde erfolgreich aktiviert!", "success")
+                url = "https://payhip.com/api/v1/license/disable"
+                headers = {
+                    'payhip-api-key': '10e808d815eaecef361713f8a75e4e604b29837e'
+                }
+                resp = requests.put(url=url, headers=headers, data={"product_link": "zpHv", "license_key": key}).json()
+                print(resp)
+            else:
+                flash("Dieser Product Key ist ungültig. Probiere es bitte mit einem anderen Key oder kontaktiere den Support.", "no-success")
+        except:
+            pass
+
     return render_template('pages/activate_product.html', title="Produkt aktivieren", loginRequired=True, form=form, product_name=product_name)
+
 
 @app.route('/add-insta-acc', methods=['GET', 'POST'])
 @login_required
