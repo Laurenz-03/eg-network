@@ -1,0 +1,17 @@
+{% extends './layout.html' %}
+{% block content %}
+
+<link rel="stylesheet" href="./../../static/css/new_registered.css">
+
+<h2>Hallo und willkommen bei EG-Network!</h2>
+<p>Sieh dir jetzt unser Begrüßungs-Video für neue Mitglieder an. Es dauert nicht mehr als fünf Minuten:</p>
+<div class="rounded-and-shadow welcome-vid">
+    <div class="iframe-container"><iframe loading="lazy" allowfullscreen="1" src="https://www.youtube.com/embed/NQeBz4TXmiA"></iframe></div>
+</div>
+
+<div class="weiter-link">
+
+    <a href={{url_for('mgb')}}>Weiter zum Mitgliederbereich</a>
+</div>
+
+{% endblock %}

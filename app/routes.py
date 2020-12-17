@@ -118,12 +118,18 @@ def chooseLanguage():
         return redirect(url_for('mgb'))
     return render_template('pages/chooselanguage.html', nosidebar=True, nav_links_category='no-links')
 
+@app.route('/de/dailysuccess')
+def landingPageDEDailysuccess():
+    if current_user.is_authenticated:
+        return redirect(url_for('mgb'))
+    return render_template('pages/landingpageDE.html', title="Startseite", isLandingPage=True, language='de', aff_id="107")
+
 # Startseite (Landing Page)
 @app.route('/de')
 def landingPageDE():
     if current_user.is_authenticated:
         return redirect(url_for('mgb'))
-    return render_template('pages/landingpageDE.html', title="Startseite", isLandingPage=True, language='de')
+    return render_template('pages/landingpageDE.html', title="Startseite", isLandingPage=True, language='de', aff_id="1")
 
 
 @app.route('/en')
@@ -199,7 +205,7 @@ def login(a):
         send_confirm_email(user)
         flash(
             f'Wir haben dir eine Email an {user.email} gesendet. Bitte klicke auf den Link in der Email, um deinen Account zu bestätigen', 'info')
-        return redirect(url_for('mgb'))
+        return redirect(url_for('new_registered'))
 
     login_form = LoginForm()
     if login_form.validate_on_submit():
@@ -357,6 +363,10 @@ def mgb():
 
     return render_template('pages/mgb.html', title="Home", loginRequired=True, eg_boost_runden=eg_boost_runden, datetime=datetime)
 
+@app.route('/mgb/new_registered')
+@login_required
+def new_registered():
+    return render_template('pages/new_registered.html', title="Home", loginRequired=True)
 
 @app.route('/mgb/egboost')
 @login_required
