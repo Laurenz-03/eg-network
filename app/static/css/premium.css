@@ -1,7 +1,7 @@
 * {
   font-family: "Poppins";
 }
-.main-content {
+.premium-container {
   display: flex;
   justify-content: center;
   align-items: top;
@@ -142,3 +142,14 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.premium-ad {
+  padding: 10px 15px;
+  margin-top: 10px;
+  width: 100%;
+  background: linear-gradient(150deg, #ffcc4b, #ff9913);
+}
+.premium-ad div{
+  display: inline;
+}
+

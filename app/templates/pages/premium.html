@@ -2,14 +2,25 @@
 {% block content %}
 
 <link rel="stylesheet" href="./../../static/css/premium.css">
-<div class="pricing-card rounded-and-shadow">
-    <h3 class="pricing-card-header">Premium</h3>
-    <div class="price"><sup>€</sup>30<span>/MO</span></div>
-    <ul>
-        <li><strong>200+</strong> Likes und</br>Speicherungen pro Tag, ohne</br>selbst zu engagen!</li>
-    </ul>
-    <a href="https://t.me/felix173"><button id="myBtn" class="order-btn">Direkt kaufen!</br>(Felix anschreiben)</button></a>
+{% if current_user.rang == "Admin" %}
+<div class="premium-ad rounded-and-shadow">
+    <h3>Premium-Rang</h3>
+    <div>    
+        <p>Deine Premium-Mitgliedschaft ist gültig bis zum<br/><strong>{{premium_end_date}}</strong></p>        
+    </div>
 </div>
+{% else %}
+<div class="premium-container">
+    <div class="pricing-card rounded-and-shadow">
+        <h3 class="pricing-card-header">Premium</h3>
+        <div class="price"><sup>€</sup>30<span>/MO</span></div>
+        <ul>
+            <li><strong>200+</strong> Likes und</br>Speicherungen pro Tag, ohne</br>selbst zu engagen!</li>
+        </ul>
+        <a href="https://t.me/felix173"><button id="myBtn" class="order-btn">Direkt kaufen!</br>(Felix anschreiben)</button></a>
+    </div>
+</div>
+{% endif %}
 
 <!-- The Modal 
 <div id="myModal" class="modal">

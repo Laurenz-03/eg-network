@@ -104,6 +104,11 @@ def calc_egboost_times():
         runde['upload-time-factor'] = upload_time_factor
         runde['engage-time-factor'] = engage_time_factor
 
+def set_premium_end_date(id, days):
+    user = User.query.get_or_404(id)
+    end_time = datetime.datetime.utcnow() + datetime.timedelta(days=days)
+    print(user.username)
+    print(end_time)
 
 @app.route('/test')
 def api_test():
@@ -447,7 +452,20 @@ def tutorials():
 @app.route('/mgb/premium')
 @login_required
 def premium():
-    return render_template('pages/premium.html', title="Premium", loginRequired=True)
+    premium_end_date = "asdfasef"
+    if current_user.rang == "Admin":
+        user_info_json = json.loads(current_user.user_info)
+        if "premium_end_date" in user_info_json:
+            print("s")
+        else:
+            user_info_json["premium_end_date"] = str(datetime.datetime.utcnow())
+        current_user.user_info = json.dumps(user_info_json)
+        db.session.commit()
+        premium_end_date_string = user_info_json["premium_end_date"]
+        premium_end_date_object = datetime.datetime.strptime(premium_end_date_string, '%Y-%m-%d %H:%M:%S.%f')
+        premium_end_date = premium_end_date_object.strftime('%d. %B %Y, %H:%M Uhr')
+        set_premium_end_date(1, 100)
+    return render_template('pages/premium.html', title="Premium", loginRequired=True, premium_end_date=premium_end_date)
 
 
 @app.route('/mgb/hashtaggenerator')
