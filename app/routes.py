@@ -1,7 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import app, db, bcrypt, mail, admins, eg_boost_runden, zeitfaktor
 from app.forms import (RegistrationForm, LoginForm, ChangeUsername, ChangePassword, RequestResetForm,
-                       ResetPasswordForm, AddInstaAccForm, AdminChangeUserAcc, AnalyzerForm, SendConfirmEmailForm, ActivateProductForm)
+                       ResetPasswordForm, AddInstaAccForm, AdminChangeUserAcc, AnalyzerForm, SendConfirmEmailForm,
+                       ActivateProductForm, SetPremiumForm)
 from app.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
@@ -109,6 +110,14 @@ def set_premium_end_date(id, days):
     end_time = datetime.datetime.utcnow() + datetime.timedelta(days=days)
     print(user.username)
     print(end_time)
+
+    user_info_json = json.loads(user.user_info)
+    if "premium_end_date" in user_info_json:
+        user_info_json["premium_end_date"] = str(end_time)
+    else:
+        user_info_json["premium_end_date"] = str(end_time)
+    user.user_info = json.dumps(user_info_json)
+    db.session.commit()
 
 @app.route('/test')
 def api_test():
@@ -463,8 +472,7 @@ def premium():
         db.session.commit()
         premium_end_date_string = user_info_json["premium_end_date"]
         premium_end_date_object = datetime.datetime.strptime(premium_end_date_string, '%Y-%m-%d %H:%M:%S.%f')
-        premium_end_date = premium_end_date_object.strftime('%d. %B %Y, %H:%M Uhr')
-        set_premium_end_date(1, 100)
+        premium_end_date = premium_end_date_object.strftime('%d. %B %Y')
     return render_template('pages/premium.html', title="Premium", loginRequired=True, premium_end_date=premium_end_date)
 
 
@@ -474,6 +482,11 @@ def hashtaggenerator():
     if current_user.email_confirmed == 'false':
         return redirect(url_for('email_not_confirmed'))
     return render_template('pages/hashtaggenerator.html', title="Hashtag-Generator", loginRequired=True)
+
+@app.route('/mgb/hashtaggeneratornew')
+@login_required
+def hashtaggeneratornew():
+    return render_template('pages/hashtaggeneratornew.html', title="Hashtag-Generator", loginRequired=True)
 
 
 @app.route('/mgb/accountanalyse', methods=['GET', 'POST'])
@@ -601,6 +614,7 @@ def activate_product(product_link):
         print(resp)
         try:
             if resp["data"]["enabled"] == True:
+                set_premium_end_date(current_user.user_id, 30)
                 flash("Herzlichen Glückwunsch, dein Produkt wurde erfolgreich aktiviert!", "success")
                 url = "https://payhip.com/api/v1/license/disable"
                 headers = {
@@ -853,3 +867,18 @@ def admin_change_user_details(user_id):
         return redirect(url_for('chooseLanguage'))
     flash('Leere Felder bewirken keine Änderung.', 'info')
     return render_template('pages/admin_change_user_details.html', title=f'Account von {user.username} bearbeiten', form=form, user=user)
+
+@app.route('/admin/set-premium', methods=['GET', 'POST'])
+@login_required
+def admin_set_premium():
+    # Man kommt nur auf die Admin Seite, wenn der Benutzername in der Liste der Admins steht
+    if current_user.username in admins:
+        form = SetPremiumForm()
+        if form.validate_on_submit():
+            user_id = int(form.user_id.data)
+            days = int(form.days.data)
+            set_premium_end_date(user_id, days)
+        return render_template('pages/admin_set_premium.html', title="Premium", loginRequired=True, nosidebar=True, form=form)
+    else:
+        flash('Du hast keine Admin Rechte. Haha.', 'no-success')
+        return redirect(url_for('chooseLanguage'))

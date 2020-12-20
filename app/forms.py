@@ -135,3 +135,9 @@ class ActivateProductForm(FlaskForm):
                         validators=[DataRequired()])
 
     submit = SubmitField('Aktivieren')
+
+class SetPremiumForm(FlaskForm):
+    user_id = StringField('User ID:', validators=[DataRequired()])
+    days = StringField('Days:', validators=[DataRequired()])
+
+    submit = SubmitField('Bestätigen')
