@@ -1,5 +1,3 @@
-"use strict";
-
 class SearchInput extends React.Component {
   constructor(props) {
     super(props);
@@ -15,10 +13,14 @@ class SearchInput extends React.Component {
     });
   };
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   render() {
     return (
       <div className={"search-input"}>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <input
             type="text"
             value={this.state.keywords}
@@ -34,7 +36,7 @@ class SearchButton extends React.Component {
   render() {
     return (
       <button className={"search-button"}>
-        <i className={"fas fa-search"} />
+        <i className={"material-icons"}>search</i>
       </button>
     );
   }
@@ -51,14 +53,39 @@ class SearchField extends React.Component {
   }
 }
 
-function OutputContainer(props) {
-    return (
-      <div className={"output-container"}>
-        <h4>Ausgewählte Hashtags:</h4>
-        <p>{props.hashtags_output}</p>
+function ActionButtons() {
+  return (
+    <div className={"action-buttons"}>
+      <div className={"icon-buttons"}>
+        <button>
+          <i className={"material-icons"}>delete_outline</i>
+        </button>
+
+        <button>
+          <i className={"material-icons"}>shuffle</i>
+        </button>
+
+        <button>
+          <i className={"material-icons"}>sort</i>
+        </button>
       </div>
-    );
-  
+
+      <button className={"copy-button"}>Kopieren</button>
+    </div>
+  );
+}
+
+function OutputContainer(props) {
+  return (
+    <div className={"output-container"}>
+      <div className={"htg-count"}>
+        <h4>Ausgewählte Hashtags:</h4>
+        <p>30/30</p>
+      </div>
+      <p>{props.hashtags_output}</p>
+      <ActionButtons />
+    </div>
+  );
 }
 
 class HashtagGenerator extends React.Component {
@@ -74,7 +101,7 @@ class HashtagGenerator extends React.Component {
     return (
       <div>
         <SearchField />
-        <OutputContainer hashtags_output={this.state.hashtags_output}/>
+        <OutputContainer hashtags_output={this.state.hashtags_output} />
       </div>
     );
   }
