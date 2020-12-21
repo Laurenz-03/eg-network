@@ -60,11 +60,11 @@
   font-size: 11pt;
   line-height: 1.25;
 }
-.output-container .htg-count{
-    display: flex;
-    justify-content: space-between;
-    margin: 3px 0;
-    align-items: baseline;
+.output-container .htg-count {
+  display: flex;
+  justify-content: space-between;
+  margin: 3px 0;
+  align-items: baseline;
 }
 
 .action-buttons {
@@ -109,28 +109,70 @@
   transition: all 0.2s ease;
   transform: scale(1);
 }
-.copy-button:active{
-    transform: scale(0.9);
+.copy-button:active {
+  transform: scale(0.9);
 }
 
-
-.fetched-hashtags-container{
-    margin-top: 1.5rem;
+.fetched-hashtags-container {
+  margin-top: 1.5rem;
   width: 100%;
   box-shadow: 1px 1px 6px 0px #d4d4d4;
   border-radius: 6px;
 }
 
-.hashtag-info{
-    height: 3rem;
-    width: 100%;
-    border-bottom: 2px solid #e5e5e5;
+.hashtag-info {
+  height: 55px;
+  width: 100%;
+  border-bottom: 2px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-
+.htg-checkbox {
+  width: 21px;
+  height: 21px;
+  background-color: #e5e5e5;
+  margin: 0 10px 0 15px;
+  border-radius: 4px;
+}
+.hashtag-info .right-area,
+.hashtag-info .left-area {
+  display: flex;
+  align-items: center;
+}
+.right-area {
+  margin-right: 8px;
+}
+.expand-button {
+  width: 2.2rem;
+  height: 2.2rem;
+  padding-top: 3px;
+  margin-left: 6px;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+}
+.expand-button i {
+  font-size: 15pt;
+  color: #616161;
+}
+.expand-button:hover {
+  background-color: #dddddd;
+}
 
 /**** RESPONSIVE *************************/
 @media screen and (max-width: 800px) {
-    .icon-buttons button:hover {
-        background-color: transparent;
-      }
+  .icon-buttons button:hover, .expand-button:hover {
+    background-color: transparent;
+  }
+  .expand-button{
+    margin-left: 0px;
+  }
+  .right-area {
+    margin-right: 4px;
+  }
 }

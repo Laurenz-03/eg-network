@@ -88,27 +88,30 @@ function OutputContainer(props) {
   );
 }
 
-
-
-function HashtagInfo() {
+function HashtagInfo(props) {
   return (
     <div className={"hashtag-info"}>
+      <div className={"left-area"}>
+        <div className={"htg-checkbox"}></div>
+        <p>{props.htg["htg"]}</p>
+      </div>
+      <div className={"right-area"}>
+        <p>{props.htg["posts_count"]} Beiträge</p>
+        <button className={"expand-button"}><i className={"fas fa-chevron-down"}></i></button>
+      </div>
     </div>
   );
 }
 
 function FetchedHashtags() {
-
-  var htgs = ["test", "test", "test"]
-  htgs.forEach(element => {
-    return (
-      <div className={"fetched-hashtags-container"}>
-        <HashtagInfo/>
-      </div>
-    );
-    
-  });
-
+  var htgs = [{ htg: "#erfolg", posts_count: 270000 }];
+  return (
+    <div className={"fetched-hashtags-container"}>
+      {htgs.map((htg) => (
+        <HashtagInfo key={htg["htg"]} htg={htg} />
+      ))}
+    </div>
+  );
 }
 
 class HashtagGenerator extends React.Component {
@@ -125,7 +128,7 @@ class HashtagGenerator extends React.Component {
       <div>
         <SearchField />
         <OutputContainer hashtags_output={this.state.hashtags_output} />
-        <FetchedHashtags/>
+        <FetchedHashtags />
       </div>
     );
   }
