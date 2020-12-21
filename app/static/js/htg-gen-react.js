@@ -88,6 +88,29 @@ function OutputContainer(props) {
   );
 }
 
+
+
+function HashtagInfo() {
+  return (
+    <div className={"hashtag-info"}>
+    </div>
+  );
+}
+
+function FetchedHashtags() {
+
+  var htgs = ["test", "test", "test"]
+  htgs.forEach(element => {
+    return (
+      <div className={"fetched-hashtags-container"}>
+        <HashtagInfo/>
+      </div>
+    );
+    
+  });
+
+}
+
 class HashtagGenerator extends React.Component {
   constructor(props) {
     super(props);
@@ -102,6 +125,7 @@ class HashtagGenerator extends React.Component {
       <div>
         <SearchField />
         <OutputContainer hashtags_output={this.state.hashtags_output} />
+        <FetchedHashtags/>
       </div>
     );
   }
