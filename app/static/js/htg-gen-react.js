@@ -88,23 +88,81 @@ function OutputContainer(props) {
   );
 }
 
-function HashtagInfo(props) {
-  return (
-    <div className={"hashtag-info"}>
-      <div className={"left-area"}>
-        <div className={"htg-checkbox"}></div>
-        <p>{props.htg["htg"]}</p>
-      </div>
-      <div className={"right-area"}>
-        <p>{props.htg["posts_count"]} Beiträge</p>
-        <button className={"expand-button"}><i className={"fas fa-chevron-down"}></i></button>
-      </div>
-    </div>
-  );
+class HashtagInfo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: false,
+    };
+  }
+  handleExpandedButtonClick = () => {
+    this.setState({
+      expanded: !this.state.expanded,
+    });
+  };
+  render() {
+    if (this.state.expanded === false) {
+      return (
+        <div className={"hashtag-info"}>
+          <div className={"main-info"}>
+            <div className={"left-area"}>
+              <div className={"htg-checkbox"}></div>
+              <p>{this.props.htg["htg"]}</p>
+            </div>
+            <div className={"right-area"}>
+              <p>{this.props.htg["posts_count"]} Beiträge</p>
+              <button
+                className={"expand-button"}
+                onClick={this.handleExpandedButtonClick}
+              >
+                <i className={"fas fa-chevron-down"}></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className={"hashtag-info"}>
+          <div className={"main-info"}>
+            <div className={"left-area"}>
+              <div className={"htg-checkbox"}></div>
+              <p>{this.props.htg["htg"]}</p>
+            </div>
+            <div className={"right-area"}>
+              <p>{this.props.htg["posts_count"]} Beiträge</p>
+              <button
+                className={"expand-button"}
+                onClick={this.handleExpandedButtonClick}
+              >
+                <i className={"fas fa-chevron-down"}></i>
+              </button>
+            </div>
+          </div>
+          <div>
+            <p>more info</p>
+          </div>
+        </div>
+      );
+    }
+  }
 }
 
 function FetchedHashtags() {
-  var htgs = [{ htg: "#erfolg", posts_count: 270000 }];
+  var htgs = [
+    { htg: "#erfolg", posts_count: "1.6m" },
+    { htg: "#mindset", posts_count: "27m" },
+    { htg: "#erfolgsmindset", posts_count: "180k" },
+    { htg: "#success", posts_count: "1.6m" },
+    { htg: "#successmindset", posts_count: "27m" },
+    { htg: "#erfolgsmensch", posts_count: "180k" },
+    { htg: "#unternehmer", posts_count: "1.6m" },
+    { htg: "#fokus", posts_count: "27m" },
+    { htg: "#vision", posts_count: "180k" },
+    { htg: "#wachstum", posts_count: "1.6m" },
+    { htg: "#zeitfürmich", posts_count: "27m" },
+    { htg: "#keineausreden", posts_count: "180k" },
+  ];
   return (
     <div className={"fetched-hashtags-container"}>
       {htgs.map((htg) => (

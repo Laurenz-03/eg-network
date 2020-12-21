@@ -121,12 +121,18 @@
 }
 
 .hashtag-info {
-  height: 55px;
   width: 100%;
   border-bottom: 2px solid #e5e5e5;
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+}
+.main-info{
+  display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 55px;
 }
 .htg-checkbox {
   width: 21px;
