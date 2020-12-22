@@ -114,7 +114,7 @@
 }
 
 .fetched-hashtags-container {
-  margin-top: 1.5rem;
+  margin: 1.5rem 0;
   width: 100%;
   box-shadow: 1px 1px 6px 0px #d4d4d4;
   border-radius: 6px;
@@ -168,6 +168,30 @@
 }
 .expand-button:hover {
   background-color: #dddddd;
+}
+
+.more-info{
+  margin: -5px 15px 0px 15px;
+}
+.more-info-element{
+  margin-bottom: 10px;
+}
+.info-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.outer-info-bar{
+  height: 13px;
+  width: 60%;
+  background-color: #e8e8e8;
+  border-radius: 3px;
+}
+.inner-info-bar{
+  width: 85%;
+  height: 13px;
+  background-color: #4070f4;
+  border-radius: 3px;
 }
 
 /**** RESPONSIVE *************************/

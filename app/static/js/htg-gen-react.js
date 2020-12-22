@@ -93,6 +93,7 @@ class HashtagInfo extends React.Component {
     super(props);
     this.state = {
       expanded: false,
+      selected: false
     };
   }
   handleExpandedButtonClick = () => {
@@ -135,12 +136,54 @@ class HashtagInfo extends React.Component {
                 className={"expand-button"}
                 onClick={this.handleExpandedButtonClick}
               >
-                <i className={"fas fa-chevron-down"}></i>
+                <i className={"fas fa-chevron-down"} style={{transform: "rotate(180deg)", paddingTop: "2px"}}></i>
               </button>
             </div>
           </div>
-          <div>
-            <p>more info</p>
+          <div className={"more-info"}>
+            <div className={"more-info-element"}>
+              <p>Competition Score:</p>
+              <div className={"info-container"}>
+                <div className={"outer-info-bar"}>
+                  <div className={"inner-info-bar"}
+                  style={{width: this.props.htg["comp_score"]+"%"}}></div>
+                </div>
+                <p>{this.props.htg["comp_score"]}% (high)</p>
+              </div>
+            </div>
+
+            <div className={"more-info-element"}>
+              <p>Avg. Likes:</p>
+              <div className={"info-container"}>
+                <div className={"outer-info-bar"}>
+                  <div className={"inner-info-bar"}
+                  style={{width: this.props.htg["avg_likes_score"]+"%"}}></div>
+                </div>
+                <p>{this.props.htg["avg_likes"]} (medium)</p>
+              </div>
+            </div>
+
+            <div className={"more-info-element"}>
+              <p>Post Frequency:</p>
+              <div className={"info-container"}>
+                <div className={"outer-info-bar"}>
+                  <div className={"inner-info-bar"}
+                  style={{width: this.props.htg["post_freq_score"]+"%"}}></div>
+                </div>
+                <p>{this.props.htg["post_freq"]}/h (high)</p>
+              </div>
+            </div>
+
+            <div className={"more-info-element"}>
+              <p>Potential Reach:</p>
+              <div className={"info-container"}>
+                <div className={"outer-info-bar"}>
+                  <div className={"inner-info-bar"}
+                  style={{width: this.props.htg["pot_reach"]+"%"}}></div>
+                </div>
+                <p>{this.props.htg["pot_reach"]}% (low)</p>
+              </div>
+            </div>
           </div>
         </div>
       );
@@ -150,18 +193,21 @@ class HashtagInfo extends React.Component {
 
 function FetchedHashtags() {
   var htgs = [
-    { htg: "#erfolg", posts_count: "1.6m" },
-    { htg: "#mindset", posts_count: "27m" },
-    { htg: "#erfolgsmindset", posts_count: "180k" },
-    { htg: "#success", posts_count: "1.6m" },
-    { htg: "#successmindset", posts_count: "27m" },
-    { htg: "#erfolgsmensch", posts_count: "180k" },
-    { htg: "#unternehmer", posts_count: "1.6m" },
-    { htg: "#fokus", posts_count: "27m" },
-    { htg: "#vision", posts_count: "180k" },
-    { htg: "#wachstum", posts_count: "1.6m" },
-    { htg: "#zeitfürmich", posts_count: "27m" },
-    { htg: "#keineausreden", posts_count: "180k" },
+    { htg: "#erfolg", posts_count: "1.6m", comp_score: 85, avg_likes: 380, avg_likes_score: 60, post_freq: 65, post_freq_score: 65, pot_reach: 35},
+    { htg: "#mindset", posts_count: "27m", comp_score: 85, avg_likes: 380, avg_likes_score: 60, post_freq: 65, post_freq_score: 65, pot_reach: 35},
+    { htg: "#erfolgsmindset", posts_count: "180k", comp_score: 50, avg_likes: 150, avg_likes_score: 40, post_freq: 35, post_freq_score: 25, pot_reach: 55},
+    { htg: "#success", posts_count: "1.6m", comp_score: 85, avg_likes: 380, avg_likes_score: 60, post_freq: 65, post_freq_score: 65, pot_reach: 35},
+    //{ htg: "#mindset", posts_count: "27m" },
+    //{ htg: "#erfolgsmindset", posts_count: "180k" },
+    //{ htg: "#success", posts_count: "1.6m" },
+    //{ htg: "#successmindset", posts_count: "27m" },
+    //{ htg: "#erfolgsmensch", posts_count: "180k" },
+    //{ htg: "#unternehmer", posts_count: "1.6m" },
+    //{ htg: "#fokus", posts_count: "27m" },
+    //{ htg: "#vision", posts_count: "180k" },
+    //{ htg: "#wachstum", posts_count: "1.6m" },
+    //{ htg: "#zeitfürmich", posts_count: "27m" },
+    //{ htg: "#keineausreden", posts_count: "180k" },
   ];
   return (
     <div className={"fetched-hashtags-container"}>
