@@ -93,7 +93,7 @@ class HashtagInfo extends React.Component {
     super(props);
     this.state = {
       expanded: false,
-      selected: false
+      selected: false,
     };
   }
   handleExpandedButtonClick = () => {
@@ -101,13 +101,25 @@ class HashtagInfo extends React.Component {
       expanded: !this.state.expanded,
     });
   };
+  handleSelectButtonClick = () => {
+    this.setState({
+      selected: !this.state.selected,
+    });
+  };
   render() {
+    let selectButton;
+    if (this.state.selected === false) {
+      selectButton = <button className={"htg-checkbox"}></button>;
+    } else {
+      selectButton = <button className={"htg-checkbox selected"}></button>;
+    }
+
     if (this.state.expanded === false) {
       return (
         <div className={"hashtag-info"}>
           <div className={"main-info"}>
             <div className={"left-area"}>
-              <div className={"htg-checkbox"}></div>
+              {selectButton}
               <p>{this.props.htg["htg"]}</p>
             </div>
             <div className={"right-area"}>
@@ -136,7 +148,10 @@ class HashtagInfo extends React.Component {
                 className={"expand-button"}
                 onClick={this.handleExpandedButtonClick}
               >
-                <i className={"fas fa-chevron-down"} style={{transform: "rotate(180deg)", paddingTop: "2px"}}></i>
+                <i
+                  className={"fas fa-chevron-down"}
+                  style={{ transform: "rotate(180deg)", paddingTop: "2px" }}
+                ></i>
               </button>
             </div>
           </div>
@@ -145,8 +160,10 @@ class HashtagInfo extends React.Component {
               <p>Competition Score:</p>
               <div className={"info-container"}>
                 <div className={"outer-info-bar"}>
-                  <div className={"inner-info-bar"}
-                  style={{width: this.props.htg["comp_score"]+"%"}}></div>
+                  <div
+                    className={"inner-info-bar"}
+                    style={{ width: this.props.htg["comp_score"] + "%" }}
+                  ></div>
                 </div>
                 <p>{this.props.htg["comp_score"]}% (high)</p>
               </div>
@@ -156,8 +173,10 @@ class HashtagInfo extends React.Component {
               <p>Avg. Likes:</p>
               <div className={"info-container"}>
                 <div className={"outer-info-bar"}>
-                  <div className={"inner-info-bar"}
-                  style={{width: this.props.htg["avg_likes_score"]+"%"}}></div>
+                  <div
+                    className={"inner-info-bar"}
+                    style={{ width: this.props.htg["avg_likes_score"] + "%" }}
+                  ></div>
                 </div>
                 <p>{this.props.htg["avg_likes"]} (medium)</p>
               </div>
@@ -167,8 +186,10 @@ class HashtagInfo extends React.Component {
               <p>Post Frequency:</p>
               <div className={"info-container"}>
                 <div className={"outer-info-bar"}>
-                  <div className={"inner-info-bar"}
-                  style={{width: this.props.htg["post_freq_score"]+"%"}}></div>
+                  <div
+                    className={"inner-info-bar"}
+                    style={{ width: this.props.htg["post_freq_score"] + "%" }}
+                  ></div>
                 </div>
                 <p>{this.props.htg["post_freq"]}/h (high)</p>
               </div>
@@ -178,8 +199,10 @@ class HashtagInfo extends React.Component {
               <p>Potential Reach:</p>
               <div className={"info-container"}>
                 <div className={"outer-info-bar"}>
-                  <div className={"inner-info-bar"}
-                  style={{width: this.props.htg["pot_reach"]+"%"}}></div>
+                  <div
+                    className={"inner-info-bar"}
+                    style={{ width: this.props.htg["pot_reach"] + "%" }}
+                  ></div>
                 </div>
                 <p>{this.props.htg["pot_reach"]}% (low)</p>
               </div>
@@ -193,10 +216,46 @@ class HashtagInfo extends React.Component {
 
 function FetchedHashtags() {
   var htgs = [
-    { htg: "#erfolg", posts_count: "1.6m", comp_score: 85, avg_likes: 380, avg_likes_score: 60, post_freq: 65, post_freq_score: 65, pot_reach: 35},
-    { htg: "#mindset", posts_count: "27m", comp_score: 85, avg_likes: 380, avg_likes_score: 60, post_freq: 65, post_freq_score: 65, pot_reach: 35},
-    { htg: "#erfolgsmindset", posts_count: "180k", comp_score: 50, avg_likes: 150, avg_likes_score: 40, post_freq: 35, post_freq_score: 25, pot_reach: 55},
-    { htg: "#success", posts_count: "1.6m", comp_score: 85, avg_likes: 380, avg_likes_score: 60, post_freq: 65, post_freq_score: 65, pot_reach: 35},
+    {
+      htg: "#erfolg",
+      posts_count: "1.6m",
+      comp_score: 85,
+      avg_likes: 380,
+      avg_likes_score: 60,
+      post_freq: 65,
+      post_freq_score: 65,
+      pot_reach: 35,
+    },
+    {
+      htg: "#mindset",
+      posts_count: "27m",
+      comp_score: 85,
+      avg_likes: 380,
+      avg_likes_score: 60,
+      post_freq: 65,
+      post_freq_score: 65,
+      pot_reach: 35,
+    },
+    {
+      htg: "#erfolgsmindset",
+      posts_count: "180k",
+      comp_score: 50,
+      avg_likes: 150,
+      avg_likes_score: 40,
+      post_freq: 35,
+      post_freq_score: 25,
+      pot_reach: 55,
+    },
+    {
+      htg: "#success",
+      posts_count: "1.6m",
+      comp_score: 85,
+      avg_likes: 380,
+      avg_likes_score: 60,
+      post_freq: 65,
+      post_freq_score: 65,
+      pot_reach: 35,
+    },
     //{ htg: "#mindset", posts_count: "27m" },
     //{ htg: "#erfolgsmindset", posts_count: "180k" },
     //{ htg: "#success", posts_count: "1.6m" },
