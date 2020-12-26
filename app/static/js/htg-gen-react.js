@@ -1,20 +1,33 @@
+// Fetch Functions:
+async function fetchReq(keyword) {
+  const req = await fetch(
+    `https://www.instagram.com/web/search/topsearch/?context=blended&count=10&query=%23${keyword}&rank_token=5&include_reel=true`
+  );
+  const res = await req.json();
+  const hashtag = res.hashtags
+    .map(hash => ({
+      htg: hash.hashtag.name,
+      posts_count: hash.hashtag.search_result_subtitle,
+      count: hash.hashtag.media_count,
+      comp_score: 85,
+      avg_likes: 380,
+      avg_likes_score: 60,
+      post_freq: 65,
+      post_freq_score: 65,
+      pot_reach: 35,
+    }))
+    .sort((a, b) => b.count - a.count);
+    console.log(hashtag);
+  return hashtag;
+}
+
 class SearchInput extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      keywords: "",
-    };
-  }
-
-  handleKeywordsChange = (event) => {
-    this.setState({
-      keywords: event.target.value,
-    });
-  };
+  
 
   handleSubmit = (event) => {
     event.preventDefault();
+    this.props.fetchHashtags();
   };
 
   render() {
@@ -23,8 +36,8 @@ class SearchInput extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
-            value={this.state.keywords}
-            onChange={this.handleKeywordsChange}
+            value={this.props.keyword}
+            onChange={this.props.handleKeywordsChange}
           />
         </form>
       </div>
@@ -46,18 +59,18 @@ class SearchField extends React.Component {
   render() {
     return (
       <div className={"search-field"}>
-        <SearchInput />
+        <SearchInput fetchHashtags={this.props.fetchHashtags} handleKeywordsChange={this.props.handleKeywordsChange} keyword={this.props.keyword}/>
         <SearchButton />
       </div>
     );
   }
 }
 
-function ActionButtons() {
+function ActionButtons(props) {
   return (
     <div className={"action-buttons"}>
       <div className={"icon-buttons"}>
-        <button>
+        <button onClick={props.deleteAll}>
           <i className={"material-icons"}>delete_outline</i>
         </button>
 
@@ -76,14 +89,20 @@ function ActionButtons() {
 }
 
 function OutputContainer(props) {
+  let output;
+  if(props.selected_htgs.length == 0){
+    output = <p>Hier werden deine ausgewählten Hashtags angezeigt.</p>
+  }else{
+    output = <p>{props.selected_htgs.join(" ")}</p>
+  }
   return (
     <div className={"output-container"}>
       <div className={"htg-count"}>
         <h4>Ausgewählte Hashtags:</h4>
-        <p>30/30</p>
+        <p>{props.selected_htgs.length}/30</p>
       </div>
-      <p>{props.hashtags_output}</p>
-      <ActionButtons />
+      {output}
+      <ActionButtons deleteAll={props.deleteAll}/>
     </div>
   );
 }
@@ -96,12 +115,42 @@ class HashtagInfo extends React.Component {
       selected: false,
     };
   }
+  componentDidMount(){
+    if(this.props.selected_htgs.includes(this.props.htg["htg"])){
+      console.log("moin")
+      this.setState({
+        selected: true,
+      });
+    }else{
+      console.log("asfe")
+      this.setState({
+        selected: false,
+      });
+    }
+
+  }
+  removeItemAll(arr, value) {
+    var i = 0;
+    while (i < arr.length) {
+      if (arr[i] === value) {
+        arr.splice(i, 1);
+      } else {
+        ++i;
+      }
+    }
+    return arr;
+  }
   handleExpandedButtonClick = () => {
     this.setState({
       expanded: !this.state.expanded,
     });
   };
   handleSelectButtonClick = () => {
+    if (this.state.selected == false){
+      this.props.selectHashtag(this.props.htg["htg"]);
+    }else{
+      this.props.unselectHashtag(this.props.htg["htg"])
+    }
     this.setState({
       selected: !this.state.selected,
     });
@@ -109,9 +158,11 @@ class HashtagInfo extends React.Component {
   render() {
     let selectButton;
     if (this.state.selected === false) {
-      selectButton = <button className={"htg-checkbox"}></button>;
+      selectButton = <button onClick={this.handleSelectButtonClick} className={"htg-checkbox"}></button>;
     } else {
-      selectButton = <button className={"htg-checkbox selected"}></button>;
+      selectButton = <button onClick={this.handleSelectButtonClick} className={"htg-checkbox selected"}>
+         <i className={"fas fa-check"}></i>
+      </button>;
     }
 
     if (this.state.expanded === false) {
@@ -123,7 +174,7 @@ class HashtagInfo extends React.Component {
               <p>{this.props.htg["htg"]}</p>
             </div>
             <div className={"right-area"}>
-              <p>{this.props.htg["posts_count"]} Beiträge</p>
+              <p>{this.props.htg["posts_count"]}</p>
               <button
                 className={"expand-button"}
                 onClick={this.handleExpandedButtonClick}
@@ -143,7 +194,7 @@ class HashtagInfo extends React.Component {
               <p>{this.props.htg["htg"]}</p>
             </div>
             <div className={"right-area"}>
-              <p>{this.props.htg["posts_count"]} Beiträge</p>
+              <p>{this.props.htg["posts_count"]}</p>
               <button
                 className={"expand-button"}
                 onClick={this.handleExpandedButtonClick}
@@ -214,65 +265,12 @@ class HashtagInfo extends React.Component {
   }
 }
 
-function FetchedHashtags() {
-  var htgs = [
-    {
-      htg: "#erfolg",
-      posts_count: "1.6m",
-      comp_score: 85,
-      avg_likes: 380,
-      avg_likes_score: 60,
-      post_freq: 65,
-      post_freq_score: 65,
-      pot_reach: 35,
-    },
-    {
-      htg: "#mindset",
-      posts_count: "27m",
-      comp_score: 85,
-      avg_likes: 380,
-      avg_likes_score: 60,
-      post_freq: 65,
-      post_freq_score: 65,
-      pot_reach: 35,
-    },
-    {
-      htg: "#erfolgsmindset",
-      posts_count: "180k",
-      comp_score: 50,
-      avg_likes: 150,
-      avg_likes_score: 40,
-      post_freq: 35,
-      post_freq_score: 25,
-      pot_reach: 55,
-    },
-    {
-      htg: "#success",
-      posts_count: "1.6m",
-      comp_score: 85,
-      avg_likes: 380,
-      avg_likes_score: 60,
-      post_freq: 65,
-      post_freq_score: 65,
-      pot_reach: 35,
-    },
-    //{ htg: "#mindset", posts_count: "27m" },
-    //{ htg: "#erfolgsmindset", posts_count: "180k" },
-    //{ htg: "#success", posts_count: "1.6m" },
-    //{ htg: "#successmindset", posts_count: "27m" },
-    //{ htg: "#erfolgsmensch", posts_count: "180k" },
-    //{ htg: "#unternehmer", posts_count: "1.6m" },
-    //{ htg: "#fokus", posts_count: "27m" },
-    //{ htg: "#vision", posts_count: "180k" },
-    //{ htg: "#wachstum", posts_count: "1.6m" },
-    //{ htg: "#zeitfürmich", posts_count: "27m" },
-    //{ htg: "#keineausreden", posts_count: "180k" },
-  ];
+function FetchedHashtags(props) {
+  
   return (
     <div className={"fetched-hashtags-container"}>
-      {htgs.map((htg) => (
-        <HashtagInfo key={htg["htg"]} htg={htg} />
-      ))}
+      {props.htgs.map(htg => <HashtagInfo key={htg["htg"]} htg={htg} selected_htgs={props.selected_htgs} selectHashtag={props.selectHashtag} unselectHashtag={props.unselectHashtag}/>)
+      }
     </div>
   );
 }
@@ -281,17 +279,63 @@ class HashtagGenerator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hashtags_output:
-        "#fokus #vision #motivation #lebensfreude #unternehmer #disziplin #keineausreden #derwegistdasziel #zeitfürmich #weiterbildung #börse #wachstum #erfolgsmensch #wertschätzung #wille #kopfhoch #glaubenssätze #mehrwert #träumewerdenwahr #chancengeber #erfolgreichillustrator #erfolgssprüche #inspirierend #weiterkommen #erfolgistplanbar #erfolgcompany #entwickeln #erfolgreichleben #erfolgmagazin #erfolgsmaster",
+      keyword: "",
+      htgs: [
+      ],
+      selected_htgs: []
     };
+  }
+
+  fetchHashtags = () => {
+    fetchReq(this.state.keyword).then(result => (this.setState({htgs: result})));
+  }
+
+  handleKeywordsChange = (event) => {
+    this.setState({
+      keyword: event.target.value,
+    });
+  };
+
+  selectHashtag = (htg) => {
+    this.setState(state => {
+      const list = this.state.selected_htgs.push(htg);
+      return{
+        list
+      }
+    })
+  }
+  removeItemAll(arr, value) {
+    var i = 0;
+    while (i < arr.length) {
+      if (arr[i] === value) {
+        arr.splice(i, 1);
+      } else {
+        ++i;
+      }
+    }
+    return arr;
+  }
+  unselectHashtag = (htg) => {
+    this.setState(state => {
+      const list = this.removeItemAll(this.state.selected_htgs, htg);
+      return{
+        list
+      }
+    })
+  }
+  deleteAll = () => {
+    this.setState({
+      selected_htgs: []
+    })
+    window.location.reload();
   }
 
   render() {
     return (
       <div>
-        <SearchField />
-        <OutputContainer hashtags_output={this.state.hashtags_output} />
-        <FetchedHashtags />
+        <SearchField fetchHashtags={this.fetchHashtags} handleKeywordsChange={this.handleKeywordsChange} keyword={this.state.keyword}/>
+        <OutputContainer selected_htgs={this.state.selected_htgs} deleteAll={this.deleteAll} />
+        <FetchedHashtags htgs={this.state.htgs} selected_htgs={this.state.selected_htgs} keyword={this.state.keyword} selectHashtag={this.selectHashtag} unselectHashtag={this.unselectHashtag}/>
       </div>
     );
   }
