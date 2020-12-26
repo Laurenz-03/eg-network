@@ -16,7 +16,7 @@ import random
 
 def create_session():
     cookie = {"name": "sessionid",
-              "value": "27196906023%3Ax59U4BoONid8md%3A24"}
+              "value": "27196906023%3ARU0PdBrVhzmqwN%3A11"}
     session = requests.Session()
     session.cookies.set(**cookie)
     return session
@@ -573,7 +573,7 @@ def profile():
             insta_acc1_info = get_user_information_by_username(
                 get_user_by_id(user.instaid1))
         except:
-            insta_acc1_info['username'] = "Fehler"
+            insta_acc1_info = "Es ist ein Fehler aufgetreten."
 
     if user.instaid2:
         try:
