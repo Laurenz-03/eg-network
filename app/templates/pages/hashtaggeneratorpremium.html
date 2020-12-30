@@ -1,0 +1,18 @@
+{% extends './layout.html' %}
+{% block content %}
+<link rel="stylesheet" href="./../../static/css/hashtaggeneratornew.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+<h2>Hashtag-Generator</h2>
+<div id="htg-gen-react"></div>
+<h1 style="display: none" id="f">{{follower}}</h1>
+
+<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+
+<!-- Load our React component. -->
+<script type="text/babel" src="./../../static/js/htg-gen-premium-react.js"></script>
+{% endblock %}

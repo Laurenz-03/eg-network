@@ -9,7 +9,7 @@ async function fetchReq(keyword) {
       htg: "#" + hash.hashtag.name,
       posts_count: hash.hashtag.search_result_subtitle,
       count: hash.hashtag.media_count,
-      comp_score: 85,
+      comp_score: 50,
       avg_likes: 380,
       avg_likes_score: 60,
       post_freq: 65,
@@ -224,12 +224,30 @@ class HashtagInfo extends React.Component {
           </div>
           <div className={"more-info"}>
             <div className={"more-info-element"}>
-              <p>Erweiterte Informationen sind nur für Premium-Mitglieder verfügbar.</p>
+              <p>Competition Score:</p>
+              <div className={"info-container"}>
+                <div className={"outer-info-bar"}>
+                  <div
+                    className={"inner-info-bar"}
+                    style={{ width: this.props.htg["comp_score"] + "%" }}
+                  ></div>
+                </div>
+                <p>{this.props.htg["comp_score"]}%</p>
+              </div>
             </div>
-            <a href={"https://eg-network.co/mgb/premium"}>
 
-            <button className={"blue-button"}>Jetzt kaufen</button>
-            </a>
+            <div className={"more-info-element"}>
+              <p>Potential Reach:</p>
+              <div className={"info-container"}>
+                <div className={"outer-info-bar"}>
+                  <div
+                    className={"inner-info-bar"}
+                    style={{ width: 100 - this.props.htg["comp_score"] + "%" }}
+                  ></div>
+                </div>
+                <p>{100 - this.props.htg["comp_score"]}%</p>
+              </div>
+            </div>
           </div>
         </div>
       );
@@ -263,21 +281,64 @@ class HashtagGenerator extends React.Component {
     };
   }
 
+  calc_comp_score = (anz) => {
+    var follower;
+    try {
+      follower = parseInt(document.getElementById("f").innerHTML)
+      console.log(parseInt(document.getElementById("f").innerHTML))
+      
+    } catch (error) {
+      follower = 999;
+    }
+    var follower_score;
+    var anz_score;
+
+    if(anz < 10000){
+      anz_score = 0;
+    }else if(anz < 50000){
+      anz_score = 1;
+    }else if(anz < 100000){
+      anz_score = 2;
+    }else if(anz < 500000){
+      anz_score = 3;
+    }else if(anz < 1000000){
+      anz_score = 4;
+    }else{
+      anz_score = 5;
+    }
+
+    if(follower < 100){
+      follower_score = 5;
+    }else if(follower < 500){
+      follower_score = 6;
+    }else if(follower < 1000){
+      follower_score = 7;
+    }else if(follower < 10000){
+      follower_score = 8;
+    }else if(follower < 100000){
+      follower_score = 9;
+    }else{
+      follower_score = 10;
+    }
+    var comp_score = 100 - ((follower_score - anz_score) * 10)
+    console.log(comp_score)
+    return comp_score;
+
+  }
   fetchHashtags = () => {
     var keywords = this.state.keyword.split(",")
     var hashtags = []
     for(var i = 0; i < keywords.length; i++){
-      console.log(keywords[i])
-      fetchReq(keywords[i]).then((result) =>{
+      fetchReq(keywords[i]).then((result) => {
         for(var j = 0; j < result.length; j++){
-          console.log(result[j])
+          this.calc_comp_score(result[j]["count"])
+          result[j]["comp_score"] = this.calc_comp_score(result[j]["count"])
           hashtags.push(result[j])
           this.setState({ htgs: hashtags })
         
         }}
       );
     }
-    console.log(hashtags)
     this.setState({ htgs: hashtags })
   };
 

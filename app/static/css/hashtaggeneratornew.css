@@ -134,6 +134,20 @@
   justify-content: space-between;
   height: 55px;
 }
+.left-area{
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+}
+.blue-text{
+  color: #4070f4;
+}
+.blue-button{
+  margin-bottom: 1rem;
+  margin-left: 0;
+
+}
 .htg-checkbox {
   width: 21px;
   height: 21px;

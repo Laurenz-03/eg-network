@@ -16,7 +16,7 @@ import random
 
 def create_session():
     cookie = {"name": "sessionid",
-              "value": "27196906023%3ARU0PdBrVhzmqwN%3A11"}
+              "value": "7699609214%3A88flrRDxtPZREw%3A16"}
     session = requests.Session()
     session.cookies.set(**cookie)
     return session
@@ -31,7 +31,9 @@ def get_user_information_by_username(username):
         'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 105.0.0.11.118 (iPhone11,8; iOS 12_3_1; en_US; en-US; scale=2.00; 828x1792; 165586599)'
     }
     s = create_session()
-    resp = s.get(url=url, headers=headers).json()
+    res = s.get(url=url, headers=headers)
+    print("res:")
+    resp = res.json()
     userdata = resp["graphql"]["user"]
     user_info["id"] = userdata["id"]
     user_info["username"] = username
@@ -486,7 +488,21 @@ def hashtaggenerator():
 @app.route('/mgb/hashtaggeneratornew')
 @login_required
 def hashtaggeneratornew():
-    return render_template('pages/hashtaggeneratornew.html', title="Hashtag-Generator", loginRequired=True)
+    if current_user.rang != "kein Rang":
+        user = current_user
+        insta_acc1_info = {}
+
+        if user.instaid1:
+            try:
+                insta_acc1_info = get_user_information_by_username(
+                    get_user_by_id(user.instaid1))
+                follower = insta_acc1_info['followers']
+                print(follower)
+            except:
+                insta_acc1_info = "Es ist ein Fehler aufgetreten."
+        return render_template('pages/hashtaggeneratorpremium.html', title="Hashtag-Generator", loginRequired=True, follower=follower)
+    else:
+        return render_template('pages/hashtaggeneratornew.html', title="Hashtag-Generator", loginRequired=True)
 
 
 @app.route('/mgb/accountanalyse', methods=['GET', 'POST'])
