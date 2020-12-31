@@ -478,16 +478,16 @@ def premium():
     return render_template('pages/premium.html', title="Premium", loginRequired=True, premium_end_date=premium_end_date)
 
 
-@app.route('/mgb/hashtaggenerator')
+@app.route('/mgb/hashtaggeneratorold')
 @login_required
-def hashtaggenerator():
+def hashtaggeneratorold():
     if current_user.email_confirmed == 'false':
         return redirect(url_for('email_not_confirmed'))
     return render_template('pages/hashtaggenerator.html', title="Hashtag-Generator", loginRequired=True)
 
-@app.route('/mgb/hashtaggeneratornew')
+@app.route('/mgb/hashtaggenerator')
 @login_required
-def hashtaggeneratornew():
+def hashtaggenerator():
     if current_user.rang != "kein Rang":
         user = current_user
         insta_acc1_info = {}

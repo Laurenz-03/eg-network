@@ -59,10 +59,8 @@ class SearchField extends React.Component {
           fetchHashtags={this.props.fetchHashtags}
           handleKeywordsChange={this.props.handleKeywordsChange}
           keyword={this.props.keyword}
-          />
-        <SearchButton 
-          fetchHashtags={this.props.fetchHashtags}
         />
+        <SearchButton fetchHashtags={this.props.fetchHashtags} />
       </div>
     );
   }
@@ -166,24 +164,16 @@ class HashtagInfo extends React.Component {
     let selectButton;
     if (this.state.selected === false) {
       selectButton = (
-        <button
-          onClick={this.handleSelectButtonClick}
-          className={"left-area"}>
-            <div className={"htg-checkbox"}>
-
-          </div>
+        <button onClick={this.handleSelectButtonClick} className={"left-area"}>
+          <div className={"htg-checkbox"}></div>
           <p>{this.props.htg["htg"]}</p>
         </button>
       );
     } else {
       selectButton = (
-        <button
-          onClick={this.handleSelectButtonClick}
-          className={"left-area"}
-        >
+        <button onClick={this.handleSelectButtonClick} className={"left-area"}>
           <div className={"htg-checkbox selected"}>
-          <i className={"fas fa-check"}></i>
-
+            <i className={"fas fa-check"}></i>
           </div>
           <p className={"blue-text"}>{this.props.htg["htg"]}</p>
         </button>
@@ -194,7 +184,7 @@ class HashtagInfo extends React.Component {
       return (
         <div className={"hashtag-info"}>
           <div className={"main-info"}>
-              {selectButton}
+            {selectButton}
             <div className={"right-area"}>
               <p>{this.props.htg["posts_count"]}</p>
               <button
@@ -211,25 +201,28 @@ class HashtagInfo extends React.Component {
       return (
         <div className={"hashtag-info"}>
           <div className={"main-info"}>
-          {selectButton}
+            {selectButton}
             <div className={"right-area"}>
               <p>{this.props.htg["posts_count"]}</p>
               <button
                 className={"expand-button"}
                 onClick={this.handleExpandedButtonClick}
               >
-                <i className={"fas fa-chevron-down"} style={{ transform: "rotate(180deg)", paddingTop: "2px" }}></i>
+                <i
+                  className={"fas fa-chevron-down"}
+                  style={{ transform: "rotate(180deg)", paddingTop: "2px" }}
+                ></i>
               </button>
-           </div>
+            </div>
           </div>
           <div className={"more-info"}>
-            <div className={"more-info-element"}>
-              <p>Erweiterte Informationen sind nur für Premium-Mitglieder verfügbar.</p>
+            <div>
+              <p>
+                Erweiterte Informationen sind nur für Premium-Mitglieder
+                verfügbar.
+              </p>
             </div>
-            <a href={"https://eg-network.co/mgb/premium"}>
-
-            <button className={"blue-button"}>Jetzt kaufen</button>
-            </a>
+            <a href={"https://eg-network.co/mgb/premium"}><button className={"blue-button"}>Jetzt kaufen</button></a>
           </div>
         </div>
       );
@@ -264,21 +257,20 @@ class HashtagGenerator extends React.Component {
   }
 
   fetchHashtags = () => {
-    var keywords = this.state.keyword.split(",")
-    var hashtags = []
-    for(var i = 0; i < keywords.length; i++){
-      console.log(keywords[i])
-      fetchReq(keywords[i]).then((result) =>{
-        for(var j = 0; j < result.length; j++){
-          console.log(result[j])
-          hashtags.push(result[j])
-          this.setState({ htgs: hashtags })
-        
-        }}
-      );
+    var keywords = this.state.keyword.split(",");
+    var hashtags = [];
+    for (var i = 0; i < keywords.length; i++) {
+      console.log(keywords[i]);
+      fetchReq(keywords[i]).then((result) => {
+        for (var j = 0; j < result.length; j++) {
+          console.log(result[j]);
+          hashtags.push(result[j]);
+          this.setState({ htgs: hashtags });
+        }
+      });
     }
-    console.log(hashtags)
-    this.setState({ htgs: hashtags })
+    console.log(hashtags);
+    this.setState({ htgs: hashtags });
   };
 
   handleKeywordsChange = (event) => {
