@@ -553,6 +553,10 @@ def analyzeresults(username):
         return redirect(url_for('accountanalyse'))
 
 
+@app.route('/timeconverter')
+def time_converter():
+    return render_template('pages/time_converter.html', title="Time Calculator", nosidebar=True, nav_links_category='no-links')
+
 @app.route('/mgb/eglink')
 @login_required
 def eglink():

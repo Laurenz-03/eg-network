@@ -13,15 +13,15 @@
 </script>
 
 <h2>EG-Boost</h2>
-<button class="tut-btn" onclick="openTutModal()">
+<a href="https://cutt.ly/eg-aufnahme-gruppe">
     <div class="tutorial-link rounded-and-shadow">
-        <h3>Wie funktioniert es?</h3>
+        <h3>Jetzt mitmachen!</h3>
         <div>    
-            <p>Schaue dir jetzt das Tutorial zu EG-Boost an!</p>        
+            <p>Du bist noch nicht dabei? Jetzt der Telegram Gruppe beitreten.</p>        
             <i class="fas fa-arrow-right"></i>
         </div>
     </div>
-</button>
+</a>
 <section class="rounds-container">
     {% for runde in eg_boost_runden %}
     <div class="eg-boost-round rounded-and-shadow">
@@ -42,17 +42,24 @@
                         </p>
                     </li>
                     <li><i class="fas fa-chevron-right"></i> Premium-Mitglieder müssen nicht engagen. <a
-                            href={{url_for('premium')}}> Jetzt Premium kaufen.</a></li>
+                            href={{url_for('premium')}} class="premium-link"> Jetzt Premium kaufen.</a></li>
+                            <!--
+                    <li><i class="fas fa-chevron-right"></i> Du bist noch nicht dabei?<br> <a
+                            href="https://cutt.ly/eg-aufnahme-gruppe"> Jetzt der Telegram Gruppe beitreten.</a></li>
+                            -->
                 </ul>
-                {% if current_user.instaid1 %}
-                {% if user_info["acc_request_status"][runde['tag-profile']] == "pending" %}
+                <!--
+
+                    {% if current_user.instaid1 %}
+                    {% if user_info["acc_request_status"][runde['tag-profile']] == "pending" %}
                     <button id="myBtn" class="blue-button" style="background-color: rgb(0, 192, 226);">Anfrage gestellt</button>
-                {% elif user_info["acc_request_status"][runde['tag-profile']] == "accepted" %}
+                    {% elif user_info["acc_request_status"][runde['tag-profile']] == "accepted" %}
                     <button id="myBtn" class="blue-button" style="background-color: rgb(67, 182, 0);">Account folgt dir</button>
-                {% else %}
+                    {% else %}
                     <button id="myBtn" class="blue-button" onclick="openModal({{ 'myModal' + runde['id']|string}})">Account anfragen</button>
-                {% endif %}
-                {% endif %}
+                    {% endif %}
+                    {% endif %}
+                -->
             </div>
             <div class="right-area">
 

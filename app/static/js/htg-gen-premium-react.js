@@ -1,8 +1,12 @@
 // Fetch Functions:
 async function fetchReq(keyword) {
   const req = await fetch(
-    `https://www.instagram.com/web/search/topsearch/?context=blended&count=10&query=%23${keyword}&rank_token=5&include_reel=true`
+    `https://www.instagram.com/zitate.flx/?__a=1`,{
+    headers: {
+      "Access-Control-Allow-Origin": "*"
+      }}
   );
+  console.log(req);
   const res = await req.json();
   const hashtag = res.hashtags
     .map((hash) => ({

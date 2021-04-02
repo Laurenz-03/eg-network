@@ -94,6 +94,9 @@ h4 {
 .eg-boost-round li a {
   color: #4070f4;
 }
+.eg-boost-round li .premium-link {
+  color: #fdbe1f;
+}
 
 .outer-modal {
   display: none; /* Hidden by default */

@@ -1,0 +1,20 @@
+{% extends './layout.html' %}
+{% block content %}
+<link rel="stylesheet" href="./../../static/css/time_converter.css">
+<h2>Time Calculator</h2>
+<div class="time-converter">
+    <h3>1. Enter your local time</h3>
+    <form action="">
+        <input type="text">
+    </form>
+    <button class="blue-button">Generate</button>
+    <h3>2. Screenshot your times</h3>
+    <div class="times">
+        <h4 class="time-heading">Posting-Time:</h4>
+        <p class="time-text">6.00 - 7.00 PM</p>
+        <div class="spacer"></div>
+        <h4 class="time-heading">Like-Time:</h4>
+        <p class="time-text">6.00 - 9.00 PM</p>
+    </div>
+</div>
+{% endblock %}

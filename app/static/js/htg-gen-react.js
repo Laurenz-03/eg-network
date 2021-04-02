@@ -1,7 +1,10 @@
 // Fetch Functions:
 async function fetchReq(keyword) {
   const req = await fetch(
-    `https://www.instagram.com/web/search/topsearch/?context=blended&count=10&query=%23${keyword}&rank_token=5&include_reel=true`
+    `https://www.instagram.com/web/search/topsearch/?context=blended&count=10&query=%23${keyword}&rank_token=5&include_reel=true`,
+    {
+      mode: "no-cors",
+    }
   );
   const res = await req.json();
   const hashtag = res.hashtags
@@ -222,7 +225,9 @@ class HashtagInfo extends React.Component {
                 verfügbar.
               </p>
             </div>
-            <a href={"https://eg-network.co/mgb/premium"}><button className={"blue-button"}>Jetzt kaufen</button></a>
+            <a href={"https://eg-network.co/mgb/premium"}>
+              <button className={"blue-button"}>Jetzt kaufen</button>
+            </a>
           </div>
         </div>
       );

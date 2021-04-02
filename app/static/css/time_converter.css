@@ -1,0 +1,52 @@
+.time-converter {
+  width: 100%;
+  min-height: 400px;
+  box-shadow: #cecece 0px 0px 30px;
+  border-radius: 18px;
+  margin-top: 0.5rem;
+  padding: 10px 16px;
+}
+input {
+  width: 100%;
+  background-color: #f0f0f0;
+  margin: 5px 0 0 0;
+  height: 45px;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  padding: 0 .8rem;
+  outline: none;
+  border: none;
+  line-height: 1;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.blue-button{
+    margin-top: 10px;
+    margin-right: auto;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+}
+.times{
+    width: 100%;
+    height: 230px;
+    background-image: url(./../img/time-icon.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.time-text{
+    color: #4070F4;
+    font-size: 18px;
+}
+.time-heading{
+    font-size: 18px;
+}
+.spacer{
+    height: 30px;
+}
